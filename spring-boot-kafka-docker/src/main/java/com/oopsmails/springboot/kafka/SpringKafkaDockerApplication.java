@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringKafkaDockerIntApplication {
+public class SpringKafkaDockerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringKafkaDockerIntApplication.class, args);
+		SpringApplication.run(SpringKafkaDockerApplication.class, args);
 	}
 
 }
