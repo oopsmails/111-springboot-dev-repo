@@ -14,6 +14,9 @@ docker-compose start
 
 docker-compose stop
 
+docker rm $(docker ps -a -q)
+
+
 # Use -f to specify name and path of one or more Compose files, e.g
 docker-compose -f docker-compose.yml -f docker-compose.admin.yml run backup_db
 

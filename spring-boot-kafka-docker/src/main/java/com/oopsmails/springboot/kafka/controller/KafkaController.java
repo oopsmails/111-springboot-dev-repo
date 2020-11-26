@@ -1,5 +1,6 @@
-package com.oopsmails.springboot.kafka;
+package com.oopsmails.springboot.kafka.controller;
 
+import com.oopsmails.springboot.kafka.config.KafkaProducer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

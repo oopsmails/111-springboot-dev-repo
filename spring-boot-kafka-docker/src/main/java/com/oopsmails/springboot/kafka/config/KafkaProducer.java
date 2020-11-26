@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.kafka;
+package com.oopsmails.springboot.kafka.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.kafka;
+package com.oopsmails.springboot.kafka.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
