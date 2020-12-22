@@ -1,6 +1,7 @@
 package com.oopsmails.springboot.javamain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oopsmails.springboot.javamain.utils.JsonUtils;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +26,10 @@ public class SpringBootJavaGenericTestBase {
     @Autowired
     protected ObjectMapper objectMapper;
 
+    private static String TEST_DATA_FILE_FOLDER = JsonUtils.PROJECT_PATH + "/src/test/resources/testdata";
+
     @TestConfiguration
-    @ComponentScan("com.oopsmails.springboot2.app.all.javageneric")
+    @ComponentScan("com.oopsmails.springboot.javamain")
     public static class SpringBootJavaGenericTestBaseTestConfig {
         @Bean
         public Clock appClock() {
@@ -35,5 +38,9 @@ public class SpringBootJavaGenericTestBase {
 
             return result;
         }
+    }
+
+    protected String getTestFileNameWithPath(String fileName) {
+        return TEST_DATA_FILE_FOLDER + "/" + fileName;
     }
 }

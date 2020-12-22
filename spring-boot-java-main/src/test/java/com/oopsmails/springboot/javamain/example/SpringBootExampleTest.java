@@ -49,8 +49,8 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
 
     @Test
     public void testObjectMapper() throws Exception {
-        String fileName = "testData.json";
-        File jsonFile = new File(getFileNameWithPath(fileName));
+        String fileName = "testData-employeeList.json";
+        File jsonFile = new File(getTestFileNameWithPath(fileName));
         InputStream inputStream = new FileInputStream(jsonFile);
 
 //        List<Employee> result = objectMapper.readValue(jsonCarArray, new TypeReference<List<Employee>>(){});
@@ -64,14 +64,9 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
 
         String prettyJsonStr = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
         System.out.println("prettyJsonStr = " + prettyJsonStr);
-
-
     }
 
-    private String getFileNameWithPath(String fileName) {
-        String folder = "/home/albert/Documents/github/springboot2-app-all/spring-boot-app-all-java-generic/src/test/resources/testdata";
-        return folder + "/" + fileName;
-    }
+
 
     @TestConfiguration
     public static class TempSpringBootTestConfig {

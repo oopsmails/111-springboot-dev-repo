@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.javamain.date;
+package com.oopsmails.springboot.javamain.runmains;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

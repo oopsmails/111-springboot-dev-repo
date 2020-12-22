@@ -1,10 +1,10 @@
-package com.oopsmails.springboot.javamain;
+package com.oopsmails.springboot.javamain.runmains;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class QuickProducerConsumer {
+public class QuickProducerConsumerMain {
     static BlockingQueue<Integer> queue = new
             LinkedBlockingQueue<>(5);
 

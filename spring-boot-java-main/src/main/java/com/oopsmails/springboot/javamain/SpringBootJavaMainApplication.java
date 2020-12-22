@@ -50,7 +50,7 @@ public class SpringBootJavaMainApplication {
     }
 
     @Bean
-    EmployeeRepository repository() {
+    EmployeeRepository employeeRepository() {
         EmployeeRepository repository = new EmployeeRepository();
         repository.add(new Employee(1L, 1L, "John Smith", 34, "Analyst"));
         repository.add(new Employee(1L, 1L, "Darren Hamilton", 37, "Manager"));
