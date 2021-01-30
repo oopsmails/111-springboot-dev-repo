@@ -17,8 +17,9 @@ public class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
+//    @Ignore("Need to run Mongodb")
     @Test
-    public void testFindOne() {
+    public void testFindAll() {
         List<Product> products = productRepository.findAll();
         assertTrue("Products existing in db", products.size() > 0);
     }

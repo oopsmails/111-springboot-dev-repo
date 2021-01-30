@@ -1,6 +1,5 @@
 package com.oopsmails.springangularauth.repositories;
 
-import com.oopsmails.springangularauth.configs.WebSecurityConfig;
 import com.oopsmails.springangularauth.models.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.Clock;
@@ -18,7 +16,6 @@ import java.time.ZoneId;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-
 import static org.junit.Assert.assertThat;
 
 @SpringBootTest(classes = { //
@@ -29,6 +26,7 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+//    @Ignore("Need to run Mongodb")
     @Test
     public void testFindByEmail() {
         String email = "test1@abc.com";
