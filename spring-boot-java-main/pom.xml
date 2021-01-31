@@ -11,10 +11,10 @@
 
     <artifactId>spring-boot-java-main</artifactId>
 
-    <properties>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
-        <commons-collection.version>4.1</commons-collection.version>
-    </properties>
+<!--    <properties>-->
+<!--        <commons-lang3.version>3.8.1</commons-lang3.version>-->
+<!--        <commons-collection.version>4.1</commons-collection.version>-->
+<!--    </properties>-->
 
     <dependencies>
         <dependency>
@@ -25,14 +25,26 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>${commons-collection.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.versioin}</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>io.jsonwebtoken</groupId>-->
+<!--            <artifactId>jjwt-impl</artifactId>-->
+<!--            <version>0.11.2</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
+
 
     </dependencies>
     <build>

@@ -1,12 +1,12 @@
 package com.oopsmails.springangularauth.configs;
 
-import java.util.Base64;
-import java.util.Date;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
+import com.oopsmails.springangularauth.models.Role;
+import com.oopsmails.springangularauth.services.CustomUserDetailsService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,14 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.oopsmails.springangularauth.models.Role;
-import com.oopsmails.springangularauth.services.CustomUserDetailsService;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Date;
+import java.util.Set;
 
 @Component
 public class JwtTokenProvider {
@@ -45,6 +42,14 @@ public class JwtTokenProvider {
         claims.put("roles", set);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
+
+        Jwts.builder()
+//                .setClaims()
+                .setIssuedAt(now)//
+                .setExpiration(validity)//
+                .signWith(SignatureAlgorithm.HS256, secretKey)//
+                .compact();
+
         return Jwts.builder()//
             .setClaims(claims)//
             .setIssuedAt(now)//

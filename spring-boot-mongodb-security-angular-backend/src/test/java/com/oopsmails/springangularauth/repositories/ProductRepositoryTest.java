@@ -1,6 +1,7 @@
 package com.oopsmails.springangularauth.repositories;
 
 import com.oopsmails.springangularauth.models.Product;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
-//    @Ignore("Need to run Mongodb")
+    @Ignore("Need to run Mongodb")
     @Test
     public void testFindAll() {
         List<Product> products = productRepository.findAll();

@@ -1,6 +1,7 @@
 package com.oopsmails.springangularauth.repositories;
 
 import com.oopsmails.springangularauth.models.User;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-//    @Ignore("Need to run Mongodb")
+    @Ignore("Need to run Mongodb")
     @Test
     public void testFindByEmail() {
         String email = "test1@abc.com";
