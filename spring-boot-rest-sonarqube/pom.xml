@@ -3,12 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.oopsmails.springboot.dev.repo</groupId>
+        <artifactId>springboot-dev-repo</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.oopsmails.java.sonarqube</groupId>
+
     <artifactId>spring-boot-rest-sonarqube</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-rest-sonarqube</name>
@@ -22,10 +21,8 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.language>java</sonar.language>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
-
-
-
 
     <dependencies>
         <dependency>
@@ -56,22 +53,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -155,6 +136,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

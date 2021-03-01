@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "organizationId": 1,
+    "departmentId": 1,
+    "name": "John Smith",
+    "age": 34,
+    "position": "Analyst"
+  },
+  {
+    "id": 2,
+    "organizationId": 1,
+    "departmentId": 1,
+    "name": "Darren Hamilton",
+    "age": 37,
+    "position": "Manager"
+  },
+  {
+    "id": 3,
+    "organizationId": 1,
+    "departmentId": 1,
+    "name": "Tom Scott",
+    "age": 26,
+    "position": "Developer"
+  },
+  {
+    "id": 4,
+    "organizationId": 1,
+    "departmentId": 2,
+    "name": "Anna London",
+    "age": 39,
+    "position": "Analyst"
+  },
+  {
+    "id": 5,
+    "organizationId": 1,
+    "departmentId": 2,
+    "name": "Patrick Dempsey",
+    "age": 27,
+    "position": "Developer"
+  },
+  {
+    "id": 6,
+    "organizationId": 2,
+    "departmentId": 3,
+    "name": "Kevin Price",
+    "age": 38,
+    "position": "Developer"
+  },
+  {
+    "id": 7,
+    "organizationId": 2,
+    "departmentId": 3,
+    "name": "Ian Scott",
+    "age": 34,
+    "position": "Developer"
+  },
+  {
+    "id": 8,
+    "organizationId": 2,
+    "departmentId": 3,
+    "name": "Andrew Campton",
+    "age": 30,
+    "position": "Manager"
+  },
+  {
+    "id": 9,
+    "organizationId": 2,
+    "departmentId": 4,
+    "name": "Steve Franklin",
+    "age": 25,
+    "position": "Developer"
+  },
+  {
+    "id": 10,
+    "organizationId": 2,
+    "departmentId": 4,
+    "name": "Elisabeth Smith",
+    "age": 30,
+    "position": "Developer"
+  }
+]

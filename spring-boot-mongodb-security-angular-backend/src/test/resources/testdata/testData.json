@@ -1,0 +1,14 @@
+[
+  {
+    "prodName": "Lego Ninja",
+    "prodDesc": "Toy abc",
+    "prodPrice": 56.66,
+    "prodImage": "abc.png"
+  },
+  {
+    "prodName": "Lego Mario",
+    "prodDesc": "Toy cde",
+    "prodPrice": 88.88,
+    "prodImage": "bcd.png"
+  }
+]
