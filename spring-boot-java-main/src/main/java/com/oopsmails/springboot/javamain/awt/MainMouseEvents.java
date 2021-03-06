@@ -1,27 +1,26 @@
 package com.oopsmails.springboot.javamain.awt;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Robot;
 
 public class MainMouseEvents {
-    private static Robot robot = null;
-
     public static void main(String[] args) {
         try {
-            robot = new Robot();
-        } catch (AWTException e) {
+            while (true) {
+                slightlyMouseMove(30000);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        while (true) {
-            simulateRightClick(1, 1100, 30000); // in ms
-        }
 
     }
 
-    public static void simulateRightClick(int x, int y, int delay) {
-        // robot.mouseMove(x, y);
-        robot.delay(delay);
-        robot.mousePress(MouseEvent.BUTTON3_DOWN_MASK);
-        robot.mouseRelease(MouseEvent.BUTTON3_DOWN_MASK);
+    public static void slightlyMouseMove(int millis) throws AWTException, InterruptedException {
+        Robot robot = new Robot();
+        robot.delay(millis);
+        robot.mouseMove(MouseInfo.getPointerInfo().getLocation().x + 1, MouseInfo.getPointerInfo().getLocation().y + 1);
+        robot.mouseMove(MouseInfo.getPointerInfo().getLocation().x - 1, MouseInfo.getPointerInfo().getLocation().y - 1);
     }
+
 }
