@@ -2,6 +2,7 @@ package com.oopsmails.springangularauth;
 
 import com.oopsmails.springangularauth.models.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class SpringAngularAuthApplicationTests {
 
 
     @Test
+    @Ignore("Need to run Mongodb")
     public void contextLoads() throws Exception {
         Product product = new Product();
         product.setProdDesc("Toy abc");
