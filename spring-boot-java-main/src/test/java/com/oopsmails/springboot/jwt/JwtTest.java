@@ -1,10 +1,11 @@
 package com.oopsmails.springboot.jwt;
 
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JwtTest extends SpringBootJavaGenericTestBase {
 
@@ -16,7 +17,7 @@ public class JwtTest extends SpringBootJavaGenericTestBase {
         byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
         String decodedString = new String(decodedBytes);
 
-        Assert.assertEquals("Decoded String should be same.", originalInput, decodedString);
+        assertEquals(originalInput, decodedString, "Decoded String should be same.");
     }
 
     @Test
@@ -27,7 +28,7 @@ public class JwtTest extends SpringBootJavaGenericTestBase {
         byte[] decodedBytes = Base64.getUrlDecoder().decode(encodedUrl);
         String decodedUrl = new String(decodedBytes);
 
-        Assert.assertEquals("Decoded Url should be same.", originalUrl, decodedUrl);
+        assertEquals(originalUrl, decodedUrl, "Decoded Url should be same.");
     }
 
 }

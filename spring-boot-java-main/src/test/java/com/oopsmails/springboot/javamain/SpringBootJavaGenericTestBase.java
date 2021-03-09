@@ -2,13 +2,13 @@ package com.oopsmails.springboot.javamain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oopsmails.springboot.javamain.utils.JsonUtils;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.time.Clock;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @SpringBootTest(classes = { //
         SpringBootJavaMainApplication.class, //
