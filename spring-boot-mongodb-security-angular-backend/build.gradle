@@ -1,20 +1,35 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
+//    id 'org.springframework.boot' version '2.4.2' apply false
+//    id 'java'
+//    id 'war'
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.freefair.lombok' version '4.1.6'
     id 'java'
-    id 'war'
+//    id 'io.freefair.lombok' version '3.8.4'
 }
 
-apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: "io.freefair.lombok"
 
 group = 'com.oopsmails'
 version = '1.0-SNAPSHOT'
-sourceCompatibility = '1.8'
+
+//sourceCompatibility = '1.8'
+
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//}
 
 repositories {
     mavenCentral()
+//    maven { url 'https://repo.spring.io/milestone' }
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-data-couchbase-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -30,13 +45,41 @@ dependencies {
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
+
     compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.1'
 
     annotationProcessor 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
     annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
     annotationProcessor 'javax.annotation:javax.annotation-api:1.3.2'
 
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+    useJUnitPlatform()
+//            {
+//        includeTags 'integration', 'feature-168'
+//        excludeTags 'slow, TEST_TAG_NEED_START_MONGO'
+//    }
+
+    filter {
+        // exclude the `test_a_ok` method.
+        excludeTestsMatching "*.springangularauth.repositories.ProductRepositoryTest.testFindAll"
+        // excludeTest "com.mkyong.security.db.DummyTest", "test_a_ok"
+    }
+
+    testLogging {
+//        events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
+        events "PASSED", "SKIPPED", "FAILED"
+    }
 }

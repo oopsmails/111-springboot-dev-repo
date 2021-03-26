@@ -2,14 +2,11 @@ package com.oopsmails.springangularauth;
 
 import com.oopsmails.springangularauth.models.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.time.Clock;
@@ -17,7 +14,14 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-@RunWith(SpringRunner.class)
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+//@ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @SpringBootTest(classes = { //
         SpringAngularAuthApplication.class, //
@@ -28,17 +32,18 @@ public class SpringAngularAuthApplicationTests {
     protected ObjectMapper objectMapper;
 
 
-    @Test
-    @Ignore("Need to run Mongodb")
-    public void contextLoads() throws Exception {
-        Product product = new Product();
-        product.setProdDesc("Toy abc");
-        product.setProdName("Lego Ninja");
-        product.setProdPrice(56.66);
 
-        String prettyJsonStr = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(product);
-        System.out.println("prettyJsonStr = " + prettyJsonStr);
-    }
+//    @Disabled("Need to run Mongodb")
+//    @Test
+//    public void contextLoads() throws Exception {
+//        Product product = new Product();
+//        product.setProdDesc("Toy abc");
+//        product.setProdName("Lego Ninja");
+//        product.setProdPrice(56.66);
+//
+//        String prettyJsonStr = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(product);
+//        System.out.println("prettyJsonStr = " + prettyJsonStr);
+//    }
 
     @TestConfiguration
 //    @ComponentScan("com.oopsmails.springangularauth")
