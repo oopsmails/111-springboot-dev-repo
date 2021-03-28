@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "9d722241-00f1-45b8-aeeb-470bd0d1a38f",
+		"name": "springboot-kafka-docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9000/kafka/publish",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/publish?message=testalbert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"publish"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "testalbert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/messaging",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"messaging"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
