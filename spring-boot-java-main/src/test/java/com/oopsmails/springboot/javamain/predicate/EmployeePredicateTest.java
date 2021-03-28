@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
 import com.oopsmails.springboot.javamain.model.Employee;
 import com.oopsmails.springboot.javamain.utils.JsonUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
 
     private List<Employee> employeeList = new ArrayList<>();
 
-    @Before
+    @BeforeTestClass
     public void setUp() throws Exception {
         String fileName = "testData-employeeList.json";
         employeeListTest = JsonUtils.jsonFileToObject(getTestFileNameWithPath(fileName),

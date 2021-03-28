@@ -1,13 +1,10 @@
 package com.oopsmails.springboot.kafka;
 
-
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
 class SpringKafkaDockerApplicationTests {
 
-    @Test
+//    @Test
     public void contextLoads() {
     }
 

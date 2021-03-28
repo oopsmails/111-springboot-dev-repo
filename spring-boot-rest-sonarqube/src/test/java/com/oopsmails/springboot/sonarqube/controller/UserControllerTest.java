@@ -26,14 +26,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.CoreMatchers.is;
 
-
-/***
- * Project Name     : spring-boot-testing
- * Username         : Teten Nugraha
- * Date Time        : 12/18/2019
- * Telegram         : @tennugraha
- */
-
 @WebMvcTest(controllers = UserController.class)
 @ActiveProfiles("test")
 class UserControllerTest {

@@ -4,20 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.oopsmails.springboot.mockbackend.SpringBootBackendMockApplication;
 import com.oopsmails.springboot.mockbackend.employee.model.Employee;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.Clock;
@@ -26,28 +23,30 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebAppConfiguration
+//@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+//@WebMvcTest
+//@WebMvcTest(controllers = EmployeeController.class)
 @SpringBootTest(classes = {
         SpringBootBackendMockApplication.class,
         EmployeeControllerTest.EmployeeControllerTestConfig.class
 })
 public class EmployeeControllerTest {
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+//    @Autowired
+//    private WebApplicationContext webApplicationContext;
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Before
-    public void setup() throws Exception {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
-    }
-
+//    @BeforeTestClass
+//    public void setup() throws Exception {
+//        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
+//    }
 
     @Test
 // @WithMockUser(username = "admin1", roles = "ADMIN")

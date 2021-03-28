@@ -1,7 +1,7 @@
 package com.oopsmails.springboot.javamain.date;
 
 import lombok.Data;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -15,7 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class TempJavaTest {
     private static final Clock clock = Clock.system(ZoneId.of("Canada/Eastern"));

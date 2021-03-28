@@ -3,13 +3,13 @@ package com.oopsmails.springboot.javamain.example;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
 import com.oopsmails.springboot.javamain.model.Employee;
 import com.oopsmails.springboot.javamain.repository.EmployeeRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +35,7 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
     @Autowired
     private Clock appClock;
 
-    @Before
+    @BeforeTestClass
     public void setUp() throws Exception {
         Employee mockEmployee = new Employee(1L, 1L, "Oops Mails", 34, "Developer");
         when(employeeRepository.findById(any())).thenReturn(mockEmployee);
@@ -65,7 +65,6 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
         String prettyJsonStr = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
         System.out.println("prettyJsonStr = " + prettyJsonStr);
     }
-
 
 
     @TestConfiguration
