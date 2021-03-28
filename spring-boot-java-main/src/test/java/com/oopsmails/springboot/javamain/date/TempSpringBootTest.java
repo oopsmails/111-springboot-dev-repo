@@ -1,8 +1,8 @@
 package com.oopsmails.springboot.javamain.date;
 
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = { //
         TempSpringBootTest.TempSpringBootTestConfig.class, //
@@ -70,7 +70,7 @@ public class TempSpringBootTest extends SpringBootJavaGenericTestBase {
     }
 
     @Test
-    @Ignore("could fail due to forEach might not be in sequence")
+    @Disabled("could fail due to forEach might not be in sequence")
     public void testIsInTheMonth() throws Exception {
         ZonedDateTime zonedDateTimeNow = ZonedDateTime.now(appClock);
 

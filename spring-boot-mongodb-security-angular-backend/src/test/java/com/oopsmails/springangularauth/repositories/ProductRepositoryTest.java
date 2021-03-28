@@ -1,27 +1,26 @@
 package com.oopsmails.springangularauth.repositories;
 
 import com.oopsmails.springangularauth.models.Product;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertTrue;
-
+@ExtendWith(SpringExtension.class)
 @SpringBootTest()
-@RunWith(SpringJUnit4ClassRunner.class)
 public class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
-    @Ignore("Need to run Mongodb")
+//    @Disabled("Need to run Mongodb")
     @Test
     public void testFindAll() {
         List<Product> products = productRepository.findAll();
-        assertTrue("Products existing in db", products.size() > 0);
+        assertTrue(products.size() > 0);
     }
 }
