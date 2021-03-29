@@ -1,7 +1,6 @@
 package com.oopsmails.springangularauth.repositories;
 
 import lombok.Data;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TempJavaTest {
     private static final Clock clock = Clock.system(ZoneId.of("Canada/Eastern"));
 
-    @Disabled
+//    @Disabled
     @Test
     public void testBirthdays() throws Exception {
         ZonedDateTime currentDate = ZonedDateTime.now(clock);
