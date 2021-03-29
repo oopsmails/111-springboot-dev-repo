@@ -13,6 +13,7 @@
 
     <groupId>com.oopsmails.springboot.dev.repo</groupId>
     <artifactId>spring-boot-kafka-ms-email</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <java.version>11</java.version>

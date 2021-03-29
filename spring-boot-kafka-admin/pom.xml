@@ -13,6 +13,7 @@
 
     <groupId>com.oopsmails.springboot.dev.repo</groupId>
     <artifactId>spring-boot-kafka-admin</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
 
