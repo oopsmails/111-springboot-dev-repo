@@ -1,7 +1,9 @@
 package com.oopsmails.springboot.kafka.config;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +16,14 @@ public class KafkaConsumer {
     private CountDownLatch latch = new CountDownLatch(1);
 
     @Getter
+    @Setter
     private String payload = null;
 
-    @KafkaListener(topics="my_topic", groupId="my_group_id")
-    public void getMessage(String message){
-        log.info(String.format("#### -> Consumed message -> %s", message));
+    @KafkaListener(topics = "${message.docker-topic.name}")
+    public void receive(ConsumerRecord<?, ?> consumerRecord) {
+        log.info("### -> received payload = '{}'", consumerRecord.toString());
+        setPayload(consumerRecord.toString());
+        log.info(String.format("### -> consumed message -> %s", consumerRecord.value()));
+        latch.countDown();
     }
-
-//    @KafkaListener(topics = "${test.topic}")
-//    public void receive(ConsumerRecord<?, ?> consumerRecord) {
-//        log.info("received payload='{}'", consumerRecord.toString());
-//        setPayload(consumerRecord.toString());
-//        latch.countDown();
-//    }
 }
