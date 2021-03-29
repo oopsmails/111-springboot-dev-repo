@@ -1,7 +1,7 @@
 package com.oopsmails.springboot.javamain.date;
 
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
-import org.junit.jupiter.api.Disabled;
+//import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -70,7 +72,7 @@ public class TempSpringBootTest extends SpringBootJavaGenericTestBase {
     }
 
     @Test
-    @Disabled("could fail due to forEach might not be in sequence")
+//    @Disabled("could fail due to forEach might not be in sequence")
     public void testIsInTheMonth() throws Exception {
         ZonedDateTime zonedDateTimeNow = ZonedDateTime.now(appClock);
 
@@ -86,16 +88,24 @@ public class TempSpringBootTest extends SpringBootJavaGenericTestBase {
         testDate = ZonedDateTime.parse("2019-02-25T00:00:00-05:00");
         testMap.put("2018-04", testDate);
 
-        testMap.forEach((theMonth, dateToCheck) -> {
-            boolean isIn = dateCalculator.isInTheMonth(theMonth, dateToCheck);
-            System.out.println("====> dateCalculator checking: " + dateToCheck + (isIn ? " is in " : " is NOT in ") + theMonth);
+//        testMap.forEach((theMonth, dateToCheck) -> {
+//            boolean isIn = dateCalculator.isInTheMonth(theMonth, dateToCheck);
+//            System.out.println("====> dateCalculator checking: " + dateToCheck + (isIn ? " is in " : " is NOT in ") + theMonth);
+//            actualResult.append(isIn ? "1" : "0");
+//        });
+
+        SortedSet<String> keys = new TreeSet<>(testMap.keySet());
+        for (String key : keys) {
+            ZonedDateTime value = testMap.get(key);
+            boolean isIn = dateCalculator.isInTheMonth(key, value);
+            System.out.println("====> dateCalculator checking: " + value + (isIn ? " is in " : " is NOT in ") + key);
             actualResult.append(isIn ? "1" : "0");
-        });
+        }
 
         String expectResult = "100";
 
         // forEach cannot guarantee the order!!!
-        assertEquals("Result verifying ...", expectResult, actualResult.toString());
+        assertEquals(actualResult.toString(), expectResult, "Result verifying ...");
         System.out.println("------------------------------------------------------------------------------");
     }
 
