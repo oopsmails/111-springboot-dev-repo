@@ -1,7 +1,6 @@
 package com.oopsmails.springboot.kafka.config;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -11,12 +10,10 @@ import java.util.concurrent.CountDownLatch;
 
 @Service
 @Slf4j
+@Data
 public class KafkaConsumer {
-    @Getter
     private CountDownLatch latch = new CountDownLatch(1);
 
-    @Getter
-    @Setter
     private String payload = null;
 
     @KafkaListener(topics = "${message.docker-topic.name}")
