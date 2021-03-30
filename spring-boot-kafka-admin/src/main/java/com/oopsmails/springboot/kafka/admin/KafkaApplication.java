@@ -1,9 +1,11 @@
 package com.oopsmails.springboot.kafka.admin;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @Slf4j
 public class KafkaApplication {
 
@@ -131,10 +134,12 @@ public class KafkaApplication {
         }
 
         public void sendGreetingMessage(Greeting greeting) {
+            log.info("### -> sendGreetingMessage message=[" + greeting + "] ");
             greetingKafkaTemplate.send(greetingTopicName, greeting);
         }
     }
 
+    @Data
     public static class MessageListener {
 
         private CountDownLatch latch = new CountDownLatch(3);
