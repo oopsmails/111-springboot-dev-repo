@@ -1,11 +1,9 @@
 package com.oopsmails.springboot.kafka.admin;
 
-import org.apache.kafka.clients.admin.NewTopic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -21,41 +19,38 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class KafkaTestContainersLiveTest {
 
     @Autowired
-    KafkaTemplate<String, Greeting> greetingKafkaTemplate;
-
-//    @Autowired
-//    private KafkaConsumer consumer;
-//
-//    @Autowired
-//    private KafkaProducer producer;
-
-    @Autowired
     private KafkaApplication.MessageListener messageListener;
 
     @Autowired
     private KafkaApplication.MessageProducer messageProducer;
 
-
-    @Autowired
-    private NewTopic topicGreeting;
-
     @Test
-    public void givenKafkaDockerContainer_whenSendingtoDefaultTemplate_thenMessageReceived() throws Exception {
+    public void givenKafkaDockerContainer_whenSendingtoGreetingTopic_thenMessageReceived() throws Exception {
         messageProducer.sendGreetingMessage(new Greeting("Hello", "World"));
         messageListener.getGreetingLatch().await(10, TimeUnit.SECONDS);
 
         assertThat(messageListener.getGreetingLatch().getCount(), equalTo(0L));
-
     }
 
-//    @Test
+    @Test
 //    @Disabled
-//    public void givenKafkaDockerContainer_whenSendingtoSimpleProducer_thenMessageReceived() throws Exception {
-//        producer.send(topic, "Sending with own controller");
-//        consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
-//
-//        assertThat(consumer.getLatch().getCount(), equalTo(0L));
-//        assertThat(consumer.getPayload(), containsString("embedded-test-topic"));
-//    }
+    public void givenKafkaDockerContainer_whenSendingtoFilteredTopic_thenMessageReceived() throws Exception {
+        // setRecordFilterStrategy record.value().contains("World")
+        messageProducer.sendMessageToFiltered("Hello Oopstopic!");
+        messageProducer.sendMessageToFiltered("Hello World!");
+        messageListener.getFilterLatch().await(10, TimeUnit.SECONDS);
 
+        assertThat(messageListener.getFilterLatch().getCount(), equalTo(1L)); // Hello World was filtered, leaving 1L???
+    }
+
+    @Test
+    public void givenKafkaDockerContainer_whenSendingtoPartitionTopic_thenMessageReceived() throws Exception {
+        // partitions = {"0", "3"}
+        for (int i = 0; i < 5; i++) {
+            messageProducer.sendMessageToPartion("Hello To Partioned Topic!", i);
+        }
+        messageListener.getPartitionLatch().await(10, TimeUnit.SECONDS);
+
+        assertThat(messageListener.getPartitionLatch().getCount(), equalTo(0L));
+    }
 }
