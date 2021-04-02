@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  zookeeper1:
+  zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - 2181:2181
@@ -16,4 +16,18 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPIC: "oopstopic:1:3"
+#      KAFKA_CREATE_TOPIC: "oopstopic:1:3" # not needed because created in KafkaTopicConfig
+
+    depends_on:
+      - zookeeper
+
+  # kakfa console
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - 9100:9000
+    environment:
+      - KAFKA_BROKERCONNECT=kafka:9092
+      - JVM_OPTS=-Xms32M -Xmx64M
+    depends_on:
+      - kafka

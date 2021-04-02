@@ -4,7 +4,7 @@ spring:
   kafka:
     consumer:
       bootstarp-servers: 192.168.56.1:9092
-      group-id: "my_group_id"
+      group-id: "oops_group_id"
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -16,19 +16,20 @@ spring:
 kafka:
   bootstrapAddress: 192.168.56.1:9092
 
+
 message:
-  topic:
+  docker-topic:
     name: oopstopic
 
 greeting:
   topic:
-    name: oopstopic
+    name: greeting
 
 filtered:
   topic:
-    name: oopstopic
+    name: filtered
 
 partitioned:
   topic:
-    name: oopstopic
+    name: partitioned
 

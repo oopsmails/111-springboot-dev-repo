@@ -1,13 +1,13 @@
-package com.oopsmails.springboot.kafka.admin;
+package com.oopsmails.springboot.objcompare;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Greeting {
-    private String msg;
+@NoArgsConstructor
+public class Person {
+    private Integer id;
     private String name;
 }
