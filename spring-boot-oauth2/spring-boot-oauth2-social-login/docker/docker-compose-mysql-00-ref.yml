@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  mysql-development:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: testapp
+    ports:
+      - "3306:3306"
+
+  # Adminer is a PHP-based web application for accessing databases. localhost:8080
+  admin:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+
+  # if we need MySQL version 5.7.27, we need to make the following changes to the docker-compose.yml file, stop running containers, and start again.
+  mysql-old:
+    image: mysql:5.7.27
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: coolapp
+    ports:
+      - "3309:3306"
+
+# To see logs: docker-compose logs -f mysqldb
