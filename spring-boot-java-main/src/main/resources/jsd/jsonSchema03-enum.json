@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "product": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "THIRD_PARTY",
+            "PROPRIETARY"
+          ],
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "proprietaryProduct": {
+      "type": "object",
+      "properties": {
+        "batchName": {
+          "type": "string"
+        }
+      },
+      "extends": "#/definitions/product"
+    },
+    "thirdPartyProduct": {
+      "type": "object",
+      "properties": {
+        "thirdPartyName": {
+          "type": "string"
+        }
+      },
+      "extends": "#/definitions/product"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "product": {
+      "type": "object",
+      "$ref": "#/definitions/product"
+    }
+  },
+  "additionalProperties": false
+}
