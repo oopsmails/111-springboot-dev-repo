@@ -70,6 +70,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jsonschema2pojo</groupId>
+            <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
@@ -88,6 +94,93 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <!--                <version>0.4.23</version>-->
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <id>jsonSchema01</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsd/jsonSchema01-list-olddate.json</sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen01</targetPackage>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jsonSchema02</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsd/jsonSchema02-java8date.json</sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen02</targetPackage>
+                            <useJodaDates>false</useJodaDates>
+                            <useJodaLocalTimes>false</useJodaLocalTimes>
+                            <useJodaLocalDates>false</useJodaLocalDates>
+                            <includeJsr303Annotations>false</includeJsr303Annotations>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <dateTimeType>java.time.ZonedDateTime</dateTimeType>
+                            <dateType>java.time.LocalDate</dateType>
+                            <generateBuilders>true</generateBuilders>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>jsonSchema03</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsd/jsonSchema03-enum.json
+                                </sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen03</targetPackage>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- from json object not working ???!!!-->
+                    <execution>
+                        <id>jsonObject01</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsonrepo/jsonObject01.json
+                                </sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsonrepo.genobj01</targetPackage>
+                            <sourceType>json</sourceType>
+                            <useJodaDates>false</useJodaDates>
+                            <useJodaLocalTimes>false</useJodaLocalTimes>
+                            <useJodaLocalDates>false</useJodaLocalDates>
+                            <includeJsr303Annotations>false</includeJsr303Annotations>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <dateTimeType>java.time.ZonedDateTime</dateTimeType>
+                            <dateType>java.time.LocalDate</dateType>
+                            <generateBuilders>true</generateBuilders>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+
+
+                </executions>
             </plugin>
         </plugins>
     </build>
