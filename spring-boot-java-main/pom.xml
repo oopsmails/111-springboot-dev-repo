@@ -70,6 +70,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jsonschema2pojo</groupId>
+            <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
@@ -88,6 +94,59 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+<!--                <version>0.4.23</version>-->
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <id>1</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsd/jsonSchema01.json</sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen1</targetPackage>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>2</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsd/jsonSchema02.json</sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen2</targetPackage>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+
+<!--                    from json object not working !!!-->
+                    <execution>
+                        <id>3</id>
+                        <configuration>
+                            <annotationStyle>jackson2</annotationStyle>
+                            <includeAdditionalProperties>false</includeAdditionalProperties>
+                            <sourcePaths>
+                                <sourcePath>${project.basedir}/src/main/resources/jsonrepo/jsonObject01.json</sourcePath>
+                            </sourcePaths>
+                            <targetPackage>com.oopsmails.springboot.javamain.jsd.gen3</targetPackage>
+                        </configuration>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
