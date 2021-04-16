@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  # mkdir docker
+  # cd docker
+  # mkdir data config
+
+  mysqldb:
+    image: mysql:8.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: MYSQL_DATABASE
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./config/my.conf:/etc/mysql/conf.d/config-file.cnf"
+      - "./data:/var/lib/mysql:rw"
+
+  # Adminer is a PHP-based web application for accessing databases. localhost:8080
+  admin:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+# To see logs: docker-compose logs -f mysqldb

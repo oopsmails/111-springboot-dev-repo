@@ -17,6 +17,7 @@
         <module>spring-boot-mock-backend</module>
         <module>spring-boot-kafka-ms-email</module>
         <module>spring-boot-ssl-twoway</module>
+        <module>spring-boot-oauth2</module>
     </modules>
 
 </project>
