@@ -16,7 +16,11 @@ https://www.javachinna.com/spring-boot-angular-10-user-registration-oauth2-socia
 
 albert@eosvm:~/Documents/github/springboot-dev-repo/spring-boot-oauth2/spring-boot-oauth2-social-login/docker$ docker-compose up
 
-- Don't forget put clientId and clientSecret in application.properties
+- Don't forget put clientId and clientSecret in application.properties, ?gmail?
+
+- Run frontend
+
+see /github/angular-social-login/README.md
 
 ### Local
 
