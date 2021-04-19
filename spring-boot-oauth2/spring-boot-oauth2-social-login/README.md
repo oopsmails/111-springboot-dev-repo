@@ -22,6 +22,8 @@ albert@eosvm:~/Documents/github/springboot-dev-repo/spring-boot-oauth2/spring-bo
 
 see /github/angular-social-login/README.md
 
+- If using github login, then need github password. After first time login, the user is created locally. Then next time, can login with oopsmails@gmail.com/changeit
+
 ### Local
 
 - SetupDataLoader, createUserIfNotFound
