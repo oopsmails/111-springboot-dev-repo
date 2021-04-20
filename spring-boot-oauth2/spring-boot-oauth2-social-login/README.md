@@ -120,6 +120,18 @@ Here are the steps you need to follow to configure Github for social login:
 - Copy the client ID and client secret, as you’ll need them later.
 
 
+#### PATs, personal access token
+
+Settings ::> Developer settings ::> Personal access tokens
+
+New personal access token
+
+MyBashToken
+
+Tokens you have generated that can be used to access the GitHub API.
+
+
+
 ### LinkedIn
 Here are the steps you need to follow to configure LinkedIn for social login:
 
