@@ -18,7 +18,7 @@
         <module>spring-boot-kafka-ms-email</module>
         <module>spring-boot-ssl-twoway</module>
         <module>spring-boot-oauth2</module>
-        <module>springboot-session-redis</module>
+        <module>spring-boot-session-redis</module>
     </modules>
 
 </project>
