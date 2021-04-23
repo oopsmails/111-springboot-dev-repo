@@ -11,11 +11,11 @@
 	</parent>
 
 	<groupId>com.oopsmails.springboot.dev.repo</groupId>
-	<artifactId>springboot-session-redis-ui</artifactId>
+	<artifactId>spring-boot-session-redis-ui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>springboot-session-redis-ui</name>
+	<name>spring-boot-session-redis-ui</name>
 	<description>Tutorial for Spring Session in Spring Boot</description>
 
 	<properties>
