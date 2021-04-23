@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.oopsmails.springboot.dev.repo</groupId>
-    <artifactId>spring-boot-sso-jwt</artifactId>
+    <artifactId>spring-boot-sso-jwt-redis</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>spring-boot-sso-jwt-auth</module>
-        <module>spring-boot-sso-jwt-resource</module>
+        <module>spring-boot-sso-jwt-redis-auth</module>
+        <module>spring-boot-sso-jwt-redis-resource</module>
     </modules>
     <packaging>pom</packaging>
 

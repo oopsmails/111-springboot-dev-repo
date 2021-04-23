@@ -20,6 +20,7 @@
         <module>spring-boot-oauth2</module>
         <module>spring-boot-session-redis</module>
         <module>spring-boot-sso-jwt</module>
+        <module>spring-boot-sso-jwt-redis</module>
     </modules>
 
 </project>
