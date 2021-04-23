@@ -12,7 +12,7 @@ Spring Session provides a mechanism for managing user’s session information ac
 
 Furthermore, it provides a ServletFilter for session handling via HTTP headers too so we can even use it in RESTful APIs.
 
-When we use Spring Session, the default JSESSIONID cookie is replaced with one named SESSION.
+When we use Spring Session, the default **JSESSIONID** cookie is replaced with one named **SESSION**.
 
 
 ### The UI
