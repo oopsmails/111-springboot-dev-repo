@@ -19,6 +19,7 @@
         <module>spring-boot-ssl-twoway</module>
         <module>spring-boot-oauth2</module>
         <module>spring-boot-session-redis</module>
+        <module>spring-boot-sso-jwt</module>
     </modules>
 
 </project>
