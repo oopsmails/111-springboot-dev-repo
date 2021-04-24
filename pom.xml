@@ -21,6 +21,7 @@
         <module>spring-boot-session-redis</module>
         <module>spring-boot-sso-jwt</module>
         <module>spring-boot-sso-jwt-redis</module>
+        <module>spring-boot-security-auth</module>
     </modules>
 
 </project>

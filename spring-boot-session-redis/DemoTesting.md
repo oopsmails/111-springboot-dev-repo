@@ -6,7 +6,7 @@
 
 - Run Redis server, using docker
 
-springboot-session-redis/docker-compose.yml
+spring-boot-session-redis/docker-compose.yml
 
 `docker-compose up `
 

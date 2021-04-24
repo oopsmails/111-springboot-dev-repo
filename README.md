@@ -44,6 +44,12 @@ docker-compose stop
 
 - Test login with social web sites, like github, facebook, google, linkedin
 
+## spring-boot-security-auth
+
+### spring-boot-security-auth-combining-methods
+
+- Combining Spring Boot Auth Methods: Redis Sessions, Basic Auth and JWTs
+
 ## spring-boot-rest-sonarqube
 
 For testing sonarqube
