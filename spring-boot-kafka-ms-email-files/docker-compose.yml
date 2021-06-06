@@ -25,7 +25,7 @@ services:
     volumes:
       - ./configuration:/tmp/configuration:delegated
       - ../spring-boot-kafka-ms-email:/tmp/app:delegated
-      - ~/.m2:/home/deploy/.m2:cached
+      - /home/albert/.m2:/home/deploy/.m2:cached
     networks:
       - default
 

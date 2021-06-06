@@ -14,6 +14,7 @@ services:
   # Kafka itself
   kafka:
     image: 'bitnami/kafka:2'
+#    container_name: kafka
     ports:
       - '9092:9092'
     volumes:
