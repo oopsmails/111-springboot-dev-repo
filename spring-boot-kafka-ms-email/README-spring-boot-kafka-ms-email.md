@@ -38,6 +38,12 @@ docker volume list
 docker volume prune
 
 ```
+- Verify
+
+  - See *springboot-kafka-docker.postman_collection.json*. Basically, send POST request to http://localhost:8080/messaging.
+  - Use Kafdrop (http://localhost:9100/) to watch the messages in Kafka.
+  - Use MailHog MailHog (http://localhost:8025/) to watch the emails. May have delay. 
+  
 
 ## Kafka + Admin UI (Kafdrop) for Local Development with Docker Compose
 
@@ -100,7 +106,7 @@ This error is from the mis-configuration of docker-compose, Deocker
 
 Basically,
 
-```aidl
+```
 # error
 volumes:
   - ./configuration:/home/albert/dockerdata/configuration:delegated
@@ -136,6 +142,12 @@ It is all about context,
       dockerfile: ../spring-boot-kafka-microservice-email/docker/Dockerfile
 ```
 
+  - Error: spring-boot-kafka-ms-email_1  | [ERROR] Could not create local repository at /home/deploy/.m2/repository -> [Help 1]
+
+This only happens on Linux (mint) because need *sudo* to run docker-compose. ElementaryOS is fine because no *sudo* needed.
+
+The error was from docker-compose.yml, was using *~/.m2:/home/deploy/.m2:cached*, which is not accessible after *sudo*. Solution is
+to change it to absolute path as */home/albert/.m2:/home/deploy/.m2:cached*.
 
 ## Concept error: 
 
@@ -147,7 +159,7 @@ It is all about context,
 
   - nginx.conf is point to Spring application
 
-```aidl
+```
         location /messaging {
             set $upstream spring-boot-kafka-microservice-email;
             set $contextpath /messaging;
