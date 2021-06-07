@@ -90,11 +90,12 @@ public class GeneralLoggingUtils {
     }
 
     public static String getBody(GeneralLoggingResponseWrapper generalLoggingResponseWrapper) {
-        try {
-            return generalLoggingResponseWrapper.getContent();
-        } catch (IOException ioException) {
-            log.error("Failed to read response body, {}.", ioException.getMessage(), ioException);
-            return "";
-        }
+//        try {
+//            return generalLoggingResponseWrapper.getContent();
+//        } catch (IOException ioException) {
+//            log.error("Failed to read response body, {}.", ioException.getMessage(), ioException);
+//            return "";
+//        }
+        return generalLoggingResponseWrapper.getContent();
     }
 }

@@ -18,7 +18,7 @@ public class GeneralLoggingResponseWrapper extends HttpServletResponseWrapper {
         super(httpServletResponse);
     }
 
-    public String getContent() throws IOException {
+    public String getContent() {
         return byteArrayOutputStream == null ? "" : byteArrayOutputStream.toString();
     }
 

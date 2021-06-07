@@ -56,7 +56,7 @@ public class GeneralLoggingFilter implements Filter {
             try {
                 generalLoggingRequestWrapper = new GeneralLoggingRequestWrapper((HttpServletRequest) servletRequest);
                 generalLoggingResponseWrapper = new GeneralLoggingResponseWrapper((HttpServletResponse) servletResponse);
-            } catch (Throwable throwable) {
+            } catch (Exception throwable) {
                 log.warn("Failed to create request response wrapper, {}", throwable.getMessage(), throwable);
             }
 

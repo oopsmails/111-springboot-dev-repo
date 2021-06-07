@@ -25,7 +25,7 @@ public class GeneralLoggingServletInputStream extends ServletInputStream {
 
     @Override
     public void setReadListener(ReadListener listener) {
-
+        // Do nothing here
     }
 
     @Override
