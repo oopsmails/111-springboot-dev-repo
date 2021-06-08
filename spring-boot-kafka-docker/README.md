@@ -1,4 +1,4 @@
-# springboot-kafka-docker
+# spring-boot-kafka-docker
 
 Initially from https://morioh.com/p/2bd3c2db1555, THANKS!
 

@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "addresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "addressID": {
+            "type": "string"
+          },
+          "creationDateTime": {
+            "type": "string"
+          },
+          "lastUpdDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "country": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "pinCode": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string"
+          },
+          "buildingName": {
+            "type": "string"
+          },
+          "flatNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "addressID",
+          "creationDateTime",
+          "lastUpdDateTime",
+          "country",
+          "state",
+          "pinCode",
+          "streetName",
+          "buildingName",
+          "flatNumber"
+        ]
+      }
+    }
+  },
+  "required": [
+    "addresses"
+  ]
+}

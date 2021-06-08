@@ -18,39 +18,39 @@ docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000
 
 ```
 <configuration>
-					<skip>${maven.test.skip}</skip>
-					<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-					<output>file</output>
-					<append>true</append>
-					<excludes>
-						<exclude>*MethodAccess</exclude>
-        				<exclude>**/swagger/model/*</exclude>
-        				<exclude>**/swagger/api/*</exclude>
-        				<exclude>**/mypkg/Abcd.class</exclude>
-        				<exclude>**/mypkg/config/*</exclude>
-        				<exclude>**/mypkg/controller/exception/*</exclude>
-        				<exclude>**/mypkg/mapper/*</exclude>
-        				<exclude>**/mypkg/model/*</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>jacoco-initialize</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<phase>test-compile</phase>
-					</execution>
-					<execution>
-						<id>jacoco-site</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+    <skip>${maven.test.skip}</skip>
+    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+    <output>file</output>
+    <append>true</append>
+    <excludes>
+        <exclude>*MethodAccess</exclude>
+        <exclude>**/swagger/model/*</exclude>
+        <exclude>**/swagger/api/*</exclude>
+        <exclude>**/mypkg/Abcd.class</exclude>
+        <exclude>**/mypkg/config/*</exclude>
+        <exclude>**/mypkg/controller/exception/*</exclude>
+        <exclude>**/mypkg/mapper/*</exclude>
+        <exclude>**/mypkg/model/*</exclude>
+    </excludes>
+</configuration>
+<executions>
+    <execution>
+        <id>jacoco-initialize</id>
+        <goals>
+            <goal>prepare-agent</goal>
+        </goals>
+        <phase>test-compile</phase>
+    </execution>
+    <execution>
+        <id>jacoco-site</id>
+        <phase>verify</phase>
+        <goals>
+            <goal>report</goal>
+        </goals>
+    </execution>
+</executions>
+</plugin>
 
 ```
 
@@ -71,12 +71,12 @@ https://stackoverflow.com/questions/25373452/skipping-jacoco-execution-due-to-mi
 
 ```
 <plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
-					<argLine>${argLine}</argLine>
-				</configuration>
-			</plugin>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.17</version>
+    <configuration>
+        <argLine>${argLine}</argLine>
+    </configuration>
+</plugin>
 
 ```
 
