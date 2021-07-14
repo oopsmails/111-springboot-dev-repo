@@ -19,6 +19,9 @@
 ## Migrating from *github/spring-main*
 
 - FunctionObjectTest, get rid of big switch
+  
+see FunctionObjectTest.java, function pointer to be used according to passed in class.
+
 - Design Patterns
 
 
