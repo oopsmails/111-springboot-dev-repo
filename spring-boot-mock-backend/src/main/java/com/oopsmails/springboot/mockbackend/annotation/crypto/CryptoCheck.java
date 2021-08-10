@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.employee.annotation.valuecheck;
+package com.oopsmails.springboot.mockbackend.annotation.crypto;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -6,8 +6,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.PARAMETER })
+@Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface CryptoCheckSignature {
+public @interface CryptoCheck {
+
+    String cryptoSecretProperty();
+    String mandatoryProperty();
 }

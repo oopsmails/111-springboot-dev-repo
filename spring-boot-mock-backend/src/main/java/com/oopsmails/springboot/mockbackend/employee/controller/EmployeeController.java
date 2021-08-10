@@ -1,8 +1,8 @@
 package com.oopsmails.springboot.mockbackend.employee.controller;
 
-import com.oopsmails.springboot.mockbackend.employee.annotation.valuecheck.CryptoCheck;
-import com.oopsmails.springboot.mockbackend.employee.annotation.valuecheck.CryptoCheckPayload;
-import com.oopsmails.springboot.mockbackend.employee.annotation.valuecheck.CryptoCheckSignature;
+import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheck;
+import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckPayload;
+import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckSignature;
 import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import com.oopsmails.springboot.mockbackend.employee.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
