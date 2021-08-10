@@ -19,13 +19,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-/***
- * Project Name     : spring-boot-testing
- * Username         : Teten Nugraha
- * Date Time        : 12/18/2019
- * Telegram         : @tennugraha
- */
-
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 

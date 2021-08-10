@@ -1,8 +1,10 @@
 package com.oopsmails.springboot.mockbackend.employee.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Employee {
     public Employee() {
 
@@ -22,6 +24,10 @@ public class Employee {
     private String name;
     private int age;
     private String position;
+
+    private String cryptoSecretProperty;
+    private String mandatoryProperty;
+
 
 }
 
