@@ -1,6 +1,5 @@
 package com.oopsmails.springboot.mockbackend.controller;
 
-import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import com.oopsmails.springboot.mockbackend.employee.repository.EmployeeRepository;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("")
 @Slf4j
@@ -21,11 +18,11 @@ public class GenericMockController {
     EmployeeRepository repository;
 
     @GetMapping("/ping")
-    public List<Employee> findAll() {
-        return repository.findAll();
+    public String pingGet() throws Exception {
+        return JsonUtils.readFileAsString("data/ping/ping.get.response.data.json");
     }
 
-    @PostMapping("/pingpost")
+    @PostMapping("/ping")
     public String pingPost(@RequestBody String anyThing) throws Exception {
         return JsonUtils.readFileAsString("data/ping/ping.post.response.data.json");
     }
