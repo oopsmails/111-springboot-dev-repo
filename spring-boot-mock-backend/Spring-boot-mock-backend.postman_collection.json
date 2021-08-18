@@ -1,0 +1,259 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Test",
+		"_postman_id": "df704570-368a-5e08-ac8f-2f8e1092a084",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ping",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8888 backendmock ping",
+					"request": {
+						"url": "http://localhost:8888/ping",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8888 ping post",
+					"request": {
+						"url": "http://localhost:8888/ping",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mockbackend generic",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8888",
+					"request": {
+						"url": "http://localhost:8888/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080",
+					"request": {
+						"url": "http://localhost:8888/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8888 genericmockping",
+					"request": {
+						"url": "http://localhost:8888/genericmock/ping",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8888/genericmock/ping post",
+					"request": {
+						"url": "http://localhost:8888/genericmock/ping",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "backendmock api",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:8080 backendmock",
+					"request": {
+						"url": "http://localhost:8888/backendmock/employee-api",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080 backendmock copy copy",
+					"request": {
+						"url": "http://localhost:8888/backendmock/employee-api",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "crypto-signature",
+								"value": "a98cba5c7662fd782a71cbbcd901298271efe30ff0ded9863a861a0fd3e2a243",
+								"description": ""
+							},
+							{
+								"key": "crypto-payload",
+								"value": "crypto-payload",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"organizationId\": 2,\n        \"departmentId\": 4,\n        \"name\": \"Oops Mails\",\n        \"age\": 25,\n        \"position\": \"Developer\",\n        \"cryptoSecretProperty\": \"cryptoSecret\",\n        \"mandatoryProperty\": \"this is mandatory\"\n    }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "http://localhost:8080",
+			"request": {
+				"url": "http://localhost:8080/employee-api",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://springboot-employee.azurewebsites.net/employee-api",
+			"request": {
+				"url": "https://springboot-employee.azurewebsites.net/employee-api",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Zzz-http://localhost:8080 backendmock",
+			"request": {
+				"url": "http://localhost:29080/backendmock/employee-api",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
