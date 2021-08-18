@@ -1,0 +1,3 @@
+{
+  "backendMockPing": "spring-boot-mock-backend/src/main/resources/data/backendmock.ping.get.data.json"
+}

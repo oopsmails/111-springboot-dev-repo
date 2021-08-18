@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee-api")
+@RequestMapping("/backendmock/employee-api")
 @Slf4j
 public class EmployeeController {
 
