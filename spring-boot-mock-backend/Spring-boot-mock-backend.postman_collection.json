@@ -1,7 +1,7 @@
 {
 	"variables": [],
 	"info": {
-		"name": "Test",
+		"name": "Spring-boot-mock-backend",
 		"_postman_id": "df704570-368a-5e08-ac8f-2f8e1092a084",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
@@ -54,7 +54,7 @@
 			]
 		},
 		{
-			"name": "mockbackend generic",
+			"name": "genericmock",
 			"description": "",
 			"item": [
 				{

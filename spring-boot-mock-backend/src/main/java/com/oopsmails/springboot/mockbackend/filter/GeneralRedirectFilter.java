@@ -32,6 +32,7 @@ public class GeneralRedirectFilter implements Filter {
 
         if (isGenericRedirectEnabled) {
             if (path.indexOf("/ping") == 0) {
+                log.warn("doFilter(), /ping, no change, but will hit /ping in Controller.");
                 req = new HttpServletRequestWrapper((HttpServletRequest) request) {
                     @Override
                     public String getRequestURI() {
@@ -40,6 +41,7 @@ public class GeneralRedirectFilter implements Filter {
                 };
             } else if (path.indexOf("/backendmock/") == 0) {
                 // no ops
+                log.warn("doFilter(), /backendmock, no change.");
             } else if (path.indexOf("/genericmock/") == 0) {
                 req = new HttpServletRequestWrapper((HttpServletRequest) request) {
                     @Override
@@ -47,6 +49,7 @@ public class GeneralRedirectFilter implements Filter {
                         return "/";
                     }
                 };
+                log.warn("doFilter(), /genericmock redirecting to generic url: [{}]", req.getRequestURI());
             } else if (path.indexOf("/") == 0) {
                 req = new HttpServletRequestWrapper((HttpServletRequest) request) {
                     @Override
@@ -54,9 +57,8 @@ public class GeneralRedirectFilter implements Filter {
                         return "/";
                     }
                 };
+                log.warn("doFilter(), / redirecting to generic url: [{}]", req.getRequestURI());
             }
-
-            log.warn("doFilter(), redirecting to generic url: [{}]", req.getRequestURI());
         }
 
         chain.doFilter(req, res);
