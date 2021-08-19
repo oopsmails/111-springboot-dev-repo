@@ -7,19 +7,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.oopsmails.springboot.async.CustomAsyncExceptionHandler;
 import com.oopsmails.springboot.javamain.model.Employee;
 import com.oopsmails.springboot.javamain.repository.EmployeeRepository;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.time.Clock;
 import java.time.ZoneId;
+import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
-public class SpringBootJavaMainApplication {
+@EnableAsync
+public class SpringBootJavaMainApplication implements AsyncConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootJavaMainApplication.class, args);
@@ -63,5 +70,22 @@ public class SpringBootJavaMainApplication {
         repository.add(new Employee(2L, 4L, "Steve Franklin", 25, "Developer"));
         repository.add(new Employee(2L, 4L, "Elisabeth Smith", 30, "Developer"));
         return repository;
+    }
+
+
+    @Bean(name = "threadPoolTaskExecutor")
+    public Executor executor1(){
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(4);
+        executor.setMaxPoolSize(4);
+        executor.setQueueCapacity(50);
+        executor.setThreadNamePrefix("AsynchThread::");
+        executor.initialize();
+        return executor;
+    }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new CustomAsyncExceptionHandler();
     }
 }

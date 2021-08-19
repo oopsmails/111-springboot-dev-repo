@@ -29,7 +29,11 @@ public class SpringBootJavaGenericTestBase {
     private static String TEST_DATA_FILE_FOLDER = JsonUtils.PROJECT_PATH + "/src/test/resources/testdata";
 
     @TestConfiguration
-    @ComponentScan("com.oopsmails.springboot.javamain")
+    @ComponentScan({
+            "com.oopsmails.springboot.javamain",
+            "com.oopsmails.springboot.async",
+            "com.oopsmails.springboot.service"
+    })
     public static class SpringBootJavaGenericTestBaseTestConfig {
         @Bean
         public Clock appClock() {
