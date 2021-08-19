@@ -1,0 +1,62 @@
+{
+	"variables": [],
+	"info": {
+		"name": "springboot-kafka-docker copy",
+		"_postman_id": "5a72908d-e954-ef04-06a5-2d39430f4687",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9000/kafka/publish",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8081/publish?message=testalbert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"publish"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "testalbert"
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\": \"test\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080",
+			"request": {
+				"url": "http://localhost:8080/messaging",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 222,\n    \"productName\": \"testProd\",\n    \"authorEmailAddress\": \"oopsmails@gmail.com\",\n    \"authorFullName\": \"Test FullName\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

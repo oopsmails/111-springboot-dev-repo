@@ -1,0 +1,107 @@
+{
+	"variables": [],
+	"info": {
+		"name": "springboot-kafka-docker",
+		"_postman_id": "343efdcb-5cd9-0551-ed43-0b74869fbdbd",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/publish?message=testalbert",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8081/publish?message=testalbert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"publish"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "testalbert",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.0.96:8081/publish?message=testalbert",
+			"request": {
+				"url": {
+					"raw": "http://192.168.0.96:8081/publish?message=testalbert",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"96"
+					],
+					"port": "8081",
+					"path": [
+						"publish"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "testalbert",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.56.1:8081/publish?message=testalbert",
+			"request": {
+				"url": {
+					"raw": "http://192.168.56.1:8081/publish?message=testalbert",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"publish"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "testalbert",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
