@@ -52,7 +52,7 @@ public class EmployeeControllerTest {
 // @WithMockUser(username = "admin1", roles = "ADMIN")
     public void getAllEmployeesAPI() throws Exception {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                .get("/employee-api")
+                .get("/backendmock/employee-api")
 // .with(user("admin1").roles("ADMIN"))
 // .with(csrf())
                 .accept(MediaType.APPLICATION_JSON))

@@ -81,7 +81,12 @@ public WebMvcConfigurer corsConfigurer() {
 }
 ```
 
-##
+## Async and Multithreading
+
+- Ref:
+  https://spring.io/guides/gs/async-method/
+
+- GitHubLookupService
 
 
 
