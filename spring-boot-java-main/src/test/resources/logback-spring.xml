@@ -35,11 +35,11 @@
 
     <!-- LOG everything at INFO level -->
     <root level="info">
-        <appender-ref ref="RollingFile" />
+<!--        <appender-ref ref="RollingFile" />-->
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.baeldung*" at TRACE level -->
+    <!-- LOG "com.oopsmails*" at TRACE level -->
     <logger name="com.oopsmails" level="trace" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
