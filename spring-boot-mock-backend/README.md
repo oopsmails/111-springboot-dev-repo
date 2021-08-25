@@ -87,6 +87,8 @@ public WebMvcConfigurer corsConfigurer() {
   https://spring.io/guides/gs/async-method/
 
 - GitHubLookupService
-
+- Spring Bean returning Executor vs ForkJoinPool
+  - executor.execute(): will use ALL thread from poll
+  - forkJoinPool.submit(() -> { list.parallelStream().map(...)}): will execute the first item in main thread and other items in thread from pool.
 
 
