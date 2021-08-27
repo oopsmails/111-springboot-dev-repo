@@ -1,5 +1,9 @@
 package com.oopsmails.springboot.mockbackend.controller;
 
+import com.oopsmails.springboot.mockbackend.annotation.audit.AuditArg;
+import com.oopsmails.springboot.mockbackend.annotation.audit.LoggingAudit;
+import com.oopsmails.springboot.mockbackend.annotation.performance.LoggingPerformance;
+import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,18 +36,25 @@ public class GenericMockController {
     }
 
     @GetMapping("")
+    @LoggingPerformance(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
+    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
     public String genericGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        String responseFilePath = getResponseFilePath(httpServletRequest);
+        AuditArg auditArg = getMockAuditArg();
+        String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
         return JsonUtils.readFileAsString(responseFilePath);
     }
 
     @PostMapping("")
+    @LoggingPerformance(origin = LoggingOrigin.GenericMockController, message = "genericPost message ... ")
+    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericPost message ... ")
     public String genericPost(@RequestBody String anyThing, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        String responseFilePath = getResponseFilePath(httpServletRequest);
+        AuditArg auditArg = getMockAuditArg();
+        String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
         return JsonUtils.readFileAsString(responseFilePath);
     }
 
-    private String getResponseFilePath(HttpServletRequest httpServletRequest) {
+//    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
+    public String getResponseFilePath(AuditArg auditArg, HttpServletRequest httpServletRequest) {
         log.info("httpServletRequest.getRequestURL(): {}", httpServletRequest.getRequestURL());
         String urlPath = httpServletRequest.getRequestURL().toString();
         urlPath = urlPath.substring(urlPath.indexOf(genericRedirectUrlExclude) + genericRedirectUrlExclude.length());
@@ -78,5 +89,14 @@ public class GenericMockController {
 
         log.info("getResponseFilePath() returning: {}", resultSB);
         return resultSB.toString();
+    }
+
+    private AuditArg getMockAuditArg() {
+        return new AuditArg() {
+            @Override
+            public String getAuditArgTarget() {
+                return "mock target for Audit Annotation";
+            }
+        };
     }
 }

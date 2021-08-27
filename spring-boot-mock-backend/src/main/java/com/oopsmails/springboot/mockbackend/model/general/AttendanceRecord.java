@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.model;
+package com.oopsmails.springboot.mockbackend.model.general;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
