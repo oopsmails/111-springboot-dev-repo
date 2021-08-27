@@ -21,4 +21,9 @@ public class LoggingDto {
     private String sessionId;
 
     private String message;
+
+    public LoggingDto() {
+        this.timestamp = LocalDateTime.now();
+        this.message = "";
+    }
 }
