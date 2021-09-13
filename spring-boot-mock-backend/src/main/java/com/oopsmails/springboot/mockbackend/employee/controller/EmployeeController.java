@@ -3,10 +3,12 @@ package com.oopsmails.springboot.mockbackend.employee.controller;
 import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheck;
 import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckPayload;
 import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckSignature;
+import com.oopsmails.springboot.mockbackend.employee.model.Developer;
 import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import com.oopsmails.springboot.mockbackend.employee.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/backendmock/employee-api")
 @Slf4j
 public class EmployeeController {
+
+    @Value("#{'${props.set.test}'.split(',')}")
+    private Set<String> propsSetTest;
 
     @Autowired
     EmployeeRepository repository;
@@ -28,6 +34,17 @@ public class EmployeeController {
     @GetMapping("")
 // @PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
+        // Testing extract CSV string into Set<String> from .properties file
+        log.info("propsSetTest = {}", propsSetTest);
+
+        // Testing find real subclass type
+        Employee dev = new Developer();
+        log.info("dev.getClass = {}", dev.getClass());
+        log.info("dev.getClass.getName = {}", dev.getClass().getName());
+        log.info("dev.getClass.getTypeName = {}", dev.getClass().getTypeName());
+        log.info("dev.getClass.getCanonicalName = {}", dev.getClass().getCanonicalName());
+        log.info("dev.getClass.getSimpleName = {}", dev.getClass().getSimpleName());
+
         return repository.findAll();
     }
 

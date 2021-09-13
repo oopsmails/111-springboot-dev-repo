@@ -83,6 +83,8 @@ public WebMvcConfigurer corsConfigurer() {
 
 ## Async and Multithreading
 
+### GitHubUserController
+
 - Ref:
   https://spring.io/guides/gs/async-method/
 
@@ -91,4 +93,14 @@ public WebMvcConfigurer corsConfigurer() {
   - executor.execute(): will use ALL thread from poll
   - forkJoinPool.submit(() -> { list.parallelStream().map(...)}): will execute the first item in main thread and other items in thread from pool.
 
+### Test CompletableFuture
+
+- Run MockDelapServiceText.testFindAllIfParallel()
+Comparing with in application.properties file,
+
+`data.loader.in.parallel=MockDelayServiceOperationContext`
+and
+`data.loader.in.parallel=`
+
+to compare performances between sequentially or in parallel ....
 

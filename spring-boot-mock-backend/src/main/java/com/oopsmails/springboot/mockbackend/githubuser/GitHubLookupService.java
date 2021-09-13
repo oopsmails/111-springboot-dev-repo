@@ -1,5 +1,6 @@
 package com.oopsmails.springboot.mockbackend.githubuser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class GitHubLookupService {
     private static final Logger logger = LoggerFactory.getLogger(GitHubLookupService.class);
 
@@ -22,6 +24,7 @@ public class GitHubLookupService {
     @Async(value = "generalTaskExecutor")
     public CompletableFuture<GithubUser> findUserAsyncMock(String user) throws InterruptedException {
         GithubUser result = GithubUser.getMock(user);
+        log.info("findUserAsyncMock: githubUser = {}", result);
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(3000L);
         return CompletableFuture.completedFuture(result);
@@ -29,6 +32,7 @@ public class GitHubLookupService {
 
     public GithubUser findUserMock(String name) throws InterruptedException {
         GithubUser result = GithubUser.getMock(name);
+        log.info("findUserMock: githubUser = {}", result);
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(3000L);
         //        logger.info("adding: [{}]", name);
@@ -40,6 +44,7 @@ public class GitHubLookupService {
         logger.info("Looking up " + user);
         String url = String.format("https://api.github.com/users/%s", user);
         GithubUser results = restTemplate.getForObject(url, GithubUser.class);
+        log.info("findUserAsync: githubUsers = {}", results);
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(3000L);
         return CompletableFuture.completedFuture(results);
@@ -48,6 +53,7 @@ public class GitHubLookupService {
     public GithubUser findUser(String user) throws InterruptedException {
         String url = String.format("https://api.github.com/users/%s", user);
         GithubUser result = restTemplate.getForObject(url, GithubUser.class);
+        log.info("findUser: githubUser = {}", result);
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(2000L);
         return result;
