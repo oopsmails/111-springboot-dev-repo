@@ -2,14 +2,16 @@ package com.oopsmails.springboot.mockbackend.employee.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+@ToString(of = {"organizationId", "departmentId", "name", "age", "javaSkillLevel"}, exclude = {"id", "position"})
 public class Employee {
-    public Employee() {
-
-    }
-
     public Employee(Long organizationId, Long departmentId, String name, int age, String position) {
         this.organizationId = organizationId;
         this.departmentId = departmentId;
@@ -27,7 +29,5 @@ public class Employee {
 
     private String cryptoSecretProperty;
     private String mandatoryProperty;
-
-
 }
 

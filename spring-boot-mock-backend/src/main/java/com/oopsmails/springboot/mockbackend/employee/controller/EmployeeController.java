@@ -45,7 +45,19 @@ public class EmployeeController {
         log.info("dev.getClass.getCanonicalName = {}", dev.getClass().getCanonicalName());
         log.info("dev.getClass.getSimpleName = {}", dev.getClass().getSimpleName());
 
-        return repository.findAll();
+        dev.setId(999L);
+        dev.setOrganizationId(1L);
+        dev.setDepartmentId(2L);
+        dev.setName("TestingName");
+        dev.setAge(33);
+        dev.setPosition("Tech Lead");
+        ((Developer)dev).setJavaSkillLevel(5);
+        log.info("Testing toString(), dev = {}", dev);
+
+        List<Employee> result = repository.findAll();
+        log.info("Testing toString(), employee = {}", result.get(0));
+
+        return result;
     }
 
     @PostMapping("")
