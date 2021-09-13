@@ -23,7 +23,7 @@ public class SpringAsyncConfig {
         return taskExecutor;
     } */
 
-    /*
+    /**/
     @Bean(name = "executorAsync")
     public TaskExecutor executorAsync() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -48,6 +48,6 @@ public class SpringAsyncConfig {
     public TaskExecutor concurrentTaskExcutor() {
         return new ConcurrentTaskExecutor(Executors.newFixedThreadPool(5));
     }
-    */
+
 
 }
