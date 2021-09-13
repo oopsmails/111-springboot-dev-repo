@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 @Slf4j
 public final class OperationTaskUtil {
-    public static OperationExceptionHandler operationExceptionHandler;
+    public static final OperationExceptionHandler operationExceptionHandler;
 
     static {
         operationExceptionHandler = getDefaultExceptionHandler();
@@ -40,7 +40,7 @@ public final class OperationTaskUtil {
         if (isToRunInParallel) {
             executeInParallel(operationContext, exceptionHandler, oopsTimeout, executorService);
         } else {
-            executeSequentially(operationContext, exceptionHandler);
+            executeSequentially(operationContext);
         }
     }
 
@@ -65,18 +65,22 @@ public final class OperationTaskUtil {
                 combinedFuture.get(oopsTimeout.getTimeout(), oopsTimeout.getTimeUnit());
             }
             log.info("CompletableFuture combinedFuture done successfully, size = [{}] ...", futureList.size());
-        } catch (InterruptedException | TimeoutException | ExecutionException ex) {
+        } catch (InterruptedException ex) {
+            log.error("Cannot complete the operations.", ex);
+            Thread.currentThread().interrupt();
+            throw exceptionHandler.handle(ex);
+        } catch (TimeoutException | ExecutionException ex) {
             log.error("Cannot complete the operations.", ex);
             throw exceptionHandler.handle(ex);
         }
     }
 
-    private static void executeSequentially(OperationContext operationContext, OperationExceptionHandler exceptionHandler) {
+    private static void executeSequentially(OperationContext operationContext) {
         log.info("Running tasks sequentially ...");
         for (final OperationTask operationTask : operationContext.getOperationTasks()) {
             OperationTaskContext operationTaskContext = operationTask.getOperationTaskContext();
             operationTask.getOperationDataLoader().loadData(operationTaskContext);
-//            operationTask.getOperationTaskContext().setTaskOutput(operationTask.getOperationTaskContext());
+            operationTask.getOperationTaskContext().setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
         }
     }
 
