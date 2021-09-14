@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 //@AllArgsConstructor
-public class OperationTask<I, R> {
+public class OperationTask<I, O> {
     private OperationTaskContext operationTaskContext;
-    private OperationDataLoader<I, R> operationDataLoader;
+    private OperationDataLoader<I, O> operationDataLoader;
 }
