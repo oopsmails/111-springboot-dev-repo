@@ -60,13 +60,6 @@ public class OperationService<T extends OperationContext> {
                 log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
                 result.add(output.getMockDelayObject());
             });
-
-//            for (OperationTask<I, O> operationTask : mockDelayServiceOperationContext.getOperationTasks()) {
-//                MockDelayOperationDataLoaderOutput output = (MockDelayOperationDataLoaderOutput) operationTask.getOperationTaskContext().getTaskOutput();
-//                log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
-//                result.add(output.getMockDelayObject());
-//            }
-
         }
         return result;
     }
