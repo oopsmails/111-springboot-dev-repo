@@ -32,7 +32,7 @@ public class OperationService<T extends OperationContext> {
     @Autowired
     private MockDelayOperationDataLoader mockDelayOperationDataLoader;
 
-    public <I, O> List<MockDelayObject> findMockDelayObjectsByIds(T operationContext) {
+    public List<MockDelayObject> findMockDelayObjectsByIds(T operationContext) {
         List<MockDelayObject> result = new ArrayList<>();
         if (operationContext instanceof MockDelayServiceOperationContext) {
             MockDelayServiceOperationContext mockDelayServiceOperationContext = (MockDelayServiceOperationContext) operationContext;
@@ -55,11 +55,17 @@ public class OperationService<T extends OperationContext> {
 
             performOperation(operationContext);
 
-            for (OperationTask<I, O> operationTask : mockDelayServiceOperationContext.getOperationTasks()) {
+            mockDelayServiceOperationContext.getOperationTasks().forEach(operationTask -> {
                 MockDelayOperationDataLoaderOutput output = (MockDelayOperationDataLoaderOutput) operationTask.getOperationTaskContext().getTaskOutput();
                 log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
                 result.add(output.getMockDelayObject());
-            }
+            });
+
+//            for (OperationTask<I, O> operationTask : mockDelayServiceOperationContext.getOperationTasks()) {
+//                MockDelayOperationDataLoaderOutput output = (MockDelayOperationDataLoaderOutput) operationTask.getOperationTaskContext().getTaskOutput();
+//                log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
+//                result.add(output.getMockDelayObject());
+//            }
 
         }
         return result;

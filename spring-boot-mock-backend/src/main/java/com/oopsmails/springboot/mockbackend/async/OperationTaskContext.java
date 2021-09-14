@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationTaskContext<I, O> { // every task has its own Input Output
+public class OperationTaskContext <I, O> { // every task has its own Input Output
     private I taskInput;
     private O taskOutput;
 
