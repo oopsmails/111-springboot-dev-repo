@@ -32,6 +32,9 @@ public class OperationService<T extends OperationContext> {
     @Autowired
     private MockDelayOperationDataLoader mockDelayOperationDataLoader;
 
+    @Autowired
+    private TestDataLoader testDataLoader;
+
     public List<MockDelayObject> findMockDelayObjectsByIds(T operationContext) {
         List<MockDelayObject> result = new ArrayList<>();
         if (operationContext instanceof MockDelayServiceOperationContext) {
@@ -41,7 +44,12 @@ public class OperationService<T extends OperationContext> {
                 return result;
             }
             for (String id : byIds) {
-                OperationTaskContext<String, MockDelayOperationDataLoaderOutput> operationTaskContext = new OperationTaskContext<>();
+                OperationTaskContext<String, MockDelayOperationDataLoaderOutput> operationTaskContext = new OperationTaskContext<String, MockDelayOperationDataLoaderOutput>() {
+                    @Override
+                    public Object getRealTaskOutput() {
+                        return getTaskOutput().getMockDelayObject();
+                    }
+                };
                 operationTaskContext.setTaskInput(id);
                 MockDelayOperationDataLoaderOutput mockDelayOperationDataLoaderOutput = new MockDelayOperationDataLoaderOutput();
                 operationTaskContext.setTaskOutput(mockDelayOperationDataLoaderOutput);
@@ -53,14 +61,31 @@ public class OperationService<T extends OperationContext> {
                 mockDelayServiceOperationContext.addOperationTask(operationTask);
             }
 
+            OperationTaskContext<String, MockDelayObject> operationTaskContext = new OperationTaskContext<String, MockDelayObject>() {
+                @Override
+                public Object getRealTaskOutput() {
+                    return getTaskOutput();
+                }
+            };
+            operationTaskContext.setTaskInput("extraTestingId");
+            operationTaskContext.setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
+
+            OperationTask<String, MockDelayObject> operationTaskTest = new OperationTask<>();
+            operationTaskTest.setOperationTaskContext(operationTaskContext);
+            operationTaskTest.setOperationDataLoader(this.testDataLoader);
+            mockDelayServiceOperationContext.addOperationTask(operationTaskTest);
+
             performOperation(operationContext);
 
             mockDelayServiceOperationContext.getOperationTasks().forEach(operationTaskIn -> {
-                OperationTask<String, MockDelayOperationDataLoaderOutput> operationTask = (OperationTask<String, MockDelayOperationDataLoaderOutput>) operationTaskIn;
-                MockDelayOperationDataLoaderOutput output = operationTask.getOperationTaskContext().getTaskOutput();
-                output.setPassingAroundParam("" + operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
-                log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
-                result.add(output.getMockDelayObject());
+//                OperationTask<String, MockDelayOperationDataLoaderOutput> operationTask = (OperationTask<String, MockDelayOperationDataLoaderOutput>) operationTaskIn;
+//                MockDelayOperationDataLoaderOutput output = operationTask.getOperationTaskContext().getTaskOutput();
+//                output.setPassingAroundParam("" + operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
+//                log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
+//                result.add(output.getMockDelayObject());
+
+                MockDelayObject output = (MockDelayObject) ((OperationTask)operationTaskIn).getOperationTaskContext().getRealTaskOutput();
+                result.add(output);
             });
         } else {
             log.warn("findMockDelayObjectsByIds: operationContext is not MockDelayServiceOperationContext");

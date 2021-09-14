@@ -14,4 +14,8 @@ public class OperationDataLoaderManager {
     public MockDelayObject getMockDelayObject(String strField) {
         return mockDelayServiceRestClient.getMockDelayObject(strField);
     }
+
+    public MockDelayObject getMockDelayObjectTestLoader(String strField) {
+        return mockDelayServiceRestClient.getMockDelayObject(strField);
+    }
 }
