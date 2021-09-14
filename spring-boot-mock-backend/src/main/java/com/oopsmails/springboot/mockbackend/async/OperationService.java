@@ -58,6 +58,7 @@ public class OperationService<T extends OperationContext> {
             mockDelayServiceOperationContext.getOperationTasks().forEach(operationTaskIn -> {
                 OperationTask<String, MockDelayOperationDataLoaderOutput> operationTask = (OperationTask<String, MockDelayOperationDataLoaderOutput>) operationTaskIn;
                 MockDelayOperationDataLoaderOutput output = operationTask.getOperationTaskContext().getTaskOutput();
+                output.setPassingAroundParam("" + operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
                 log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
                 result.add(output.getMockDelayObject());
             });
