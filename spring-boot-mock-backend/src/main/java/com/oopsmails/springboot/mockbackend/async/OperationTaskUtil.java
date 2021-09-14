@@ -44,12 +44,13 @@ public final class OperationTaskUtil {
         }
     }
 
-//    private static <I, O> void executeInParallel(OperationContext operationContext, OperationExceptionHandler exceptionHandler, OopsTimeout oopsTimeout, ExecutorService executorService) {
-    private static void executeInParallel(OperationContext operationContext, OperationExceptionHandler exceptionHandler, OopsTimeout oopsTimeout, ExecutorService executorService) {
+    private static <I, O> void executeInParallel(OperationContext operationContext, OperationExceptionHandler exceptionHandler, OopsTimeout oopsTimeout, ExecutorService executorService) {
         log.info("Running tasks in parallel ...");
 
         List<CompletableFuture<Void>> futureList = new ArrayList<>();
-        operationContext.getOperationTasks().forEach(operationTask -> {
+        operationContext.getOperationTasks().forEach(operationTaskIn -> {
+            OperationTask<I, O> operationTask = (OperationTask<I, O>) operationTaskIn;
+
             Runnable runnable = () -> operationTask.getOperationDataLoader().loadData(operationTask.getOperationTaskContext());
             CompletableFuture<Void> future = OperationTaskUtil.wrappedCompletableFutureVoid(runnable, executorService);
             future.exceptionally(exception -> {
@@ -57,15 +58,6 @@ public final class OperationTaskUtil {
             });
             futureList.add(future);
         });
-
-//        for (final OperationTask<I, O> operationTask : operationContext.getOperationTasks()) {
-//            Runnable runnable = () -> operationTask.getOperationDataLoader().loadData(operationTask.getOperationTaskContext());
-//            CompletableFuture<Void> future = OperationTaskUtil.wrappedCompletableFutureVoid(runnable, executorService);
-//            future.exceptionally(exception -> {
-//                throw exceptionHandler.handle(exception);
-//            });
-//            futureList.add(future);
-//        }
 
         CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[futureList.size()]));
         try {
@@ -85,20 +77,13 @@ public final class OperationTaskUtil {
         }
     }
 
-//    private static <I, O> void executeSequentially(OperationContext operationContext) {
-    private static void executeSequentially(OperationContext operationContext) {
+    private static <I, O> void executeSequentially(OperationContext operationContext) {
         log.info("Running tasks sequentially ...");
-        operationContext.getOperationTasks().forEach(operationTask -> {
-//            OperationTaskContext<I, O> operationTaskContext = operationTask.getOperationTaskContext();
+        operationContext.getOperationTasks().forEach(operationTaskIn -> {
+            OperationTask<I, O> operationTask = (OperationTask<I, O>) operationTaskIn;
             operationTask.getOperationDataLoader().loadData(operationTask.getOperationTaskContext());
             operationTask.getOperationTaskContext().setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
         });
-
-//        for (final OperationTask<I, O> operationTask : operationContext.getOperationTasks()) {
-//            OperationTaskContext<I, O> operationTaskContext = operationTask.getOperationTaskContext();
-//            operationTask.getOperationDataLoader().loadData(operationTaskContext);
-//            operationTask.getOperationTaskContext().setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
-//        }
     }
 
     public static CompletableFuture<Void> wrappedCompletableFutureVoid(Runnable runnable, ExecutorService executorService) {

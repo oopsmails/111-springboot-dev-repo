@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class OperationTask<I, O> {
-    private OperationTaskContext operationTaskContext;
-    private OperationDataLoader<I, O> operationDataLoader;
+    private OperationTaskContext<I, O> operationTaskContext;
+    private OperationDataLoader operationDataLoader;
 }
