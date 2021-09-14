@@ -1,5 +1,5 @@
 package com.oopsmails.springboot.mockbackend.async;
 
-public interface OperationDataLoader<I, O> {
-    void loadData(OperationTaskContext<I, O> operationTaskContext);
+public interface OperationDataLoader {
+    void loadData(OperationTaskContext<?, ?> operationTaskContext);
 }

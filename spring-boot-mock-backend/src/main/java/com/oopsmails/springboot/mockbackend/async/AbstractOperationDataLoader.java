@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public abstract class AbstractOperationDataLoader<I, O> implements OperationDataLoader<I, O> {
+public abstract class AbstractOperationDataLoader implements OperationDataLoader {
     @Autowired
     protected OperationDataLoaderManager operationDataLoaderManager;
 

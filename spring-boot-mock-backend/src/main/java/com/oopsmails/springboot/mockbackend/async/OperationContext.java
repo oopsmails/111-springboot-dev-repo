@@ -8,11 +8,11 @@ import java.util.Map;
 
 @Data
 public class OperationContext {
-    private List<OperationTask<?, ?>> operationTasks = new ArrayList<>();
+    private List<? super OperationTask<?, ?>> operationTasks = new ArrayList<>();
     private Map<String, Object> operationContextParamsMap;
     private boolean runInParallel;
 
-    public void addOperationTask(OperationTask<?, ?> operationTask) {
+    public <T extends OperationTask<?, ?>> void addOperationTask(T operationTask) {
         getOperationTasks().add(operationTask);
     }
 
