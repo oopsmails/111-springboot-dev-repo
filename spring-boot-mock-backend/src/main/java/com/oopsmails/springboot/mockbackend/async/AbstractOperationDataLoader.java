@@ -1,25 +1,37 @@
 package com.oopsmails.springboot.mockbackend.async;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
-public abstract class AbstractOperationDataLoader<I, R> implements OperationDataLoader<I, R> {
+@Slf4j
+public abstract class AbstractOperationDataLoader<I, O> implements OperationDataLoader<I, O> {
     @Autowired
     protected OperationDataLoaderManager operationDataLoaderManager;
 
     @Override
-    public void loadData(OperationTaskContext<I, R> operationTaskContext) {
-        loadData(operationTaskContext.getTaskInput(), operationTaskContext.getTaskOutput(), operationTaskContext.getOperationTaskContextParamsMap());
+    public void loadData(OperationTaskContext<I, O> operationTaskContext) {
+        if (operationTaskContext == null) {
+            log.warn("Passed in operationTaskContext is null");
+            return;
+        }
+        reviseInput(operationTaskContext.getTaskInput(), operationTaskContext.getOperationTaskContextParamsMap());
+        loadData(operationTaskContext.getTaskInput(), operationTaskContext.getTaskOutput());
+        reviseOutput(operationTaskContext.getTaskOutput(), operationTaskContext.getOperationTaskContextParamsMap());
     }
 
-    protected abstract void loadData(I input, R output);
-
-    // the logic in operationTaskContextParamsMap should be handled in subclass, if any.
-    protected void loadData(I input, R output, Map<String, Object> operationTaskContextParamsMap) {
-        handleParams(input, output, operationTaskContextParamsMap);
-        loadData(input, output);
+    @Override
+    public void reviseInput(I input, Map<String, Object> operationTaskContextParamsMap) {
+        // revise input based on paramsMap if necessary
     }
+
+    @Override
+    public void reviseOutput(O output, Map<String, Object> operationTaskContextParamsMap) {
+        // revise output based on paramsMap if necessary
+    }
+
+    protected abstract void loadData(I input, O output);
 }

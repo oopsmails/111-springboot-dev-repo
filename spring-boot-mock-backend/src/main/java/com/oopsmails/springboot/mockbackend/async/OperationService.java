@@ -43,8 +43,10 @@ public class OperationService<OC extends OperationContext> {
                 OperationTaskContext<String, MockDelayOperationDataLoaderOutput> operationTaskContext = new OperationTaskContext();
                 operationTaskContext.setTaskInput(id);
                 MockDelayOperationDataLoaderOutput mockDelayOperationDataLoaderOutput = new MockDelayOperationDataLoaderOutput();
-                mockDelayOperationDataLoaderOutput.setPassingAroundParam((String) operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
+//                mockDelayOperationDataLoaderOutput.setPassingAroundParam((String) operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
                 operationTaskContext.setTaskOutput(mockDelayOperationDataLoaderOutput);
+                operationTaskContext.setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
+
                 OperationTask<String, MockDelayOperationDataLoaderOutput> operationTask = new OperationTask<>();
                 operationTask.setOperationTaskContext(operationTaskContext);
                 operationTask.setOperationDataLoader(this.mockDelayOperationDataLoader);

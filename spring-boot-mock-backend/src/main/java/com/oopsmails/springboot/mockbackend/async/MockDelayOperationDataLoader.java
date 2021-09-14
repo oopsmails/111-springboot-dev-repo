@@ -1,9 +1,7 @@
 package com.oopsmails.springboot.mockbackend.async;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -16,8 +14,7 @@ public class MockDelayOperationDataLoader extends AbstractOperationDataLoader<St
     }
 
     @Override
-    public void handleParams(String input, MockDelayOperationDataLoaderOutput output, Map<String, Object> operationTaskContextParamsMap) {
-        super.handleParams(input, output, operationTaskContextParamsMap);
-//        output.setPassingAroundParam((String) operationTaskContextParamsMap.get(MockDelayService.TEST_OPERATION_TASK_CONTEXT_PARAM));
+    public void reviseOutput(MockDelayOperationDataLoaderOutput output, Map<String, Object> operationTaskContextParamsMap) {
+        output.setPassingAroundParam((String) operationTaskContextParamsMap.get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
     }
 }
