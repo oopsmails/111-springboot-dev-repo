@@ -12,7 +12,7 @@ public class OperationContext {
     private Map<String, Object> operationContextParamsMap;
     private boolean runInParallel;
 
-    public void addOperationTask(OperationTask operationTask) {
+    public <I, O> void addOperationTask(OperationTask<I, O> operationTask) {
         getOperationTasks().add(operationTask);
     }
 

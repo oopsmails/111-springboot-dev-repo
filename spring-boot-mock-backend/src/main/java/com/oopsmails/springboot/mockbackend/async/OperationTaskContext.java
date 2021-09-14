@@ -9,9 +9,9 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationTaskContext<I, R> {
+public class OperationTaskContext<I, O> { // every task has its own Input Output
     private I taskInput;
-    private R taskOutput;
+    private O taskOutput;
 
     private Map<String, Object> operationTaskContextParamsMap;
 }

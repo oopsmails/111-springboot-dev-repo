@@ -44,11 +44,11 @@ public final class OperationTaskUtil {
         }
     }
 
-    private static void executeInParallel(OperationContext operationContext, OperationExceptionHandler exceptionHandler, OopsTimeout oopsTimeout, ExecutorService executorService) {
+    private static <I, O> void executeInParallel(OperationContext operationContext, OperationExceptionHandler exceptionHandler, OopsTimeout oopsTimeout, ExecutorService executorService) {
         log.info("Running tasks in parallel ...");
 
         List<CompletableFuture<Void>> futureList = new ArrayList<>();
-        for (final OperationTask operationTask : operationContext.getOperationTasks()) {
+        for (final OperationTask<I, O> operationTask : operationContext.getOperationTasks()) {
             Runnable runnable = () -> operationTask.getOperationDataLoader().loadData(operationTask.getOperationTaskContext());
             CompletableFuture<Void> future = OperationTaskUtil.wrappedCompletableFutureVoid(runnable, executorService);
             future.exceptionally(exception -> {
@@ -75,10 +75,10 @@ public final class OperationTaskUtil {
         }
     }
 
-    private static void executeSequentially(OperationContext operationContext) {
+    private static <I, O> void executeSequentially(OperationContext operationContext) {
         log.info("Running tasks sequentially ...");
-        for (final OperationTask operationTask : operationContext.getOperationTasks()) {
-            OperationTaskContext operationTaskContext = operationTask.getOperationTaskContext();
+        for (final OperationTask<I, O> operationTask : operationContext.getOperationTasks()) {
+            OperationTaskContext<I, O> operationTaskContext = operationTask.getOperationTaskContext();
             operationTask.getOperationDataLoader().loadData(operationTaskContext);
             operationTask.getOperationTaskContext().setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
         }
@@ -102,7 +102,7 @@ public final class OperationTaskUtil {
                 MDC.remove(GeneralConstants.MDC_CORRELATION_ID);
                 MDC.clear();
             }
-        });
+        }, executorService);
     }
 
     private static OperationExceptionHandler getDefaultExceptionHandler() {

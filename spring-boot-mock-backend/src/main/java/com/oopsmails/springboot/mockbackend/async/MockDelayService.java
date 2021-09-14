@@ -44,7 +44,6 @@ public class MockDelayService {
 
         final Map<String, Object> operationTaskContextParamsMap = new HashMap<>();
         operationTaskContextParamsMap.put(TEST_OPERATION_TASK_CONTEXT_PARAM, "TEST_OPERATION_TASK_CONTEXT_PARAM in MockDelayService");
-//        operationContext.setOperationContextParamsMap(operationTaskContextParamsMap); // ???
 
         List<String> byIds = new ArrayList<>();
 

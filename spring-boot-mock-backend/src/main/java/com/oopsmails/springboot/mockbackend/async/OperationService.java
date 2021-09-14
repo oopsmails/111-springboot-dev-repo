@@ -3,6 +3,7 @@ package com.oopsmails.springboot.mockbackend.async;
 import com.oopsmails.springboot.mockbackend.model.general.OopsTimeout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,9 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.oopsmails.springboot.mockbackend.async.MockDelayService.TEST_OPERATION_CONTEXT_PARAM;
-
 @Service
 @Slf4j
-public class OperationService<OC extends OperationContext> {
+public class OperationService<T extends OperationContext> {
     @Value("${thread.pool.size}")
     private int threadPoolSize;
 
@@ -26,12 +25,14 @@ public class OperationService<OC extends OperationContext> {
     @Value("#{'${data.loader.in.parallel}'.split(',')}")
     private Set<String> operationContextDataLoadingInParallel;
 
+    @Autowired
+    @Qualifier("fixedThreadPool") // if no Qualifier, then will use appForkJoinPool
     private ExecutorService executorService;
 
     @Autowired
     private MockDelayOperationDataLoader mockDelayOperationDataLoader;
 
-    public List<MockDelayObject> findMockDelayObjectsByIds(OC operationContext) {
+    public <I, O> List<MockDelayObject> findMockDelayObjectsByIds(T operationContext) {
         List<MockDelayObject> result = new ArrayList<>();
         if (operationContext instanceof MockDelayServiceOperationContext) {
             MockDelayServiceOperationContext mockDelayServiceOperationContext = (MockDelayServiceOperationContext) operationContext;
@@ -39,11 +40,10 @@ public class OperationService<OC extends OperationContext> {
             if (byIds == null || byIds.isEmpty()) {
                 return result;
             }
-            for(String id : byIds) {
-                OperationTaskContext<String, MockDelayOperationDataLoaderOutput> operationTaskContext = new OperationTaskContext();
+            for (String id : byIds) {
+                OperationTaskContext<String, MockDelayOperationDataLoaderOutput> operationTaskContext = new OperationTaskContext<>();
                 operationTaskContext.setTaskInput(id);
                 MockDelayOperationDataLoaderOutput mockDelayOperationDataLoaderOutput = new MockDelayOperationDataLoaderOutput();
-//                mockDelayOperationDataLoaderOutput.setPassingAroundParam((String) operationContext.getOperationContextParamsMap().get(MockDelayService.TEST_OPERATION_CONTEXT_PARAM));
                 operationTaskContext.setTaskOutput(mockDelayOperationDataLoaderOutput);
                 operationTaskContext.setOperationTaskContextParamsMap(operationContext.getOperationContextParamsMap());
 
@@ -55,7 +55,7 @@ public class OperationService<OC extends OperationContext> {
 
             performOperation(operationContext);
 
-            for (OperationTask operationTask : mockDelayServiceOperationContext.getOperationTasks()) {
+            for (OperationTask<I, O> operationTask : mockDelayServiceOperationContext.getOperationTasks()) {
                 MockDelayOperationDataLoaderOutput output = (MockDelayOperationDataLoaderOutput) operationTask.getOperationTaskContext().getTaskOutput();
                 log.info("output.getPassingAroundParam() = [{}]", output.getPassingAroundParam());
                 result.add(output.getMockDelayObject());
@@ -65,7 +65,7 @@ public class OperationService<OC extends OperationContext> {
         return result;
     }
 
-    public void performOperation(OC operationContext) {
+    public void performOperation(T operationContext) {
         if (operationContext == null || operationContext.getOperationTasks() == null || operationContext.getOperationTasks().isEmpty()) {
             log.warn("No task to execute ... ");
             return;

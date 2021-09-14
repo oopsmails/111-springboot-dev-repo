@@ -1,15 +1,20 @@
 package com.oopsmails.springboot.mockbackend.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinWorkerThread;
 
+@Configuration
 @EnableAsync
 public class AsyncConfig {
+    private static final int THREAD_POOL_SIZE = 100;
     @Bean
     public Executor generalTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -21,21 +26,19 @@ public class AsyncConfig {
         return executor;
     }
 
+    @Bean("fixedThreadPool")
+    public ExecutorService executorService() { // used in OperationService
+        return Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    }
+
     @Bean("appForkJoinPool")
-    public ForkJoinPool appForkJoinPool() {
-        final ForkJoinPool.ForkJoinWorkerThreadFactory factory = new ForkJoinPool.ForkJoinWorkerThreadFactory()
-        {
-            @Override
-            public ForkJoinWorkerThread newThread(ForkJoinPool pool)
-            {
-                final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
-                worker.setName("appForkJoinPool-" + worker.getPoolIndex());
-                return worker;
-            }
+    public ForkJoinPool appForkJoinPool() { // used in Github user
+        final ForkJoinPool.ForkJoinWorkerThreadFactory factory = pool -> {
+            final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+            worker.setName("appForkJoinPool-" + worker.getPoolIndex());
+            return worker;
         };
 
-        ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors(), factory, null, false);
-
-        return forkJoinPool;
+        return new ForkJoinPool(Runtime.getRuntime().availableProcessors(), factory, null, false);
     }
 }
