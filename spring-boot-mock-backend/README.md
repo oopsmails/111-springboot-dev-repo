@@ -104,3 +104,17 @@ and
 
 to compare performances between sequentially or in parallel ....
 
+### Jave Generic super vs extends
+
+OperationContext
+
+```
+    private List<? super OperationTask<?, ?>> operationTasks = new ArrayList<>();
+
+    public <T extends OperationTask<?, ?>> void addOperationTask(T operationTask) {
+        getOperationTasks().add(operationTask);
+    }
+
+...
+
+
