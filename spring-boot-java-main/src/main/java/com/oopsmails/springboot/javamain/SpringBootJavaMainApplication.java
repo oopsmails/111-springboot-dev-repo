@@ -76,9 +76,9 @@ public class SpringBootJavaMainApplication implements AsyncConfigurer {
     @Bean(name = "threadPoolTaskExecutor")
     public Executor executor1(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(4);
-        executor.setMaxPoolSize(4);
-        executor.setQueueCapacity(50);
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(100);
+        executor.setQueueCapacity(1000);
         executor.setThreadNamePrefix("AsynchThread::");
         executor.initialize();
         return executor;

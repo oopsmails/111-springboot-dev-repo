@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.oopsmails.springboot.mockbackend.consumer.ThrowingConsumer.throwingConsumerWrapper;
@@ -93,17 +94,46 @@ public class GitHubLookupServiceTest {
         List<String> githubUserNames = new ArrayList<>();
 
         for (int i = 0; i < NUM; i++) {
-            githubUserNames.add("PivotalSoftware");
+            githubUserNames.add("PivotalSoftware-" + i);
 //            githubUserNames.add("CloudFoundry");
 //            githubUserNames.add("Spring-Projects");
         }
 
-        List<GithubUser> result = Collections.synchronizedList(new ArrayList<>());
 
-        githubUserNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
-            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsyncMock(userName);
-            githubUserFuture.thenApply(githubUser -> result.add(githubUser));
-        }));
+//        List<CompletableFuture<GithubUser>> futureList = new ArrayList<>();
+//
+//        githubUserNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
+//            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsyncMock(userName);
+//            futureList.add(githubUserFuture);
+//        }));
+
+        List<CompletableFuture<GithubUser>> completableFutures = githubUserNames.stream()
+                .map(userName -> {
+                    try {
+                        return gitHubLookupService.findUserAsyncMock(userName);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
+
+        CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(
+                completableFutures.toArray(new CompletableFuture[completableFutures.size()]));
+
+        CompletableFuture<List<GithubUser>> allCompletableFuture = combinedFuture.thenApply(future -> {
+            return completableFutures.stream()
+                    .map(completableFuture -> completableFuture.join())
+                    .collect(Collectors.toList());
+        });
+
+//        CompletableFuture completableFuture = allCompletableFuture.thenApply(greets -> {
+//            return greets.stream().map(GreetHolder::getGreet).collect(Collectors.toList());
+//        });
+
+        List<GithubUser> result = allCompletableFuture.get(5, TimeUnit.MINUTES);
+
+//        List<GithubUser> result = Collections.synchronizedList(new ArrayList<>());
 
         assertNotNull(result, "result should not be null.");
         assertEquals(NUM, result.size(), "verifying size.");

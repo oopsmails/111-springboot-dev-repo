@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.oopsmails.springboot.mockbackend.consumer.ThrowingConsumer.throwingConsumerWrapper;
 
@@ -48,6 +50,31 @@ public class GitHubLookupServiceRunner {
 //    }
 
     public List<GithubUser> findAllUser(List<String> userNames) throws Exception {
+        List<CompletableFuture<GithubUser>> completableFutures = userNames.stream()
+                .map(userName -> {
+                    try {
+                        return gitHubLookupService.findUserAsyncMock(userName);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
+
+        CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(
+                completableFutures.toArray(new CompletableFuture[completableFutures.size()]));
+
+        CompletableFuture<List<GithubUser>> allCompletableFuture = combinedFuture.thenApply(future -> {
+            return completableFutures.stream()
+                    .map(completableFuture -> completableFuture.join())
+                    .collect(Collectors.toList());
+        });
+        List<GithubUser> result = allCompletableFuture.get(5, TimeUnit.MINUTES);
+        return result;
+    }
+
+    @Deprecated
+    public List<GithubUser> findAllUserRefOnly(List<String> userNames) throws Exception {
         // Start the clock
         long start = System.currentTimeMillis();
 
@@ -76,10 +103,12 @@ public class GitHubLookupServiceRunner {
 //        }));
 
         // parallel
-        userNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
-            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsync(userName);
-            githubUserFuture.thenApply(githubUser -> result.add(githubUser));
-        }));
+//        userNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
+//            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsync(userName);
+//            githubUserFuture.thenApply(githubUser -> result.add(githubUser));
+//        }));
+
+
 
         return result;
     }
