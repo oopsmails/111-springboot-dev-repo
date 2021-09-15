@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class GreetingService {
-    public String getGreet(String lang) {
+    public String getGreet(String lang) throws InterruptedException {
+        log.info("Task execution started.");
+        Thread.sleep(2000);
+        log.info("Task execution stopped.");
         if (lang.equals("EN")) {
             return "Hello";
         } else if (lang.equals("ES")) {

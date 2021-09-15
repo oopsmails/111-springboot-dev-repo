@@ -73,10 +73,10 @@ public class GreetingServiceRunner {
     public CompletableFuture<GreetHolder> runnerGetGreetingSyncExceptionHandling(String lang) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                log.info("Task execution started.");
-                Thread.sleep(2000);
+//                log.info("Task execution started.");
+//                Thread.sleep(2000);
                 GreetHolder greetHolder = new GreetHolder(greetingService.getGreet(lang));
-                log.info("Task execution stopped.");
+//                log.info("Task execution stopped.");
                 return greetHolder;
             } catch (InterruptedException e) {
                 log.warn("InterruptedException, e = {}", e);
@@ -88,10 +88,10 @@ public class GreetingServiceRunner {
     public CompletableFuture<GreetHolder> runnerGetGreetingAsyncExceptionHandling(String lang) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                log.info("Task execution started.");
-                Thread.sleep(2000);
+//                log.info("Task execution started.");
+//                Thread.sleep(2000);
                 GreetHolder greetHolder = new GreetHolder(greetingService.getGreet(lang));
-                log.info("Task execution stopped.");
+//                log.info("Task execution stopped.");
                 return greetHolder;
             } catch (InterruptedException e) {
                 log.warn("InterruptedException, e = {}", e);
