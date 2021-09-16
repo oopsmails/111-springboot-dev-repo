@@ -104,6 +104,11 @@ and
 
 to compare performances between sequentially or in parallel ....
 
+- Run CompletableFutureBasicSyntax
+- Run CompletableFutureCombines
+- Run CompletableFutureCompose
+- Run CompletableFutureAllOfAnyOf
+
 ### Jave Generic super vs extends
 
 OperationContext
