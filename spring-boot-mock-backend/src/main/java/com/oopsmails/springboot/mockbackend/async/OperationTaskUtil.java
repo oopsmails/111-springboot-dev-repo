@@ -1,5 +1,6 @@
 package com.oopsmails.springboot.mockbackend.async;
 
+import com.oopsmails.springboot.mockbackend.completablefuture.CompletableFutureUtil;
 import com.oopsmails.springboot.mockbackend.exception.ExceptionUtil;
 import com.oopsmails.springboot.mockbackend.exception.OopsException;
 import com.oopsmails.springboot.mockbackend.model.general.OopsTimeout;
@@ -87,24 +88,26 @@ public final class OperationTaskUtil {
     }
 
     public static CompletableFuture<Void> wrappedCompletableFutureVoid(Runnable runnable, ExecutorService executorService) {
-        return wrappedCompletableFuture(() -> {
-            runnable.run();
-            return null;
-        }, executorService);
+//        return wrappedCompletableFuture(() -> {
+//            runnable.run();
+//            return null;
+//        }, executorService);
+        return CompletableFutureUtil.completableFutureRunAsync(runnable, executorService);
     }
 
     public static <T> CompletableFuture<T> wrappedCompletableFuture(Supplier<T> supplier, ExecutorService executorService) {
-        String correlationId = MDC.get(GeneralConstants.MDC_CORRELATION_ID);
-        return CompletableFuture.supplyAsync(() -> {
-            MDC.put(GeneralConstants.MDC_CORRELATION_ID, correlationId);
-
-            try {
-                return supplier.get();
-            } finally {
-                MDC.remove(GeneralConstants.MDC_CORRELATION_ID);
-                MDC.clear();
-            }
-        }, executorService);
+//        String correlationId = MDC.get(GeneralConstants.MDC_CORRELATION_ID);
+//        return CompletableFuture.supplyAsync(() -> {
+//            MDC.put(GeneralConstants.MDC_CORRELATION_ID, correlationId);
+//
+//            try {
+//                return supplier.get();
+//            } finally {
+//                MDC.remove(GeneralConstants.MDC_CORRELATION_ID);
+//                MDC.clear();
+//            }
+//        }, executorService);
+        return CompletableFutureUtil.completableFutureSupplyAsync(supplier, executorService);
     }
 
     private static OperationExceptionHandler getDefaultExceptionHandler() {
