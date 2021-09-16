@@ -2,18 +2,19 @@ package com.oopsmails.springboot.mockbackend.completablefuture;
 
 import com.oopsmails.springboot.mockbackend.exception.ExceptionUtil;
 import com.oopsmails.springboot.mockbackend.exception.OopsException;
-import com.oopsmails.springboot.mockbackend.model.general.OopsTimeout;
 import com.oopsmails.springboot.mockbackend.utils.GeneralConstants;
 import org.slf4j.MDC;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CompletableFutureUtil {
     public static final CompletableFutureExceptionHandler completableFutureExceptionHandler;
+    public static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     static {
         completableFutureExceptionHandler = getDefaultExceptionHandler();

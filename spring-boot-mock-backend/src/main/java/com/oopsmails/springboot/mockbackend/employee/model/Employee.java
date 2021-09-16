@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
-@ToString(of = {"organizationId", "departmentId", "name", "age", "javaSkillLevel"}, exclude = {"id", "position"})
+@ToString(of = {"id", "organizationId", "departmentId", "name", "age", "position"}, exclude = {"cryptoSecretProperty", "mandatoryProperty"}) // exclude for showing syntax only
 public class Employee {
     public Employee(Long organizationId, Long departmentId, String name, int age, String position) {
         this.organizationId = organizationId;
@@ -20,12 +20,18 @@ public class Employee {
         this.position = position;
     }
 
+    public Employee(Long id, Long organizationId, Long departmentId, String name, int age, String position) {
+        this(organizationId, departmentId, name, age, position);
+        this.id = id;
+    }
+
     private Long id;
     private Long organizationId;
     private Long departmentId;
     private String name;
     private int age;
     private String position;
+    private EmployeeTitle employeeTitle;
 
     private String cryptoSecretProperty;
     private String mandatoryProperty;

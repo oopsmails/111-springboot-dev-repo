@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.completablefuture.callbacks;
+package com.oopsmails.springboot.mockbackend.completablefuture;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,10 +14,11 @@ public class CompletableFutureBasicSyntax {
     // CompletableFuture executes these tasks in a thread obtained from the global ForkJoinPool.commonPool().
     // To use a custom pool, see AsyncConfig
     // !!!! Note: if using this executor, then the main() method will not end, because executor will NOT shut down automatically !!!!
-    public static ExecutorService executorService = Executors.newFixedThreadPool(10);
+//    public static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public static void main(String[] args) {
         CompletableFutureBasicSyntax completableFutureBasicSyntax = new CompletableFutureBasicSyntax();
+        ExecutorService executorService = CompletableFutureUtil.executorService;
 
         try {
             completableFutureBasicSyntax.runAsyncRunnable(executorService);

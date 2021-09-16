@@ -1,34 +1,29 @@
 package com.oopsmails.springboot.mockbackend.completablefuture.callbacks;
 
+import com.oopsmails.springboot.mockbackend.completablefuture.CompletableFutureUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class CompletableFutureCallbacks {
-    public static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public static void main(String[] args) {
         CompletableFutureCallbacks completableFutureCallbacks = new CompletableFutureCallbacks();
+        ExecutorService executorService = CompletableFutureUtil.executorService;
 
         try {
-//            Scanner scanner = new Scanner(System.in);
-//            String userName = scanner.nextLine();
-
             String userName = "Albert";
             String runSyncThenApplyResult = completableFutureCallbacks.runThenApply(executorService, userName);
-            log.info("man() done: runSyncThenApplyResult = [{}]", runSyncThenApplyResult);
+            log.info("main() done: runSyncThenApplyResult = [{}]", runSyncThenApplyResult);
             completableFutureCallbacks.runThenAccept(executorService, userName);
             completableFutureCallbacks.runThenApplyAsync(executorService, userName);
             completableFutureCallbacks.runThenRun(executorService, userName);
 
-            log.info("man() done .... back in main thread.");
+            log.info("main() done .... back in main thread.");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
