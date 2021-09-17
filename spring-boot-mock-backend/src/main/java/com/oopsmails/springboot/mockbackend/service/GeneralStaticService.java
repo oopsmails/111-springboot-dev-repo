@@ -2,10 +2,12 @@ package com.oopsmails.springboot.mockbackend.service;
 
 import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import com.oopsmails.springboot.mockbackend.employee.model.EmployeeTitle;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GeneralStaticService {
     public static List<Employee> employees = new ArrayList<>();
 //    final Map<Class, Function<T, R>> tempFunctionMap = new HashMap<>();
@@ -26,7 +28,9 @@ public class GeneralStaticService {
     public static Employee getEmployeeByIdMock(Long id) {
         try {
             Thread.sleep(1000);
-            return employees.get(id.intValue());
+            Employee result = employees.get(id.intValue());
+            log.info("getEmployeeByIdMock: returning Employee: [{}]", result);
+            return result;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
