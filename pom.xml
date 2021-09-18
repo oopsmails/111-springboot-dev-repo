@@ -22,6 +22,7 @@
         <module>spring-boot-sso-jwt</module>
         <module>spring-boot-sso-jwt-redis</module>
         <module>spring-boot-security-auth</module>
+        <module>spring-boot-kafka-embedded</module>
     </modules>
 
 </project>
