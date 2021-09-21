@@ -24,6 +24,7 @@
         <module>spring-boot-security-auth</module>
         <module>spring-boot-kafka-embedded</module>
         <module>spring-boot-kafka-avro</module>
+        <module>spring-boot-simples</module>
     </modules>
 
 </project>
