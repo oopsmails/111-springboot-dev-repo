@@ -1,7 +1,7 @@
 version: '2'
 services:
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:5.4.0
+    image: confluentinc/cp-zookeeper:6.0.4
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -9,7 +9,7 @@ services:
       - 22181:2181
 
   zookeeper-2:
-    image: confluentinc/cp-zookeeper:5.4.0
+    image: confluentinc/cp-zookeeper:6.0.4
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -17,7 +17,7 @@ services:
       - 32181:2181
 
   kafka-1:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:6.0.4
     depends_on:
       - zookeeper-1
       - zookeeper-2
@@ -32,7 +32,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   kafka-2:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:6.0.4
     depends_on:
       - zookeeper-1
       - zookeeper-2
