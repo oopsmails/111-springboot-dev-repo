@@ -79,7 +79,7 @@ public class SpringBootJavaMainApplication implements AsyncConfigurer {
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(100);
         executor.setQueueCapacity(1000);
-        executor.setThreadNamePrefix("AsynchThread::");
+        executor.setThreadNamePrefix("AsyncThread::");
         executor.initialize();
         return executor;
     }
