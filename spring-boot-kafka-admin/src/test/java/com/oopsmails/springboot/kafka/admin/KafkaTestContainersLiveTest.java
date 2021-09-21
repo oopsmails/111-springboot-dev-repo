@@ -47,7 +47,7 @@ public class KafkaTestContainersLiveTest {
     public void givenKafkaDockerContainer_whenSendingtoPartitionTopic_thenMessageReceived() throws Exception {
         // partitions = {"0", "3"}
         for (int i = 0; i < 5; i++) {
-            messageProducer.sendMessageToPartion("Hello To Partioned Topic!", i);
+            messageProducer.sendMessageToPartion("Hello To Partitioned Topic!", i);
         }
         messageListener.getPartitionLatch().await(10, TimeUnit.SECONDS);
 

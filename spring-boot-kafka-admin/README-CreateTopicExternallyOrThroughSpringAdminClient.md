@@ -81,8 +81,8 @@ Received Message in group 'bar': Hello, World!
 >Received Message: Hello, World! from partition: 0
 
 - Message received from the 'partitioned' topic, only from specific partitions
->Received Message: Hello To Partioned Topic! from partition: 0<br>
-Received Message: Hello To Partioned Topic! from partition: 3
+>Received Message: Hello To Partitioned Topic! from partition: 0<br>
+Received Message: Hello To Partitioned Topic! from partition: 3
 
 - Message received from the 'filtered' topic after filtering
 >Received Message in filtered listener: Hello Baeldung!

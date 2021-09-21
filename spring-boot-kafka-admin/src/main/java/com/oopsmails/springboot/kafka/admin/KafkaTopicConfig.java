@@ -20,7 +20,7 @@ public class KafkaTopicConfig {
     private String topicName;
 
     @Value(value = "${partitioned.topic.name}")
-    private String partionedTopicName;
+    private String partitionedTopicName;
 
     @Value(value = "${filtered.topic.name}")
     private String filteredTopicName;
@@ -41,8 +41,8 @@ public class KafkaTopicConfig {
     }
     
     @Bean
-    public NewTopic topicPartioned() {
-         return new NewTopic(partionedTopicName, 6, (short) 1);
+    public NewTopic topicPartitioned() {
+         return new NewTopic(partitionedTopicName, 6, (short) 1);
     }
     
     @Bean

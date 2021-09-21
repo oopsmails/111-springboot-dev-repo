@@ -51,7 +51,7 @@ public class KafkaApplication {
          * partition 0 and 3 will be consumed.
          */
         for (int i = 0; i < 5; i++) {
-            producer.sendMessageToPartion("Hello To Partioned Topic!", i);
+            producer.sendMessageToPartion("Hello To Partitioned Topic!", i);
         }
         listener.partitionLatch.await(10, TimeUnit.SECONDS);
 
@@ -97,7 +97,7 @@ public class KafkaApplication {
         private String topicName;
 
         @Value(value = "${partitioned.topic.name}")
-        private String partionedTopicName;
+        private String partitionedTopicName;
 
         @Value(value = "${filtered.topic.name}")
         private String filteredTopicName;
@@ -126,7 +126,7 @@ public class KafkaApplication {
         }
 
         public void sendMessageToPartion(String message, int partition) {
-            kafkaTemplate.send(partionedTopicName, partition, null, message);
+            kafkaTemplate.send(partitionedTopicName, partition, null, message);
         }
 
         public void sendMessageToFiltered(String message) {
