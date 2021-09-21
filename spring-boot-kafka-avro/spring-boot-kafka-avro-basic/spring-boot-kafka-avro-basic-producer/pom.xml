@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-boot-kafka-avro-basic-producer</artifactId>
+    <groupId>com.oopsmails.springboot.dev.repo</groupId>
+    <version>2.0.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>spring-boot-kafka-avro-basic-domain</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>spring-boot-kafka-avro-basic-avro</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Apache Kafka - START -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <!-- Apache Kafka - END -->
+
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+</project>
