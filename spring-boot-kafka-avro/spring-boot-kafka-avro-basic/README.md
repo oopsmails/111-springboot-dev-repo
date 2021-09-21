@@ -94,7 +94,9 @@ Compatibility Mode
 
 GET, http://localhost:8080/avro/person
 
+- ListenableFuture
 
+ListenableFuture<SendResult<String, PersonDto>> future = kafkaTemplate.send(topicName, personDto);
 
 
 

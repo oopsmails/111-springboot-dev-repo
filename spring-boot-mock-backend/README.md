@@ -109,7 +109,14 @@ to compare performances between sequentially or in parallel ....
 - Run CompletableFutureCompose
 - Run CompletableFutureAllOfAnyOf
 
-### Jave Generic super vs extends
+### ListenableFuture example
+
+see spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic-producer/src/main/java/com/oopsmails/service/KafkaProducerService.java
+
+ListenableFuture<SendResult<String, PersonDto>> future = kafkaTemplate.send(topicName, personDto);
+
+
+### Java Generic super vs extends
 
 OperationContext
 
