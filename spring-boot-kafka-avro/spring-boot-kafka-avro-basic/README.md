@@ -15,6 +15,12 @@ sudo
 docker-compose -f docker-compose-confluentinc-20210920-withSchemaRegistry.yaml up -d
 docker-compose -f docker-compose-confluentinc-20210920-withSchemaRegistry.yaml down
 
+docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-docker/docker-compose-confluentinc-20210920-withSchemaRegistry.yaml up -d
+docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-docker/docker-compose-confluentinc-20210920-withSchemaRegistry.yaml down
+
+docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-docker/docker-compose-confluentinc-20210920-withSchemaRegistry.yaml start
+docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-docker/docker-compose-confluentinc-20210920-withSchemaRegistry.yaml stop
+
 ```
 
 ## Control Center UI
@@ -83,3 +89,12 @@ Caused by: io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientEx
 ALL TOPICSPERSON_TOPICSCHEMAVALUE
 Edit schema
 Compatibility Mode
+
+- Added a controller to re-send Person message
+
+GET, http://localhost:8080/avro/person
+
+
+
+
+
