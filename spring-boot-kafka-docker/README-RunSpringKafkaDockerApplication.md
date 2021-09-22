@@ -55,6 +55,13 @@ Default Gateway . . . . . . . . . :
 
 - Kubuntu:
 
+- Ubuntu: also working without docker.
+
+Installation of Apache Kafka on Ubuntu and test with this spring-boot-kafka-docker, see,
+
+see, 
+general-info\Kafka\kafka-ConfigureApacheKafkaOnUbuntu.md
+
 ## Verify Application
 
 - Postman:
