@@ -1,0 +1,45 @@
+package com.oopsmails.exceptionhandling.controller;
+
+import com.oopsmails.exceptionhandling.domain.Customer;
+import com.oopsmails.exceptionhandling.json.CustomerPostRequestDto;
+import com.oopsmails.exceptionhandling.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
+
+@RestController
+public class CustomerPostController {
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	// Sample Input (Valid: 201-Created): {     "firstName": "Purnima",     "lastName": "Jain",     "age": 93 }
+	// Sample Input (Valid: 415-Unsupported Media Type): {     "firstName": "Purnima",     "lastName": "Jain",     "age": 93 }
+	// Throws HttpMediaTypeNotSupportedException (415-Unsupported Media Type) when the json content is sent as application/xml or text/plain
+	// Sample Input (Valid: 400-Bad Request): {     "lastName": "Jain",     "age": 93 }
+	// Throws MethodArgumentNotValidException (400-Bad Request) when the @Valid annotation fails due to the violation of @NotNull & @NotBlank on the firstName in CustomerPostRequestDto
+	// Sample Input (Valid: 400-Bad Request): {     "firstName": "Purnima",     lastName: "Jain",     "age": 93 }
+	// Throws HttpMessageNotReadableException (400-Bad Request) when invalid JSON is passed as input
+	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> createCustomer(@Valid @RequestBody CustomerPostRequestDto customerPostRequestDto) {
+		Customer customer = customerPostRequestDto.toCustomer();
+		Customer savedCustomer = customerService.saveCustomer(customer);
+		
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{customerId}")
+				.buildAndExpand(savedCustomer.getCustomerId()).toUri();		
+		
+		/* ResponseEntity -> Allows to return the Response State Code of "201" along with the URI of the newly created customer as location header: /customers/{customerId} */
+		return  ResponseEntity.created(location).build();
+	}
+	
+		
+}

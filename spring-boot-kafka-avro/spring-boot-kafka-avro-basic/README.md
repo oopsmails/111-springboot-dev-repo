@@ -66,7 +66,7 @@ modify the value avro as
     }
   ],
   "name": "PersonDto",
-  "namespace": "com.purnima.jain.avro.dto",
+  "namespace": "com.oopsmails.exceptionhandling.avro.dto",
   "type": "record"
 }
 

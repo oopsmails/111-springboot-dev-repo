@@ -1,0 +1,69 @@
+package com.oopsmails.exceptionhandling.repo;
+
+import com.oopsmails.exceptionhandling.domain.Customer;
+import com.oopsmails.exceptionhandling.entity.CustomerEntity;
+import com.oopsmails.exceptionhandling.repo.jpa.CustomerJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Repository
+public class CustomerRepository {
+	
+	@Autowired
+	private CustomerJpaRepository customerJpaRepository;
+
+	public Optional<Customer> getCustomerById(Integer customerId) {
+		Optional<CustomerEntity> customerEntity = customerJpaRepository.findById(customerId);
+		return customerEntity.map(this::customerEntityToCustomer);
+	}
+
+	private Customer customerEntityToCustomer(CustomerEntity customerEntity) {
+		Customer customer = new Customer();
+		customer.setCustomerId(customerEntity.getCustomerId());
+		customer.setFirstName(customerEntity.getFirstName());
+		customer.setLastName(customerEntity.getLastName());
+		customer.setAge(customerEntity.getAge());
+
+		return customer;
+	}
+	
+	public Customer saveCustomer(Customer customer) {
+		CustomerEntity customerEntity = customerToCustomerEntity(customer);		
+		CustomerEntity savedCustomerEntity = customerJpaRepository.save(customerEntity);
+		
+		return customerEntityToCustomer(savedCustomerEntity);
+	}
+	
+	private CustomerEntity customerToCustomerEntity(Customer customer) {
+		CustomerEntity customerEntity = new CustomerEntity();
+		customerEntity.setCustomerId(customer.getCustomerId());
+		customerEntity.setFirstName(customer.getFirstName());
+		customerEntity.setLastName(customer.getLastName());
+		customerEntity.setAge(customer.getAge());
+		
+		return customerEntity;		
+	}
+	
+	public List<Customer> getCustomersByFirstName(String firstName) {
+		List<CustomerEntity> customerEntity = customerJpaRepository.findByFirstName(firstName);
+		return customerEntity.stream().map(this::customerEntityToCustomer).collect(Collectors.toList());
+	}
+	
+	public Optional<Customer> deleteCustomerById(Integer customerId) {
+		Optional<Customer> deletedCustomerOptional = Optional.empty();
+		Optional<CustomerEntity> customerEntity = customerJpaRepository.findById(customerId);
+		
+		if(customerEntity.isPresent()) {
+			customerJpaRepository.deleteById(customerId);
+			deletedCustomerOptional = customerEntity.map(this::customerEntityToCustomer);
+		}
+		
+		return deletedCustomerOptional;		
+	}
+
+
+}
