@@ -29,7 +29,7 @@ Go to your browser and navigate to http://localhost:9021. You should see the Con
 
 create a topic: person_topic
 
-Then, add schema, value, key
+Then, add schema, value, key(not used for now), for value vs key, see kafka-knowledge-TopicSchemaKeyVsValue.md in general-info.
 
 ```
 {
@@ -51,7 +51,25 @@ Then, add schema, value, key
 }
 ```
 
-- To test around
+## Run application to test around
+
+- Run
+  spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic-application/src/main/java/com/oopsmails/PortsAndAdaptersKafkaPubSubApplication.java
+
+will see some message from producer to consumer ...
+
+- A controller is developed for more testing
+
+spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic-application/src/main/java/com/oopsmails/controller/MessageProducerPersonController.java
+
+Can trigger sending messages again by GET: http://localhost:8080/avro/person
+
+
+- 20210929: 
+If change from "firstName" to "fName", then, get following error in "Control Center"  
+Schema being registered is incompatible with an earlier schema for subject "person_topic-value"
+
+- To test around schema changes
 
 modify the value avro as
 
@@ -98,5 +116,6 @@ GET, http://localhost:8080/avro/person
 
 ListenableFuture<SendResult<String, PersonDto>> future = kafkaTemplate.send(topicName, personDto);
 
-
+- To list all the schemas:
+curl -X GET http://localhost:8081/subjects
 
