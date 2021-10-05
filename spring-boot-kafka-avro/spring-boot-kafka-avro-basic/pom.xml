@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>2.5.2</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -21,6 +21,7 @@
         <module>spring-boot-kafka-avro-basic-domain</module>
         <module>spring-boot-kafka-avro-basic-producer</module>
         <module>spring-boot-kafka-avro-basic-consumer</module>
+        <module>spring-boot-kafka-avro-basic-schema-registry</module>
     </modules>
 
     <dependencies>
