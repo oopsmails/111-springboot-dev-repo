@@ -176,9 +176,9 @@ keytool -importkeystore -srckeystore C:\Temp\Transfer\nt-ms.jks -destkeystore C:
 keytool -importkeystore -srckeystore C:\Temp\Transfer\nt-gateway.jks -destkeystore C:\Temp\Transfer\nt-ms.p12 -srcstoretype JKS -srcstorepass nt-gateway -deststoretype PKCS12 -deststorepass nt-service -destkeypass nt-service
 
 
-https://localhost:9001/nt-gw/data
-https://localhost:9001/nt-gw/ms-data
-https://localhost:9002/nt-ms/data
+https://localhost:9001/nt-gw/data  
+https://localhost:9001/nt-gw/ms-data  
+https://localhost:9002/nt-ms/data  
 
 ## Debugging
 

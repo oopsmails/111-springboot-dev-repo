@@ -94,7 +94,15 @@ public class OopsmailsKafkaConsumerConfig {
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
 
-        //        properties.put("security.protocol", securityProtocol);
+//        properties.put("security.protocol", securityProtocol);
+//        properties.put("ssl.keystore.type", securityProtocol);
+//        properties.put("ssl.keystore.protocol", securityProtocol);
+//        properties.put("ssl.keystore.password", securityProtocol);
+//        properties.put("ssl.key.password", securityProtocol);
+//        properties.put("ssl.truststore.type", securityProtocol);
+//        properties.put("ssl.truststore.protocol", securityProtocol);
+//        properties.put("ssl.truststore.password", securityProtocol);
+
         properties.put("schema.registry.url", schemaRegistryUrl);
         properties.put("oopsmails.kafka.bootstrap-servers.secure", schemaRegistryUrl);
         properties.put(KafkaAvroSerializerConfig.BASIC_AUTH_CREDENTIALS_SOURCE, basicAuthCredentialsSource);

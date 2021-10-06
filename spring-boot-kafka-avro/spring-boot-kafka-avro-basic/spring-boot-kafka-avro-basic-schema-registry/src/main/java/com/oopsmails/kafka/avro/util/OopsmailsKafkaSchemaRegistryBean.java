@@ -53,11 +53,11 @@ public class OopsmailsKafkaSchemaRegistryBean {
     @PostConstruct
     private void configureSsl() throws KeyManagementException, java.io.IOException, java.security.cert.CertificateException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException {
         if (bootstrapSecure) {
-            String keyStorePath = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.keystore.path");
-            String keyStorePass = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.keystore.password");
-            KeyStore keyStore = KeyStore.getInstance("jks");
-            FileInputStream keyStoreFile = new FileInputStream(new File(StringUtils.removeStartIgnoreCase(keyStorePath, "file:")));
-            keyStore.load(keyStoreFile, keyStorePass.toCharArray());
+            String identityKeyStorePath = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.keystore.path");
+            String identityKeyStorePass = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.keystore.password");
+            KeyStore identityKeyStore = KeyStore.getInstance("jks");
+            FileInputStream keyStoreFile = new FileInputStream(new File(StringUtils.removeStartIgnoreCase(identityKeyStorePath, "file:")));
+            identityKeyStore.load(keyStoreFile, identityKeyStorePass.toCharArray());
 
             String trustStorePath = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.truststore.path");
             String trustStorePass = oopsmailsKafkaConsumerFactoryProps.getProperty("oopsmails.kafka.truststore.password");
@@ -65,12 +65,14 @@ public class OopsmailsKafkaSchemaRegistryBean {
             FileInputStream trustStoreFile = new FileInputStream(new File(StringUtils.removeStartIgnoreCase(trustStorePath, "file:")));
             trustStore.load(keyStoreFile, trustStorePass.toCharArray());
 
-            SSLContext sslContext = SSLContexts.custom().loadKeyMaterial(keyStore, keyStorePass.toCharArray(), new PrivateKeyStrategy() {
-                @Override
-                public String chooseAlias(Map<String, PrivateKeyDetails> map, Socket socket) {
-                    return alias;
-                }
-            }).loadTrustMaterial(trustStore, null).build();
+            SSLContext sslContext = SSLContexts.custom()
+                    .loadKeyMaterial(identityKeyStore, identityKeyStorePass.toCharArray(), new PrivateKeyStrategy() {
+                            @Override
+                            public String chooseAlias(Map<String, PrivateKeyDetails> map, Socket socket) {
+                                return alias;
+                            }
+                        })
+                    .loadTrustMaterial(trustStore, null).build();
 
             sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new String[]{"TlSv1.2", "TLSv1.1"}, null, SSLConnectionSocketFactory.getDefaultHostnameVerifier());
         }
