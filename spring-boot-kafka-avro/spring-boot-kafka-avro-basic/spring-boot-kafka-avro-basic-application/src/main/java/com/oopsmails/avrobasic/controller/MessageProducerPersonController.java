@@ -1,4 +1,4 @@
-package com.oopsmails.controller;
+package com.oopsmails.avrobasic.controller;
 
 import com.oopsmails.service.BusinessDomainService;
 import lombok.extern.slf4j.Slf4j;
