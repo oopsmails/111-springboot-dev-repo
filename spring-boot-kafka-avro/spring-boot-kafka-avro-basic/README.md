@@ -25,9 +25,11 @@ docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spri
 
 ## Kafka Commands
 
-./bin/kafka-console-producer --broker-list localhost:9092 --topic test --property "parse.key=true" --property "key.separator=:"
+- connect to Container
 
 docker exec -it broker bash <-------- use this
+
+- Producer
 
 ```
 kafka-console-producer --broker-list localhost:9092 \
@@ -43,9 +45,32 @@ at kafka.tools.ConsoleProducer.main(ConsoleProducer.scala)
 
 ```
 
+```
+kafka-console-producer --broker-list localhost:9092 --topic person_topic --property "parse.key=true" --property "key.separator=:"
+
+kafka-console-producer --broker-list localhost:9092 --topic person_topic --property "parse.key=false"
+
 kafka-console-producer --broker-list localhost:9092 \
 --topic person_topic \
---property "parse.key=false"
+--property "parse.key=false" \
+--property "value.serializer=org.apache.kafka.common.serialization.StringSerializer" 
+
+kafka-avro-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "value.schema.file=/home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic-avro/src/main/avro/person.avsc"
+
+kafka-avro-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "value.schema='{"type":"record","name":"PersonDto","namespace":"com.oopsmails.avro.dto","fields":[{"name":"firstName","type":"string","doc":"the first name of a person"},{"name":"lastName","type":"string","doc":"the last name of a person"}]}'
+```
+
+- Consumer
+
+kafka-console-consumer --bootstrap-server :9092 --group testc1 --topic person_topic
+
+kafka-avro-console-consumer --topic person_topic --bootstrap-server localhost:9092
+
+- data
 
 { "idempotencyKey": "3cc52d97-c0e3-4b84-b220-dbf4ac352dbc", "amount": 188.88, "initiatedOn": "2021-05-23 23:59:37"}
 
