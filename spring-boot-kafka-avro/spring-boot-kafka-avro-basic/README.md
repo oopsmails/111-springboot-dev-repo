@@ -63,7 +63,8 @@ then message becomes "poison pill"
 
 - Option 1: rely on Postman (real world API) to send message and can use KafkaAvroSerializer in both Producer and Consumer
 - Option 2: using StringDeserializer at Consumer side and Deserialize it to Person using ObjectMapper. But, this didn't pass test.  
-When producer uses KafkaAvroSerializer, consumer gets String like "Brenden", need to test more!!!
+When producer uses KafkaAvroSerializer, consumer gets String like "Brenden".  
+Need to test more!!! for example, extending KafkaAvroDeserializer in Consumer.
 
 ## Postman
 GET
