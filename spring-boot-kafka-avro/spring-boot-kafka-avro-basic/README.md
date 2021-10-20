@@ -66,6 +66,41 @@ then message becomes "poison pill"
 When producer uses KafkaAvroSerializer, consumer gets String like "Brenden".  
 Need to test more!!! for example, extending KafkaAvroDeserializer in Consumer.
 
+### More on this,
+
+https://rmoff.net/2020/07/03/why-json-isnt-the-same-as-json-schema-in-kafka-connect-converters-and-ksqldb-viewing-kafka-messages-bytes-as-hex/
+
+- Producer: Json String data, Consumer: Json Schema Deserializer
+what about if we mix it up, and try to read JSON data using the JSON Schema deserializer (through the io.confluent.connect.json.JsonSchemaConverter converter)?
+
+```
+org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error:
+at io.confluent.connect.json.JsonSchemaConverter.toConnectData(JsonSchemaConverter.java:111)
+at org.apache.kafka.connect.storage.Converter.toConnectData(Converter.java:87)
+at org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$2(WorkerSinkTask.java:492)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:128)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:162)
+... 13 more
+Caused by: org.apache.kafka.common.errors.SerializationException: Error deserializing JSON message for id -1
+Caused by: org.apache.kafka.common.errors.SerializationException: Unknown magic byte!
+```
+
+- Producer: Json Schema Deserializer, Consumer: Json String data
+
+The final permutation here is trying to read JSON Schema messages using the JSON deserializer:
+
+```
+org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error:
+at org.apache.kafka.connect.json.JsonConverter.toConnectData(JsonConverter.java:355)
+at org.apache.kafka.connect.storage.Converter.toConnectData(Converter.java:87)                                                               
+at org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$2(WorkerSinkTask.java:492)                               
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:128)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:162)                
+... 13 more                                                                                                                          
+Caused by: org.apache.kafka.common.errors.SerializationException: java.io.CharConversionException: Invalid UTF-32 character 0x27a2272 (above 0x0010ffff) at char #1, byte #7)
+Caused by: java.io.CharConversionException: Invalid UTF-32 character 0x27a2272 (above 0x0010ffff) at char #1, byte #7)
+```
+
 ## Postman
 GET
 http://localhost:8080/avro/person
