@@ -1,5 +1,10 @@
 package com.oopsmails.domain.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class Person {
 
 	private String firstName;
@@ -20,14 +25,6 @@ public class Person {
 		builder.lastName = copy.lastName;
 
 		return builder;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
 	}
 
 	@Override
