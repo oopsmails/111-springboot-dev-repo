@@ -1,5 +1,8 @@
 package com.oopsmails.springboot.kafka.admin;
 
+import com.oopsmails.springboot.kafka.admin.config.MessageListener;
+import com.oopsmails.springboot.kafka.admin.config.MessageProducer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,15 +17,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 @ConfigurationProperties("kafka")
 public class KafkaTestContainersLiveTest {
 
     @Autowired
-    private KafkaApplication.MessageListener messageListener;
+    private MessageListener messageListener;
 
     @Autowired
-    private KafkaApplication.MessageProducer messageProducer;
+    private MessageProducer messageProducer;
 
     @Test
     public void givenKafkaDockerContainer_whenSendingtoGreetingTopic_thenMessageReceived() throws Exception {

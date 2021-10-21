@@ -1,7 +1,7 @@
 package com.oopsmails.springboot.kafka;
 
-import com.oopsmails.springboot.kafka.config.KafkaConsumer;
-import com.oopsmails.springboot.kafka.config.KafkaProducer;
+import com.oopsmails.springboot.kafka.admin.config.KafkaConsumer;
+import com.oopsmails.springboot.kafka.admin.config.KafkaProducer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
