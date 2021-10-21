@@ -30,9 +30,6 @@ public class MessageProducer {
     @Value(value = "${greeting.topic.name}")
     private String greetingTopicName;
 
-    @Value(value = "${person.topic.name}")
-    private String personTopicName;
-
     public void sendMessage(String message) {
 
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message);
