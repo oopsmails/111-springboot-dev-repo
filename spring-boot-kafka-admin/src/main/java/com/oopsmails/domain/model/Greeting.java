@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.kafka.admin;
+package com.oopsmails.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

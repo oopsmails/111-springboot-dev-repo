@@ -1,8 +1,8 @@
 package com.oopsmails.springboot.kafka.admin;
 
+import com.oopsmails.domain.model.Greeting;
 import com.oopsmails.springboot.kafka.admin.config.MessageListener;
 import com.oopsmails.springboot.kafka.admin.config.MessageProducer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:4092", "port=4092"})
 @ConfigurationProperties("kafka")
 public class KafkaTestContainersLiveTest {
 

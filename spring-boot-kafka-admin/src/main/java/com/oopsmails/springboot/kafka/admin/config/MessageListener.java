@@ -1,6 +1,6 @@
 package com.oopsmails.springboot.kafka.admin.config;
 
-import com.oopsmails.springboot.kafka.admin.Greeting;
+import com.oopsmails.domain.model.Greeting;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
