@@ -26,39 +26,50 @@ public class KafkaConsumerService {
     @Autowired
     ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "${spring.kafka.topic-name}",
-            containerFactory = "kafkaListenerContainerFactory",
-            id = "mainListener")
-//    @KafkaListener(topics = "${spring.kafka.topic-name}")
+    @KafkaListener(topics = "person_topic",
+            containerFactory = "kafkaAvroConsumerFactoryPersonDto",
+            id = "kafka-avro-basic-consumer-service-id-1")
     public void listen(@Payload PersonDto personDto, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
-        logger.info("Receiving message from Kafka :: personDto :: {}", personDto + " from partition: " + partition);
+        log.info("Receiving PersonDto from Kafka :: personDto :: {}", personDto + " from partition: " + partition);
         Person person = Person.builder()
-                .firstName(personDto.getFirstName().toString())
-                .lastName(personDto.getLastName().toString())
+                .firstName(personDto.getFirstName())
+                .lastName(personDto.getLastName())
                 .build();
         businessDomainService.postProcessReceivedMessage(person);
     }
 
 //    @KafkaListener(topics = "${spring.kafka.topic-name}",
-//            containerFactory = "consumerFactory",
-//            id = "mainListener")
-////    @KafkaListener(topics = "${spring.kafka.topic-name}")
-//    public void listenGeneric(@Payload String messageStr, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
-//        logger.info("listenGeneric, Receiving message from Kafka :: messageStr :: {}", messageStr + " from partition: " + partition);
-////        businessDomainService.postProcessReceivedMessage(person);
+//            containerFactory = "kafkaStringConsumerFactory",
+//            id = "avro-basic-consumer-id-2")
+//    public void listenGenericString(@Payload String messageStr, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+//        logger.info("listenGenericString, Receiving message from Kafka :: messageStr :: {}", messageStr + " from partition: " + partition);
 //
 //        try {
 //            PersonDto personDto = objectMapper.readValue(messageStr, PersonDto.class);
-//            log.info("listenGeneric, converted to PersonDto: {}", personDto);
+//            log.info("listenGenericString, converted to PersonDto: {}", personDto);
 //            Person person = Person.builder()
-//                    .firstName(personDto.getFirstName().toString())
-//                    .lastName(personDto.getLastName().toString())
+//                    .firstName(personDto.getFirstName())
+//                    .lastName(personDto.getLastName())
 //                    .build();
-//            log.info("listenGeneric, invoking next @Service, person: {}", personDto);
+//            log.info("listenGenericString, invoking next @Service, person: {}", personDto);
 //            businessDomainService.postProcessReceivedMessage(person);
 //        } catch (JsonProcessingException e) {
-//            log.error("listenGeneric, cannot convert to PersonDto - cause: {}", e.getMessage());
+//            log.error("listenGenericString, cannot convert to PersonDto because this is SCHEMA!!! - cause: {}", e.getMessage());
 //        }
+//    }
+
+//    @KafkaListener(topics = "${spring.kafka.topic-name}",
+//            containerFactory = "kafkaAvroConsumerFactory",
+//            id = "avro-basic-consumer-id-3")
+//    public void listenGeneric(@Payload PersonDto personDto, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+//        logger.info("listenGeneric, Receiving message from Kafka :: personDto :: {}", personDto + " from partition: " + partition);
+//
+//        Person person = Person.builder()
+//                .firstName(personDto.getFirstName())
+//                .lastName(personDto.getLastName())
+//                .build();
+//        log.info("listenGeneric, invoking next @Service, person: {}", personDto);
+//        businessDomainService.postProcessReceivedMessage(person);
 //    }
 
 }
