@@ -1,21 +1,28 @@
 package com.oopsmails.kafka.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.oopsmails.avro.dto.PersonDto;
+import com.oopsmails.kafka.errorhandling.KafkaErrorHandler;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.RecoverableDataAccessException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
@@ -38,55 +45,92 @@ public class KafkaConsumerConfig {
     private String schemaRegistryUrl;
 
     @Bean
-    public Map<String, Object> consumerConfigs() {
+    public ObjectMapper objectMapper() {
+        SimpleModule dateSerializerModule = new SimpleModule();
+
+        ObjectMapper result = new ObjectMapper();
+        result.registerModule(dateSerializerModule);
+        result.registerModule(new JavaTimeModule());
+        result.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        result.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        result.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        result.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, false);
+        result.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+        result.configure(MapperFeature.USE_BASE_TYPE_AS_DEFAULT_IMPL, true);
+
+        return result;
+    }
+
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, PersonDto> kafkaAvroConsumerFactoryPersonDto() {
+        ConcurrentKafkaListenerContainerFactory<String, PersonDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigAvro()));
+
+        return factory;
+    }
+
+    private Map<String, Object> consumerConfigAvro() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "kafka-admin-avro-consumer-group-id-1");
 
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
 
-        props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
+
+        props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
         return props;
     }
 
-    @Bean
-    public ConsumerFactory<String, PersonDto> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
+
+
+//    @Bean
+//    public <V> ConcurrentKafkaListenerContainerFactory<String, V> kafkaStringConsumerFactory() {
+//        ConcurrentKafkaListenerContainerFactory<String, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
+//
+//        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigString()));
+//        factory.setErrorHandler(new KafkaErrorHandler());
+//        factory.setRetryTemplate(retryTemplate());
+//
+//        return factory;
+//    }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PersonDto> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, PersonDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        return factory;
-    }
-/*
-    @Bean
-    ConcurrentKafkaListenerContainerFactory<?, ?> genericKafkaListenerContainerFactory(
-            ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
-            ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        configurer.configure(factory, (ConsumerFactory<Object, Object>) kafkaConsumerFactory); // ??
+    public <V> ConcurrentKafkaListenerContainerFactory<String, V> kafkaAvroConsumerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
+
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigAvro()));
+        factory.setErrorHandler(new KafkaErrorHandler());
         factory.setRetryTemplate(retryTemplate());
-        factory.setRecoveryCallback((context -> {
-            if (context.getLastThrowable().getCause() instanceof RecoverableDataAccessException) {
-                //here you can do your recovery mechanism where you can put back on to the topic using a Kafka producer
-            } else {
-                // here you can log things and throw some custom exception that Error handler will take care of ...
-                throw new RuntimeException(context.getLastThrowable().getMessage());
-            }
-            return null;
-        }));
-        factory.setErrorHandler(((exception, data) -> {
-//          here you can do you custom handling, I am just logging it same as default Error handler does
-//          If you just want to log. you need not configure the error handler here. The default handler does it for you.
-//          Generally, you will persist the failed records to DB for tracking the failed records.
-            log.error("Error in process with Exception {} and the record is {}", exception, data);
-        }));
+
         return factory;
     }
+
+//    private Map<String, Object> consumerConfigAvro() {
+//        Map<String, Object> props = new HashMap<>();
+//        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+//        props.put(ConsumerConfig.GROUP_ID_CONFIG, "avro-basic-avro-consumer-group-id-1");
+//
+//        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+//
+//        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
+//
+//        props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+//        props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
+//        return props;
+//    }
+//
+//    private Map<String, Object> consumerConfigString() {
+//        Map<String, Object> props = new HashMap<>(consumerConfigAvro());
+//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+//        props.put(ConsumerConfig.GROUP_ID_CONFIG, "avro-basic-String-consumer-group-id-1");
+//        return props;
+//    }
 
     private RetryTemplate retryTemplate() {
         RetryTemplate retryTemplate = new RetryTemplate();
@@ -101,5 +145,4 @@ public class KafkaConsumerConfig {
         exceptionMap.put(TimeoutException.class, true);
         return new SimpleRetryPolicy(3, exceptionMap, true);
     }
-*/
 }

@@ -23,6 +23,122 @@ docker-compose -f /home/albert/Documents/sharing/github/springboot-dev-repo/spri
 
 ```
 
+## Kafka Commands
+
+- connect to Container
+
+docker exec -it broker bash <-------- use this
+
+- Producer
+
+```
+kafka-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "parse.key=true" \
+-- property "key.separator=:"
+
+>key-good:{ "idempotencyKey": "3cc52d97-c0e3-4b84-b220-dbf4ac352dbc", "amount": 188.88, "initiatedOn": "2021-05-23 23:59:37"}
+org.apache.kafka.common.KafkaException: No key found on line 1: key-good:{ "idempotencyKey": "3cc52d97-c0e3-4b84-b220-dbf4ac352dbc", "amount": 188.88, "initiatedOn": "2021-05-23 23:59:37"}
+at kafka.tools.ConsoleProducer$LineMessageReader.readMessage(ConsoleProducer.scala:290)
+at kafka.tools.ConsoleProducer$.main(ConsoleProducer.scala:51)
+at kafka.tools.ConsoleProducer.main(ConsoleProducer.scala)
+
+```
+
+```
+kafka-console-producer --broker-list localhost:9092 --topic person_topic --property "parse.key=true" --property "key.separator=:"
+
+kafka-console-producer --broker-list localhost:9092 --topic person_topic --property "parse.key=false"
+
+kafka-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "parse.key=false" \
+--property "value.serializer=org.apache.kafka.common.serialization.StringSerializer" 
+
+kafka-avro-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "value.schema.file=/home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic-avro/src/main/avro/person.avsc"
+
+kafka-avro-console-producer --broker-list localhost:9092 \
+--topic person_topic \
+--property "value.schema='{"type":"record","name":"PersonDto","namespace":"com.oopsmails.avro.dto","fields":[{"name":"firstName","type":"string","doc":"the first name of a person"},{"name":"lastName","type":"string","doc":"the last name of a person"}]}'
+```
+
+- Consumer
+
+kafka-console-consumer --bootstrap-server :9092 --group testc1 --topic person_topic
+
+kafka-avro-console-consumer --topic person_topic --bootstrap-server localhost:9092
+
+- data
+
+{ "idempotencyKey": "3cc52d97-c0e3-4b84-b220-dbf4ac352dbc", "amount": 188.88, "initiatedOn": "2021-05-23 23:59:37"}
+
+{"firstName": "Golden", "lastName": "Bruen"}
+
+
+kafka-topics --bootstrap-server :9092 --delete --topic person_topic
+
+http://localhost:8081/subjects
+
+## KafkaAvroDeserializer vs StringDeserializer
+
+- command line producer, not working, because may NOT use KafkaAvroSerializer
+then message becomes "poison pill"
+
+- Option 1: rely on Postman (real world API) to send message and can use KafkaAvroSerializer in both Producer and Consumer
+- Option 2: using StringDeserializer at Consumer side and Deserialize it to Person using ObjectMapper. But, this didn't pass test.  
+When producer uses KafkaAvroSerializer, consumer gets String like "Brenden".  
+Need to test more!!! for example, extending KafkaAvroDeserializer in Consumer.
+
+### More on this,
+
+https://rmoff.net/2020/07/03/why-json-isnt-the-same-as-json-schema-in-kafka-connect-converters-and-ksqldb-viewing-kafka-messages-bytes-as-hex/
+
+- Producer: Json String data, Consumer: Json Schema Deserializer
+what about if we mix it up, and try to read JSON data using the JSON Schema deserializer (through the io.confluent.connect.json.JsonSchemaConverter converter)?
+
+```
+org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error:
+at io.confluent.connect.json.JsonSchemaConverter.toConnectData(JsonSchemaConverter.java:111)
+at org.apache.kafka.connect.storage.Converter.toConnectData(Converter.java:87)
+at org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$2(WorkerSinkTask.java:492)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:128)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:162)
+... 13 more
+Caused by: org.apache.kafka.common.errors.SerializationException: Error deserializing JSON message for id -1
+Caused by: org.apache.kafka.common.errors.SerializationException: Unknown magic byte!
+```
+
+- Producer: Json Schema Deserializer, Consumer: Json String data
+
+The final permutation here is trying to read JSON Schema messages using the JSON deserializer:
+
+```
+org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error:
+at org.apache.kafka.connect.json.JsonConverter.toConnectData(JsonConverter.java:355)
+at org.apache.kafka.connect.storage.Converter.toConnectData(Converter.java:87)                                                               
+at org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$2(WorkerSinkTask.java:492)                               
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:128)
+at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:162)                
+... 13 more                                                                                                                          
+Caused by: org.apache.kafka.common.errors.SerializationException: java.io.CharConversionException: Invalid UTF-32 character 0x27a2272 (above 0x0010ffff) at char #1, byte #7)
+Caused by: java.io.CharConversionException: Invalid UTF-32 character 0x27a2272 (above 0x0010ffff) at char #1, byte #7)
+```
+
+## Postman
+GET
+http://localhost:8080/avro/person
+
+POST
+http://localhost:8080/avro/person
+
+{
+"firstName": "Oops",
+"lastName": "Mails"
+}
+
+
 ## Control Center UI
 
 Go to your browser and navigate to http://localhost:9021. You should see the Control Center UI. 
