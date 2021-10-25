@@ -1,6 +1,5 @@
 package com.oopsmails.springboot.kafka.admin;
 
-import com.oopsmails.avro.dto.PersonDto;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +22,25 @@ import java.util.Map;
 public class KafkaAvroConsumerConfig {
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PersonDto> kafkaAvroConsumerFactoryPersonDto() {
-        ConcurrentKafkaListenerContainerFactory<String, PersonDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public <V> ConcurrentKafkaListenerContainerFactory<String, V> kafkaConsumerFactoryAvro() {
+        ConcurrentKafkaListenerContainerFactory<String, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigAvro()));
 
         return factory;
+    }
+
+    @Bean
+    public <V> ConcurrentKafkaListenerContainerFactory<String, V> kafkaConsumerFactoryString() {
+        ConcurrentKafkaListenerContainerFactory<String, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigString()));
+
+        return factory;
+    }
+
+    private Map<String, Object> consumerConfigString() {
+        Map<String, Object> props = new HashMap<>(consumerConfigAvro());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        return props;
     }
 
     private Map<String, Object> consumerConfigAvro() {
