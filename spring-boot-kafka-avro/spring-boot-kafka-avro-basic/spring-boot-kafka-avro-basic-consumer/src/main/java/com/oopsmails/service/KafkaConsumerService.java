@@ -27,7 +27,7 @@ public class KafkaConsumerService {
     ObjectMapper objectMapper;
 
     @KafkaListener(topics = "person_topic",
-            containerFactory = "kafkaAvroConsumerFactoryPersonDto",
+            containerFactory = "kafkaConsumerFactoryAvro",
             id = "kafka-avro-basic-consumer-service-id-1")
     public void listen(@Payload PersonDto personDto, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         log.info("Receiving PersonDto from Kafka :: personDto :: {}", personDto + " from partition: " + partition);
