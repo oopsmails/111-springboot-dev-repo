@@ -40,7 +40,7 @@ public class KafkaApplication {
          * partition 0 and 3 will be consumed.
          */
         for (int i = 0; i < 5; i++) {
-            producer.sendMessageToPartion("Hello To Partitioned Topic!", i);
+            producer.sendMessageToPartition("Hello To Partitioned Topic!", i);
         }
         listener.getPartitionLatch().await(10, TimeUnit.SECONDS);
 

@@ -50,7 +50,7 @@ public class MessageProducer {
         });
     }
 
-    public void sendMessageToPartion(String message, int partition) {
+    public void sendMessageToPartition(String message, int partition) {
         kafkaTemplate.send(partitionedTopicName, partition, null, message);
     }
 

@@ -27,6 +27,9 @@ public class KafkaTopicConfig {
 
     @Value(value = "${greeting.topic.name}")
     private String greetingTopicName;
+
+    @Value(value = "${person.topic.name}")
+    private String personTopicName;
     
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -42,7 +45,7 @@ public class KafkaTopicConfig {
     
     @Bean
     public NewTopic topicPartitioned() {
-         return new NewTopic(partitionedTopicName, 6, (short) 1);
+         return new NewTopic(partitionedTopicName, 5, (short) 1);
     }
     
     @Bean
@@ -53,5 +56,10 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic topicGreeting() {
          return new NewTopic(greetingTopicName, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic topicPerson() {
+        return new NewTopic(personTopicName, 3, (short) 1);
     }
 }
