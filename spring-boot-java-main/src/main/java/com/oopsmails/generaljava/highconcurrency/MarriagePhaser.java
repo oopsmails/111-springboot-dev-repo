@@ -1,11 +1,13 @@
 package com.oopsmails.generaljava.highconcurrency;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 
 @Data
+@Slf4j
 public class MarriagePhaser extends Phaser {
     static void milliSleep(int milli) {
         try {
@@ -20,14 +22,14 @@ public class MarriagePhaser extends Phaser {
 
         switch (phase) {
             case 0:
-                System.out.println("Everybody's here!");
+                log.info("======> phase {}: Everybody's here!", phase);
                 return false;
             case 1:
-                System.out.println("Everyone's finished!");
+                log.info("======> phase {}: Everyone's finished!", phase);
                 return false;
             case 2:
-                System.out.println("Everybody's gone!");
-                System.out.println("The wedding is over!");
+                log.info("======> phase {}: Everybody's gone!", phase);
+                log.info("======> phase {}: The wedding is over!", phase);
                 return true;
             default:
                 return true;
