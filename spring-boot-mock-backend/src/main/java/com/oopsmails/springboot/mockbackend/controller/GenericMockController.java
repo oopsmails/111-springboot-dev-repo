@@ -3,9 +3,11 @@ package com.oopsmails.springboot.mockbackend.controller;
 import com.oopsmails.springboot.mockbackend.annotation.audit.AuditArg;
 import com.oopsmails.springboot.mockbackend.annotation.audit.LoggingAudit;
 import com.oopsmails.springboot.mockbackend.annotation.performance.LoggingPerformance;
+import com.oopsmails.springboot.mockbackend.context.ContextHelper;
 import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 @RestController
 @RequestMapping("")
@@ -25,6 +28,9 @@ public class GenericMockController {
     @Value("${generic.redirect.url.exclude}")
     private String genericRedirectUrlExclude;
 
+    @Autowired
+    private ContextHelper contextHelper;
+
     @GetMapping("/ping")
     public String pingGet() throws Exception {
         return JsonUtils.readFileAsString("data/ping/ping.get.response.data.json");
@@ -32,7 +38,18 @@ public class GenericMockController {
 
     @PostMapping("/ping")
     public String pingPost(@RequestBody String anyThing) throws Exception {
-        return JsonUtils.readFileAsString("data/ping/ping.post.response.data.json");
+        Function<String, String> function = input -> {
+            log.info("Passed in body: [{}]", anyThing);
+            try {
+                return JsonUtils.readFileAsString("data/ping/ping.post.response.data.json");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "Empty!?";
+        };
+
+        String result = contextHelper.runWithAuditLog(anyThing, "try wrapping Function", function);
+        return result;
     }
 
     @GetMapping("")

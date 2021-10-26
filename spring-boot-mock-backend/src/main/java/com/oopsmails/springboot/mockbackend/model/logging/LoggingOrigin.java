@@ -10,6 +10,7 @@ public enum LoggingOrigin {
     // GitHubUser
     GitHubUserController,
 
+    Runners,
     Controller,
     Service,
     Dao;
