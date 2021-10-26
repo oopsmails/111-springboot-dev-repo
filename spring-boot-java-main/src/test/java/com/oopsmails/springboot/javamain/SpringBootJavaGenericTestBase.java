@@ -2,6 +2,7 @@ package com.oopsmails.springboot.javamain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oopsmails.springboot.javamain.utils.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ import java.time.ZoneId;
         SpringBootJavaMainApplication.class, //
         SpringBootJavaGenericTestBase.SpringBootJavaGenericTestBaseTestConfig.class, //
 })
+@Slf4j
 public class SpringBootJavaGenericTestBase {
     @Autowired
     protected ObjectMapper objectMapper;

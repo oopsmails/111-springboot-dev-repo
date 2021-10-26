@@ -8,6 +8,8 @@ import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinWorkerThread;
 
 @Configuration
 //@EnableAsync
@@ -49,5 +51,18 @@ public class SpringAsyncConfig {
         return new ConcurrentTaskExecutor(Executors.newFixedThreadPool(5));
     }
 
+    @Bean("forkJoinPool")
+    public ForkJoinPool forkJoinPool() {
+        final ForkJoinPool.ForkJoinWorkerThreadFactory factory = new ForkJoinPool.ForkJoinWorkerThreadFactory() {
+            @Override
+            public ForkJoinWorkerThread newThread(ForkJoinPool pool) {
+                final ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+                worker.setName("oops-forkJoinPool-" + worker.getPoolIndex());
+                return worker;
+            }
+        };
+        ForkJoinPool pool = new ForkJoinPool(8, factory, null, true);
+        return pool;
+    }
 
 }

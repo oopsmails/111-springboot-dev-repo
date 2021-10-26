@@ -13,32 +13,32 @@ import java.util.concurrent.Future;
 public class AppExecutor {
 
     @Async("concurrentTaskExcutor")
-    public void runWithConcurrentExecutor(List<String> taskList){
-        for(String task : taskList) {
+    public void runWithConcurrentExecutor(List<String> taskList) {
+        for (String task : taskList) {
             log.info("1. concurrentTaskExcutor thread name - {}", Thread.currentThread().getName());
             log.info("Task is: " + task);
         }
     }
 
     @Async("executorAsync")
-    public void runWithExecutorAsync(String task){
+    public void runWithExecutorAsync(String task) {
         log.info("2. executorAsync thread name - {}", Thread.currentThread().getName());
         log.info("Task is: {}", task);
     }
 
     @Async("executorAsync")
-    public void runWithExecutorAsync(){
+    public void runWithExecutorAsync() {
         log.info("Currently Executing thread name - {}", Thread.currentThread().getName());
         log.info("User created with thread pool executor");
     }
 
     @Async
     public Future<String> asyncMethodWithReturnType() {
-        System.out.println("Execute method asynchronously - "
+        log.info("Execute method asynchronously - "
                 + Thread.currentThread().getName());
         try {
             Thread.sleep(5000);
-            return new AsyncResult<String>("hello world !!!!");
+            return new AsyncResult<>("hello world !!!!");
         } catch (InterruptedException e) {
             //
         }
@@ -48,9 +48,8 @@ public class AppExecutor {
 
     @Async
     public void asyncMethodWithVoidReturnType() {
-        System.out.println("Execute method asynchronously. "
+        log.info("Execute method asynchronously. "
                 + Thread.currentThread().getName());
     }
-
 
 }
