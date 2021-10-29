@@ -1,12 +1,12 @@
 {
 	"info": {
 		"_postman_id": "5404886f-86c8-4b56-b177-097be66ab5e6",
-		"name": "Spring-boot-mock-backend",
+		"name": "Spring-boot-dev-repo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "ping-8888",
+			"name": "spring-boot-mock-backend-ping-8888",
 			"item": [
 				{
 					"name": "http://localhost:8888 backendmock ping",
@@ -63,7 +63,7 @@
 			]
 		},
 		{
-			"name": "genericmock-8888",
+			"name": "spring-boot-mock-backend-genericmock-8888",
 			"item": [
 				{
 					"name": "http://localhost:8888",
@@ -97,6 +97,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "correlation_id",
+								"value": "{{correlation_id}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -174,10 +179,10 @@
 			]
 		},
 		{
-			"name": "backendmock-api-8888",
+			"name": "spring-boot-mock-backend-employee-api-8888",
 			"item": [
 				{
-					"name": "http://localhost:8080 backendmock",
+					"name": "http://localhost:8888 backendmock",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -202,7 +207,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080 backendmock copy copy",
+					"name": "http://localhost:8888 backendmock",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -223,6 +228,31 @@
 							"mode": "raw",
 							"raw": "    {\n        \"organizationId\": 2,\n        \"departmentId\": 4,\n        \"name\": \"Oops Mails\",\n        \"age\": 25,\n        \"position\": \"Developer\",\n        \"cryptoSecretProperty\": \"cryptoSecret\",\n        \"mandatoryProperty\": \"this is mandatory\"\n    }"
 						},
+						"url": {
+							"raw": "http://localhost:8888/backendmock/employee-api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"backendmock",
+								"employee-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8888/backendmock/employee-api",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8888/backendmock/employee-api",
 							"protocol": "http",
@@ -307,30 +337,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "http://localhost:8080",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8080/employee-api",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employee-api"
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "https://springboot-employee.azurewebsites.net/employee-api",
