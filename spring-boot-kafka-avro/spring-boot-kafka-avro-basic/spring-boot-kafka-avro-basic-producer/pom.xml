@@ -14,7 +14,13 @@
     <groupId>com.oopsmails.springboot.dev.repo</groupId>
     <version>2.0.0-SNAPSHOT</version>
 
-    <dependencies>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+
+<dependencies>
         <dependency>
             <groupId>com.oopsmails.springboot.dev.repo</groupId>
             <artifactId>spring-boot-kafka-avro-basic-domain</artifactId>
