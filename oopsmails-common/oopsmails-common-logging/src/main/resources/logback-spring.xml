@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" secanPeriod="10 minutes">
+    <property name="LOGS" value="./logs" />
+    <property name="projectName" value="SampleProjectNameChangeMe" />
+    <property name="logDirectory" value="${LOGS}/${projectName}" />
+
+    <property name="applicationLogFileName" value="application" />
+    <property name="auditLogFileName" value="audit" />
+    <property name="performanceLogFileName" value="performance" />
+
+    <!-- Appenders: Console, application, performance, audit -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd'T'HH:mm:ss:SSS} [%mdc{MDC_CORRELATION_ID}] [%thread] [%-5level] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="application" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDirectory}/${applicationLogFileName}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDirectory}/archived/${applicationLogFileName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="performance" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDirectory}/${performanceLogFileName}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDirectory}/archived/${performanceLogFileName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <appender name="performanceAsync" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10</queueSize>
+        <appender-ref ref="performance" />
+    </appender>
+
+    <appender name="audit" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDirectory}/${auditLogFileName}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDirectory}/archived/${auditLogFileName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <appender name="auditAsync" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10</queueSize>
+        <appender-ref ref="audit" />
+    </appender>
+
+    <!-- Loggers, PERFORMANCE is corresponding to com.oopsmails.springboot.mockbackend.model.logging.AppLogLevel -->
+    <logger name="PERFORMANCE" level="trace" additivity="false">
+        <appender-ref ref="performanceAsync" />
+        <appender-ref ref="Console" />
+    </logger>
+
+    <logger name="AUDIT" level="trace" additivity="false">
+        <appender-ref ref="auditAsync" />
+        <appender-ref ref="Console" />
+    </logger>
+
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+        <appender-ref ref="application" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- LOG "com.oopsmails*" at TRACE level -->
+    <logger name="com.oopsmails" level="trace" additivity="false">
+        <appender-ref ref="application" />
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
+
+

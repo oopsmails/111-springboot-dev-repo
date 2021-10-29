@@ -127,6 +127,21 @@ OperationContext
         getOperationTasks().add(operationTask);
     }
 
-...
+```
+
+### After adding H2 db, mvn package failed
+
+But when running those TCs individually, they all pass.
+
+```
+[ERROR]   EmployeeControllerTest.getAllEmployeesAPI » IllegalState Failed to load Applic...
+[ERROR]   GitHubUserControllerTest.getAllGithubUserAPI » IllegalState Failed to load App...
+Caused by: org.h2.jdbc.JdbcSQLException: Table "xxx" already exists;
+```
+
+"If the tests are run individually, they pass. I think the problem is due to schema.sql being executed twice against the same database. It fails the second time as the tables already exist."
+
+Solution, added *@AutoConfigureTestDatabase* on those test classes.
+
 
 

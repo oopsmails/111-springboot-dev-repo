@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Slf4j
-public class GeneralLoggingRequestWrapper extends HttpServletRequestWrapper {
+public class CommonLoggingRequestWrapper extends HttpServletRequestWrapper {
 
     private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-    public GeneralLoggingRequestWrapper(HttpServletRequest httpServletRequest) throws IOException {
+    public CommonLoggingRequestWrapper(HttpServletRequest httpServletRequest) throws IOException {
         super(httpServletRequest);
 
         IOUtils.copy(super.getInputStream(), byteArrayOutputStream);
@@ -25,7 +25,7 @@ public class GeneralLoggingRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        return new GeneralLoggingServletInputStream(this.byteArrayOutputStream.toByteArray());
+        return new CommonLoggingServletInputStream(this.byteArrayOutputStream.toByteArray());
     }
 
     @Override

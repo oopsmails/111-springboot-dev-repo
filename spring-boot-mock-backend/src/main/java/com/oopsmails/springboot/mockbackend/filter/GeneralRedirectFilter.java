@@ -1,5 +1,6 @@
 package com.oopsmails.springboot.mockbackend.filter;
 
+import com.oopsmails.common.logging.util.FilterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -34,7 +35,7 @@ public class GeneralRedirectFilter implements Filter {
         String path = req.getRequestURI();
         log.info("doFilter(), req.getRequestURI(): {}", path);
 
-        if (!isGenericRedirectEnabled || inExemption(path, redirectExemptionUrls)) {
+        if (!isGenericRedirectEnabled || FilterUtil.isExemptionUrl(path, redirectExemptionUrls)) {
             log.warn("Skipping url redirecting, isGenericRedirectEnabled = {} or {} is inExemption", isGenericRedirectEnabled, path);
             chain.doFilter(request, response);
             return;
@@ -72,14 +73,5 @@ public class GeneralRedirectFilter implements Filter {
         }
 
         chain.doFilter(req, res);
-    }
-
-    private static boolean inExemption(final String path, Set<String> loggingExemptionUrls) {
-        for(String url : loggingExemptionUrls) {
-            if (path.indexOf(url) >= 0) {
-                return true;
-            }
-        }
-        return false;
     }
 }

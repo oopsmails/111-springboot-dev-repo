@@ -1,9 +1,8 @@
-package com.oopsmails.springboot.mockbackend.config;
+package com.oopsmails.exceptionhandling.config;
 
 import com.oopsmails.common.logging.config.OopsmailsCommonLoggingConfig;
 import com.oopsmails.common.logging.filter.CommonLoggingFilter;
 import com.oopsmails.common.logging.filter.CommonRequestFilter;
-import com.oopsmails.springboot.mockbackend.filter.GeneralRedirectFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,15 +15,12 @@ import java.util.Collections;
 
 @SpringBootConfiguration
 @Import({OopsmailsCommonLoggingConfig.class})
-public class SpringBootBackendMockApplicationConfig {
+public class SpringBootExceptionHandlingApplicationConfig {
     @Autowired
     private CommonRequestFilter commonRequestFilter;
 
     @Autowired
     private CommonLoggingFilter commonLoggingFilter;
-
-    @Autowired
-    private GeneralRedirectFilter generalRedirectFilter;
 
     @Bean
     public FilterRegistrationBean<CommonRequestFilter> commonRequestFilterRegistration() {
@@ -43,16 +39,6 @@ public class SpringBootBackendMockApplicationConfig {
         filterRegistrationBean.setUrlPatterns(Collections.singletonList("/*"));
         filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean<GeneralRedirectFilter> generalRedirectFilterRegistration() {
-        FilterRegistrationBean<GeneralRedirectFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(generalRedirectFilter);
-        filterRegistrationBean.setUrlPatterns(Collections.singletonList("/*"));
-        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
-        filterRegistrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 1);
         return filterRegistrationBean;
     }
 }

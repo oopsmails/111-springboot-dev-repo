@@ -1,7 +1,7 @@
 package com.oopsmails.common.logging.util;
 
-public class HttpStatusUtils {
-    private HttpStatusUtils() {
+public class HttpStatusUtil {
+    private HttpStatusUtil() {
 
     }
 

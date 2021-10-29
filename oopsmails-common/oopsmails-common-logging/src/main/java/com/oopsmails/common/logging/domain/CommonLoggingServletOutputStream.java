@@ -7,13 +7,13 @@ import javax.servlet.WriteListener;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class GeneralLoggingServletOutputStream extends ServletOutputStream {
+public class CommonLoggingServletOutputStream extends ServletOutputStream {
 
     private final TeeOutputStream teeOutputStream;
 
     private final ServletOutputStream servletOutputStream;
 
-    public GeneralLoggingServletOutputStream(ServletOutputStream servletOutputStream, OutputStream outputStream) {
+    public CommonLoggingServletOutputStream(ServletOutputStream servletOutputStream, OutputStream outputStream) {
         this.teeOutputStream = new TeeOutputStream(servletOutputStream, outputStream);
         this.servletOutputStream = servletOutputStream;
     }

@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public class GeneralLoggingResponseWrapper extends HttpServletResponseWrapper {
+public class CommonLoggingResponseWrapper extends HttpServletResponseWrapper {
 
     ByteArrayOutputStream byteArrayOutputStream;
-    private GeneralLoggingServletOutputStream generalLoggingServletOutputStream;
+    private CommonLoggingServletOutputStream commonLoggingServletOutputStream;
     private PrintWriter printWriter;
 
-    public GeneralLoggingResponseWrapper(HttpServletResponse httpServletResponse) {
+    public CommonLoggingResponseWrapper(HttpServletResponse httpServletResponse) {
         super(httpServletResponse);
     }
 
@@ -33,12 +33,12 @@ public class GeneralLoggingResponseWrapper extends HttpServletResponseWrapper {
 
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
-        if (this.generalLoggingServletOutputStream == null) {
+        if (this.commonLoggingServletOutputStream == null) {
             this.byteArrayOutputStream = new ByteArrayOutputStream();
-            this.generalLoggingServletOutputStream = new GeneralLoggingServletOutputStream(getResponse().getOutputStream(), byteArrayOutputStream);
+            this.commonLoggingServletOutputStream = new CommonLoggingServletOutputStream(getResponse().getOutputStream(), byteArrayOutputStream);
         }
 
-        return this.generalLoggingServletOutputStream;
+        return this.commonLoggingServletOutputStream;
     }
 
 }

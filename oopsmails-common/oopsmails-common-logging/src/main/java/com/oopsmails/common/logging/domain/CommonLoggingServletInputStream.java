@@ -5,11 +5,11 @@ import javax.servlet.ServletInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class GeneralLoggingServletInputStream extends ServletInputStream {
+public class CommonLoggingServletInputStream extends ServletInputStream {
 
     private final ByteArrayInputStream byteArrayInputStream;
 
-    public GeneralLoggingServletInputStream(byte[] content) {
+    public CommonLoggingServletInputStream(byte[] content) {
         this.byteArrayInputStream = new ByteArrayInputStream(content);
     }
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoggingKeyValue {
+public class CommonLoggingKeyValue {
     private String key;
     private String value;
 
