@@ -22,6 +22,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>oopsmails-common-domain</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>oopsmails-common-logging</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -66,7 +77,27 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>oopsmails-common-domain</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.oopsmails.springboot.dev.repo</groupId>
+                <artifactId>oopsmails-common</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

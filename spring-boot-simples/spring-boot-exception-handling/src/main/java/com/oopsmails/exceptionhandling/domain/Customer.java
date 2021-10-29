@@ -1,5 +1,6 @@
 package com.oopsmails.exceptionhandling.domain;
 
+//import com.oopsmails.common.domain.logging.LoggingDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,6 @@ public class Customer {
 	private String lastName;
 	private Integer age;
 
+//	private LoggingDto loggingDto;
 }
 

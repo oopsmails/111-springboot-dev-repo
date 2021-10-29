@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:4092", "port=4092"})
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 @ConfigurationProperties("kafka")
 public class KafkaTestContainersLiveTest {
 
