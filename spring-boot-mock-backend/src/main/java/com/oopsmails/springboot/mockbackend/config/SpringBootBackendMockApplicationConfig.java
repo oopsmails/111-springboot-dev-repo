@@ -3,7 +3,7 @@ package com.oopsmails.springboot.mockbackend.config;
 import com.oopsmails.common.filter.config.OopsmailsCommonLoggingConfig;
 import com.oopsmails.common.filter.CommonLoggingFilter;
 import com.oopsmails.common.filter.CommonRequestFilter;
-import com.oopsmails.springboot.mockbackend.filter.GeneralRedirectFilter;
+import com.oopsmails.springboot.mockbackend.filter.MockBackendUrlRedirectFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,7 +24,7 @@ public class SpringBootBackendMockApplicationConfig {
     private CommonLoggingFilter commonLoggingFilter;
 
     @Autowired
-    private GeneralRedirectFilter generalRedirectFilter;
+    private MockBackendUrlRedirectFilter mockBackendUrlRedirectFilter;
 
     @Bean
     public FilterRegistrationBean<CommonRequestFilter> commonRequestFilterRegistration() {
@@ -47,9 +47,9 @@ public class SpringBootBackendMockApplicationConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<GeneralRedirectFilter> generalRedirectFilterRegistration() {
-        FilterRegistrationBean<GeneralRedirectFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(generalRedirectFilter);
+    public FilterRegistrationBean<MockBackendUrlRedirectFilter> generalRedirectFilterRegistration() {
+        FilterRegistrationBean<MockBackendUrlRedirectFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(mockBackendUrlRedirectFilter);
         filterRegistrationBean.setUrlPatterns(Collections.singletonList("/*"));
         filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         filterRegistrationBean.setOrder(Ordered.LOWEST_PRECEDENCE - 1);

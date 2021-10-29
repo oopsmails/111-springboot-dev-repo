@@ -20,7 +20,7 @@ import java.util.Set;
 @Slf4j
 @Component
 @Order()
-public class GeneralRedirectFilter implements Filter {
+public class MockBackendUrlRedirectFilter implements Filter {
     @Value("${generic.redirect.enabled:true}")
     private boolean isGenericRedirectEnabled;
 
