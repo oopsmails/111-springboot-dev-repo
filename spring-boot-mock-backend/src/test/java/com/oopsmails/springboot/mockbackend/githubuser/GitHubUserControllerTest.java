@@ -3,13 +3,7 @@ package com.oopsmails.springboot.mockbackend.githubuser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.oopsmails.springboot.mockbackend.SpringBootBackendMockApplication;
-import com.oopsmails.springboot.mockbackend.crypto.HmacConverter;
-import com.oopsmails.springboot.mockbackend.employee.controller.EmployeeControllerTest;
-import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,13 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-import static com.oopsmails.springboot.mockbackend.consumer.ThrowingConsumer.throwingConsumerWrapper;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,23 +47,23 @@ public class GitHubUserControllerTest {
         assertTrue(result.size() > 0);
     }
 
-//    @Test
-//    public void testFindAll() throws Exception {
-//        List<String> githubUserNames =  new ArrayList<>();
-//
-//        for (int i = 0; i < 100; i++) {
-//            githubUserNames.add("PivotalSoftware");
-//            githubUserNames.add("CloudFoundry");
-//            githubUserNames.add("Spring-Projects");
-//        }
-//
-//        List<GithubUser> result = new ArrayList<>();
-//        githubUserNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
-//            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsync(userName);
-//            githubUserFuture.thenApply(githubUser -> result.add(githubUser));
-//        }));
-//
-//        assertNotNull(result, "result should not be null.");
-//        assertEquals(300, result.size(), "verifying size.");
-//    }
+    //    @Test
+    //    public void testFindAll() throws Exception {
+    //        List<String> githubUserNames =  new ArrayList<>();
+    //
+    //        for (int i = 0; i < 100; i++) {
+    //            githubUserNames.add("PivotalSoftware");
+    //            githubUserNames.add("CloudFoundry");
+    //            githubUserNames.add("Spring-Projects");
+    //        }
+    //
+    //        List<GithubUser> result = new ArrayList<>();
+    //        githubUserNames.parallelStream().forEach(throwingConsumerWrapper(userName -> {
+    //            CompletableFuture<GithubUser> githubUserFuture = gitHubLookupService.findUserAsync(userName);
+    //            githubUserFuture.thenApply(githubUser -> result.add(githubUser));
+    //        }));
+    //
+    //        assertNotNull(result, "result should not be null.");
+    //        assertEquals(300, result.size(), "verifying size.");
+    //    }
 }

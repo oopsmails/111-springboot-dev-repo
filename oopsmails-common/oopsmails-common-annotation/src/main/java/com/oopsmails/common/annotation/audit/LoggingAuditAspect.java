@@ -1,10 +1,11 @@
-package com.oopsmails.springboot.mockbackend.annotation.audit;
+package com.oopsmails.common.annotation.audit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingDtoAudit;
-import com.oopsmails.springboot.mockbackend.utils.GeneralConstants;
+
+import com.oopsmails.common.annotation.model.logging.LoggingDtoAudit;
+import com.oopsmails.common.constant.CommonLoggingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,7 +24,7 @@ import java.lang.reflect.Method;
 public class LoggingAuditAspect {
     private final static ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    @Around("@annotation(com.oopsmails.springboot.mockbackend.annotation.audit.LoggingAudit)")
+    @Around("@annotation(com.oopsmails.common.annotation.audit.LoggingAudit)")
     public Object advice(ProceedingJoinPoint joinPoint) throws Throwable {
         boolean success = false;
 
@@ -41,7 +42,7 @@ public class LoggingAuditAspect {
 
                 loggingDtoAudit.setMessage(loggingAudit.message());
 
-                String correlationId = MDC.get(GeneralConstants.MDC_CORRELATION_ID);
+                String correlationId = MDC.get(CommonLoggingConstants.MDC_CORRELATION_ID);
                 loggingDtoAudit.setCorrelationId(StringUtils.isEmpty(correlationId) ? "" : correlationId);
 
                 loggingDtoAudit.setTarget(getTarget(joinPoint));

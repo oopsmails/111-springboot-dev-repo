@@ -1,7 +1,7 @@
 package com.oopsmails.springboot.mockbackend.context;
 
-import com.oopsmails.springboot.mockbackend.annotation.audit.LoggingAudit;
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.audit.LoggingAudit;
+import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
 import com.oopsmails.springboot.mockbackend.utils.GeneralConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -22,11 +22,6 @@ public class ContextHelper implements ApplicationContextAware {
 
     private static ApplicationContext context;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        context = applicationContext;
-    }
-
     public static <R, T> R runWithAuditing(T data, String message, Callable<R> callable) throws Exception {
         ContextHelper bean = getBean();
         if (bean == null) {
@@ -37,6 +32,19 @@ public class ContextHelper implements ApplicationContextAware {
             log.info("runWithAuditLog, run with correlationId = {}", MDC.get(GeneralConstants.MDC_CORRELATION_ID));
             return bean.runWithAuditLog(data, message, callable);
         }
+    }
+
+    private static ContextHelper getBean() {
+        if (context == null) {
+            return null;
+        }
+
+        return context.getBean(ContextHelper.class);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
     }
 
     @LoggingAudit(origin = LoggingOrigin.Runners, message = "running with Audit loggign ... ")
@@ -79,13 +87,5 @@ public class ContextHelper implements ApplicationContextAware {
             MDC.put(GeneralConstants.MDC_CORRELATION_ID, correlationId);
         }
         // ContextHolder.setCorrelationId(correlationId); // will implement ContextHolder later.
-    }
-
-    private static ContextHelper getBean() {
-        if (context == null) {
-            return  null;
-        }
-
-        return context.getBean(ContextHelper.class);
     }
 }

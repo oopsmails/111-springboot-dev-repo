@@ -1,10 +1,10 @@
-package com.oopsmails.springboot.mockbackend.annotation.performance;
+package com.oopsmails.common.annotation.performance;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingDtoPerformance;
-import com.oopsmails.springboot.mockbackend.utils.GeneralConstants;
+import com.oopsmails.common.annotation.model.logging.LoggingDtoPerformance;
+import com.oopsmails.common.constant.CommonLoggingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +25,7 @@ import java.time.Instant;
 public class LoggingPerformanceAspect {
     private final static ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    @Around("@annotation(com.oopsmails.springboot.mockbackend.annotation.performance.LoggingPerformance)")
+    @Around("@annotation(com.oopsmails.common.annotation.performance.LoggingPerformance)")
     public Object advice(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!(joinPoint.getSignature() instanceof MethodSignature)) { // only log for methods
             return joinPoint.proceed();
@@ -51,7 +51,7 @@ public class LoggingPerformanceAspect {
             loggingDtoPerformance.setOrigin(loggingAnnotation.origin());
             loggingDtoPerformance.setStatus("");
 
-            String correlationId = MDC.get(GeneralConstants.MDC_CORRELATION_ID);
+            String correlationId = MDC.get(CommonLoggingConstants.MDC_CORRELATION_ID);
             loggingDtoPerformance.setCorrelationId(StringUtils.isEmpty(correlationId) ? "" : correlationId);
 
             try {

@@ -1,5 +1,6 @@
 package com.oopsmails.springboot.mockbackend.config;
 
+import com.oopsmails.common.annotation.config.OopsmailsCommonAnnotationConfig;
 import com.oopsmails.common.filter.config.OopsmailsCommonLoggingConfig;
 import com.oopsmails.common.filter.CommonLoggingFilter;
 import com.oopsmails.common.filter.CommonRequestFilter;
@@ -15,7 +16,10 @@ import javax.servlet.DispatcherType;
 import java.util.Collections;
 
 @SpringBootConfiguration
-@Import({OopsmailsCommonLoggingConfig.class})
+@Import({
+        OopsmailsCommonLoggingConfig.class,
+        OopsmailsCommonAnnotationConfig.class
+})
 public class SpringBootBackendMockApplicationConfig {
     @Autowired
     private CommonRequestFilter commonRequestFilter;

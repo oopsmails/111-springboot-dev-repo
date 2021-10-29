@@ -7,7 +7,7 @@ import com.oopsmails.common.filter.domain.CommonLoggingRequestWrapper;
 import com.oopsmails.common.filter.domain.CommonLoggingResponse;
 import com.oopsmails.common.filter.domain.CommonLoggingResponseWrapper;
 import com.oopsmails.common.filter.util.FilterUtil;
-import com.oopsmails.common.filter.util.CommonLoggingConstants;
+import com.oopsmails.common.constant.CommonLoggingConstants;
 import com.oopsmails.common.filter.util.HttpStatusUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
