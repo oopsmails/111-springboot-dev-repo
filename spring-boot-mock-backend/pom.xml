@@ -18,9 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.oopsmails.springboot.mockbackend.SpringBootBackendMockApplication</start-class>
-        <java.version>1.8</java.version>
-<!--        <maven.compiler.source>11</maven.compiler.source>-->
-<!--        <maven.compiler.target>11</maven.compiler.target>-->
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
@@ -143,7 +141,7 @@
                 <version>1.2.0</version>
                 <configuration>
                     <imageName>oopsmails/backendmock</imageName>
-                    <baseImage>java:8</baseImage>
+                    <baseImage>java:11</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
