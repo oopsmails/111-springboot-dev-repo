@@ -1,10 +1,10 @@
 package com.oopsmails.springboot.mockbackend.controller;
 
-import com.oopsmails.springboot.mockbackend.annotation.audit.AuditArg;
-import com.oopsmails.springboot.mockbackend.annotation.audit.LoggingAudit;
-import com.oopsmails.springboot.mockbackend.annotation.performance.LoggingPerformance;
+import com.oopsmails.common.annotation.audit.AuditArg;
+import com.oopsmails.common.annotation.audit.LoggingAudit;
+import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.performance.LoggingPerformance;
 import com.oopsmails.springboot.mockbackend.context.ContextHelper;
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class GenericMockController {
         return JsonUtils.readFileAsString(responseFilePath);
     }
 
-//    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
+    //    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
     public String getResponseFilePath(AuditArg auditArg, HttpServletRequest httpServletRequest) {
         log.info("httpServletRequest.getRequestURL(): {}", httpServletRequest.getRequestURL());
         String urlPath = httpServletRequest.getRequestURL().toString();

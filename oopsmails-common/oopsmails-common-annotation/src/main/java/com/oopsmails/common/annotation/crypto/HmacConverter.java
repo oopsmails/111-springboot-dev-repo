@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.crypto;
+package com.oopsmails.common.annotation.crypto;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;

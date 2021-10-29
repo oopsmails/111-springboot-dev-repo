@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.model.logging;
+package com.oopsmails.common.annotation.model.logging;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

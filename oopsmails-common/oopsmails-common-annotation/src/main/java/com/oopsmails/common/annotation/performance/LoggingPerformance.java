@@ -1,6 +1,6 @@
-package com.oopsmails.springboot.mockbackend.annotation.performance;
+package com.oopsmails.common.annotation.performance;
 
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

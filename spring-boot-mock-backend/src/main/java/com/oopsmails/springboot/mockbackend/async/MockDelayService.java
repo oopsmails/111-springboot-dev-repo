@@ -1,7 +1,7 @@
 package com.oopsmails.springboot.mockbackend.async;
 
-import com.oopsmails.springboot.mockbackend.annotation.performance.LoggingPerformance;
-import com.oopsmails.springboot.mockbackend.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.performance.LoggingPerformance;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

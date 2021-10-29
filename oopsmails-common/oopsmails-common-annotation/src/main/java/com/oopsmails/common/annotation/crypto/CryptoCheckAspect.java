@@ -1,6 +1,5 @@
-package com.oopsmails.springboot.mockbackend.annotation.crypto;
+package com.oopsmails.common.annotation.crypto;
 
-import com.oopsmails.springboot.mockbackend.crypto.HmacConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,7 +27,7 @@ public class CryptoCheckAspect {
     @Value("${mockbackend.employee.crypto.enabled:true}")
     private boolean isCryptoEnabled;
 
-    @Around("@annotation(com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheck)")
+    @Around("@annotation(com.oopsmails.common.annotation.crypto.CryptoCheck)")
     public Object advice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         log.info("@CryptoCheck annotation starting ...");
 

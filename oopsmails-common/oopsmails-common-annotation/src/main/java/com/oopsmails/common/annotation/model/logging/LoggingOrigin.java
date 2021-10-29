@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.model.logging;
+package com.oopsmails.common.annotation.model.logging;
 
 public enum LoggingOrigin {
     // Generic

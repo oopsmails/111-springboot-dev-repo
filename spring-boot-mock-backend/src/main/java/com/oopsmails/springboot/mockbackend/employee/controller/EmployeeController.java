@@ -1,8 +1,8 @@
 package com.oopsmails.springboot.mockbackend.employee.controller;
 
-import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheck;
-import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckPayload;
-import com.oopsmails.springboot.mockbackend.annotation.crypto.CryptoCheckSignature;
+import com.oopsmails.common.annotation.crypto.CryptoCheck;
+import com.oopsmails.common.annotation.crypto.CryptoCheckPayload;
+import com.oopsmails.common.annotation.crypto.CryptoCheckSignature;
 import com.oopsmails.springboot.mockbackend.employee.model.Developer;
 import com.oopsmails.springboot.mockbackend.employee.model.Employee;
 import com.oopsmails.springboot.mockbackend.employee.repository.EmployeeRepository;
@@ -25,14 +25,13 @@ import java.util.Set;
 @Slf4j
 public class EmployeeController {
 
+    @Autowired
+    EmployeeRepository repository;
     @Value("#{'${props.set.test}'.split(',')}")
     private Set<String> propsSetTest;
 
-    @Autowired
-    EmployeeRepository repository;
-
     @GetMapping("")
-// @PreAuthorize("#oauth2.hasScope('read')")
+    // @PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
         // Testing extract CSV string into Set<String> from .properties file
         log.info("propsSetTest = {}", propsSetTest);
@@ -51,7 +50,7 @@ public class EmployeeController {
         dev.setName("TestingName");
         dev.setAge(33);
         dev.setPosition("Tech Lead");
-        ((Developer)dev).setJavaSkillLevel(5);
+        ((Developer) dev).setJavaSkillLevel(5);
         log.info("Testing toString(), dev = {}", dev);
 
         List<Employee> result = repository.findAll();
@@ -61,16 +60,16 @@ public class EmployeeController {
     }
 
     @PostMapping("")
-// @PreAuthorize("#oauth2.hasScope('write') and #oauth2.hasScope('read')")
+    // @PreAuthorize("#oauth2.hasScope('write') and #oauth2.hasScope('read')")
     @CryptoCheck(cryptoSecretProperty = "employee.create.secret",
-                    mandatoryProperty = "employee.create.secret.mandatory")
+            mandatoryProperty = "employee.create.secret.mandatory")
     public Employee add(
             @RequestHeader(value = "crypto-payload", required = false)
             @CryptoCheckPayload
-            String cryptoCheckPayload,
+                    String cryptoCheckPayload,
             @RequestHeader(value = "crypto-signature", required = false)
             @CryptoCheckSignature
-            String cryptoCheckSignature,
+                    String cryptoCheckSignature,
             @RequestBody Employee employee
     ) {
         log.info("cryptoCheckPayload: [{}]", cryptoCheckPayload);

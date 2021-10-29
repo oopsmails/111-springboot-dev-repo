@@ -24,6 +24,11 @@
     <dependencies>
         <dependency>
             <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>oopsmails-common-annotation</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
             <artifactId>oopsmails-common-domain</artifactId>
             <version>1.0.0</version>
         </dependency>

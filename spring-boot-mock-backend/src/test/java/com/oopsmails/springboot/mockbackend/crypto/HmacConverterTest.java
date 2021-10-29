@@ -1,5 +1,6 @@
 package com.oopsmails.springboot.mockbackend.crypto;
 
+import com.oopsmails.common.annotation.crypto.HmacConverter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
