@@ -23,6 +23,11 @@
     <dependencies>
         <dependency>
             <groupId>com.oopsmails.springboot.dev.repo</groupId>
+            <artifactId>oopsmails-common-annotation</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oopsmails.springboot.dev.repo</groupId>
             <artifactId>oopsmails-common-domain</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -51,6 +56,12 @@
             <scope>runtime</scope>
         </dependency>
         <!-- END: H2 Database -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 
         <!-- BEGIN: Lombok -->
         <dependency>

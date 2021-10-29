@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" secanPeriod="10 minutes">
-    <property name="LOGS" value="./logs" />
+    <property name="LOGS" value="/tmp/logs" />
     <property name="projectName" value="SpringBootExceptionHandlingApplication" />
     <property name="logDirectory" value="${LOGS}/${projectName}" />
 

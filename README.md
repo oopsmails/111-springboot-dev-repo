@@ -72,3 +72,31 @@ For testing sonarqube
 
 - Could revise further!
 
+## oopsmails-common
+
+Configure to use oopsmails-common-annotation and oopsmails-common-filter
+
+```
+<dependency>
+    <groupId>com.oopsmails.springboot.dev.repo</groupId>
+    <artifactId>oopsmails-common-annotation</artifactId>
+    <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>com.oopsmails.springboot.dev.repo</groupId>
+    <artifactId>oopsmails-common-domain</artifactId>
+    <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>com.oopsmails.springboot.dev.repo</groupId>
+    <artifactId>oopsmails-common-filter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+@Import({
+OopsmailsCommonLoggingConfig.class,
+OopsmailsCommonAnnotationConfig.class
+})
+
+```
+

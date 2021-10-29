@@ -1,5 +1,8 @@
 package com.oopsmails.exceptionhandling.controller;
 
+import com.oopsmails.common.annotation.audit.LoggingAudit;
+import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
+import com.oopsmails.common.annotation.performance.LoggingPerformance;
 import com.oopsmails.exceptionhandling.domain.Customer;
 import com.oopsmails.exceptionhandling.exception.apierror.CustomValidationError;
 import com.oopsmails.exceptionhandling.exception.custom.CustomValidationViolationException;
@@ -34,6 +37,8 @@ public class CustomerGetController {
 	// Sample Input (Valid: 404-Not Found): http://localhost:8080/customers/1409
 	// Sample Input (Valid: 405-Method Not Allowed): PATCH http://localhost:8080/customers/1408
 	@GetMapping(value = "/customers/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@LoggingPerformance(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerById ... ")
+	@LoggingAudit(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerById ... ")
 	public ResponseEntity<CustomerGetResponseDto> getCustomerById(@PathVariable("customerId") String customerId) {
 		log.info("Input Customer Id :: {}", customerId);
 		
@@ -78,6 +83,8 @@ public class CustomerGetController {
 	// Sample Input (Valid: 400-Bad Request): http://localhost:8080/customers/collection
 	// Throws MissingServletRequestParameterException if "required" "@RequestParam" firstName is not present
 	@GetMapping(value = "/customers/collection")
+	@LoggingPerformance(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerCollectionByFirstName ... ")
+	@LoggingAudit(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerCollectionByFirstName ... ")
 	public ResponseEntity<List<CustomerGetResponseDto>> getCustomerCollectionByFirstName(@RequestParam(name = "firstName", required = true) String firstName) {
 		List<Customer> customers = customerService.getCustomerCollectionByFirstName(firstName);
 		List<CustomerGetResponseDto> customerGetResponseDtoList = customers.stream().map(customer -> new CustomerGetResponseDto(customer)).collect(Collectors.toList());
