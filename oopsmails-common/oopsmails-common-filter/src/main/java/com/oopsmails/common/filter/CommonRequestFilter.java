@@ -1,6 +1,6 @@
-package com.oopsmails.common.logging.filter;
+package com.oopsmails.common.filter;
 
-import com.oopsmails.common.logging.util.CommonLoggingConstants;
+import com.oopsmails.common.filter.util.CommonLoggingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;

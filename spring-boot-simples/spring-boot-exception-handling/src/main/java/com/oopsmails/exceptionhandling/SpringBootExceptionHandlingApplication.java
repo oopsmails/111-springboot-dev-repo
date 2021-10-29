@@ -1,6 +1,6 @@
 package com.oopsmails.exceptionhandling;
 
-import com.oopsmails.common.logging.config.OopsmailsCommonLoggingConfig;
+import com.oopsmails.common.filter.config.OopsmailsCommonLoggingConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

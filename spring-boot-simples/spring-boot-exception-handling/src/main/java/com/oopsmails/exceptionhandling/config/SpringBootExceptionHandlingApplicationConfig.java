@@ -1,8 +1,8 @@
 package com.oopsmails.exceptionhandling.config;
 
-import com.oopsmails.common.logging.config.OopsmailsCommonLoggingConfig;
-import com.oopsmails.common.logging.filter.CommonLoggingFilter;
-import com.oopsmails.common.logging.filter.CommonRequestFilter;
+import com.oopsmails.common.filter.config.OopsmailsCommonLoggingConfig;
+import com.oopsmails.common.filter.CommonLoggingFilter;
+import com.oopsmails.common.filter.CommonRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

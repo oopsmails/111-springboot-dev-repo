@@ -1,8 +1,8 @@
-package com.oopsmails.common.logging.util;
+package com.oopsmails.common.filter.util;
 
-import com.oopsmails.common.logging.domain.CommonLoggingRequestWrapper;
-import com.oopsmails.common.logging.domain.CommonLoggingResponseWrapper;
-import com.oopsmails.common.logging.domain.CommonLoggingKeyValue;
+import com.oopsmails.common.filter.domain.CommonLoggingRequestWrapper;
+import com.oopsmails.common.filter.domain.CommonLoggingResponseWrapper;
+import com.oopsmails.common.filter.domain.CommonLoggingKeyValue;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 

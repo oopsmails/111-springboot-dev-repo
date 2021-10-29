@@ -1,4 +1,4 @@
-package com.oopsmails.common.logging.util;
+package com.oopsmails.common.filter.util;
 
 import java.util.Set;
 

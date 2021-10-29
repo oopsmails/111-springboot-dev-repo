@@ -1,14 +1,14 @@
-package com.oopsmails.common.logging.filter;
+package com.oopsmails.common.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.oopsmails.common.logging.domain.CommonLoggingRequest;
-import com.oopsmails.common.logging.domain.CommonLoggingRequestWrapper;
-import com.oopsmails.common.logging.domain.CommonLoggingResponse;
-import com.oopsmails.common.logging.domain.CommonLoggingResponseWrapper;
-import com.oopsmails.common.logging.util.FilterUtil;
-import com.oopsmails.common.logging.util.CommonLoggingConstants;
-import com.oopsmails.common.logging.util.HttpStatusUtil;
+import com.oopsmails.common.filter.domain.CommonLoggingRequest;
+import com.oopsmails.common.filter.domain.CommonLoggingRequestWrapper;
+import com.oopsmails.common.filter.domain.CommonLoggingResponse;
+import com.oopsmails.common.filter.domain.CommonLoggingResponseWrapper;
+import com.oopsmails.common.filter.util.FilterUtil;
+import com.oopsmails.common.filter.util.CommonLoggingConstants;
+import com.oopsmails.common.filter.util.HttpStatusUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;

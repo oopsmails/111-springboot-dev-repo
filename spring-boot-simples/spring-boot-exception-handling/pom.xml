@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.oopsmails.springboot.dev.repo</groupId>
-            <artifactId>oopsmails-common-logging</artifactId>
+            <artifactId>oopsmails-common-filter</artifactId>
             <version>1.0.0</version>
         </dependency>
 

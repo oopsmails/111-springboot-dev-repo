@@ -1,9 +1,9 @@
-package com.oopsmails.common.logging.config;
+package com.oopsmails.common.filter.config;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootConfiguration
-@ComponentScan("com.oopsmails.common.logging.filter")
+@ComponentScan("com.oopsmails.common.filter")
 public class OopsmailsCommonLoggingConfig {
 }

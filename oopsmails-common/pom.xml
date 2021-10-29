@@ -17,7 +17,7 @@
 
     <modules>
         <module>oopsmails-common-domain</module>
-        <module>oopsmails-common-logging</module>
+        <module>oopsmails-common-filter</module>
     </modules>
 
     <properties>

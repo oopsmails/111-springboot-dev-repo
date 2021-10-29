@@ -1,4 +1,4 @@
-package com.oopsmails.common.logging.domain;
+package com.oopsmails.common.filter.domain;
 
 import org.apache.commons.io.output.TeeOutputStream;
 

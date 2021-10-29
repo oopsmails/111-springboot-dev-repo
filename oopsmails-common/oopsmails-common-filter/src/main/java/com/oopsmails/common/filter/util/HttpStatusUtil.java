@@ -1,4 +1,4 @@
-package com.oopsmails.common.logging.util;
+package com.oopsmails.common.filter.util;
 
 public class HttpStatusUtil {
     private HttpStatusUtil() {

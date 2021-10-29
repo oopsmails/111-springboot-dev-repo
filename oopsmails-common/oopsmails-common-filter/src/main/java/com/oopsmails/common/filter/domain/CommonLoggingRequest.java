@@ -1,7 +1,7 @@
-package com.oopsmails.common.logging.domain;
+package com.oopsmails.common.filter.domain;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.oopsmails.common.logging.util.CommonLoggingUtil;
+import com.oopsmails.common.filter.util.CommonLoggingUtil;
 import lombok.Getter;
 import lombok.Setter;
 

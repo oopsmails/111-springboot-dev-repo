@@ -1,6 +1,6 @@
 package com.oopsmails.springboot.mockbackend.filter;
 
-import com.oopsmails.common.logging.util.FilterUtil;
+import com.oopsmails.common.filter.util.FilterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
