@@ -1,3 +1,3 @@
 {
-  "testPingPostResponse": "ping POST successfully!"
+  "testPingPostResponse": "ping.post.response.data.json: ping POST successfully!"
 }

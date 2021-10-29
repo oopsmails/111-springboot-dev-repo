@@ -14,13 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 @Slf4j
 @Component
 @Order()
 public class GeneralRedirectFilter implements Filter {
-    @Value("${generic.redirect.enabled}")
+    @Value("${generic.redirect.enabled:true}")
     private boolean isGenericRedirectEnabled;
+
+    @Value("#{'${generic.redirect.url.exclude}'.split(',')}")
+    private Set<String> redirectExemptionUrls;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -29,6 +33,12 @@ public class GeneralRedirectFilter implements Filter {
 
         String path = req.getRequestURI();
         log.info("doFilter(), req.getRequestURI(): {}", path);
+
+        if (!isGenericRedirectEnabled || inExemption(path, redirectExemptionUrls)) {
+            log.warn("Skipping url redirecting, isGenericRedirectEnabled = {} or {} is inExemption", isGenericRedirectEnabled, path);
+            chain.doFilter(request, response);
+            return;
+        }
 
         if (isGenericRedirectEnabled) {
             if (path.indexOf("/ping") == 0) {
@@ -62,5 +72,14 @@ public class GeneralRedirectFilter implements Filter {
         }
 
         chain.doFilter(req, res);
+    }
+
+    private static boolean inExemption(final String path, Set<String> loggingExemptionUrls) {
+        for(String url : loggingExemptionUrls) {
+            if (path.indexOf(url) >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

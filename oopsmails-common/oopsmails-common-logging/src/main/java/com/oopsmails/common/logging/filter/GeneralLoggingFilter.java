@@ -49,7 +49,6 @@ public class GeneralLoggingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
         String correlationId = getOrGenerateCorrelationId((HttpServletRequest) servletRequest);
         MDC.put(GeneralLoggingConstants.MDC_CORRELATION_ID, correlationId);

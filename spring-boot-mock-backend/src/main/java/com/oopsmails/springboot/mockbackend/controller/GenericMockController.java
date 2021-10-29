@@ -25,21 +25,22 @@ import java.util.function.Function;
 @RequestMapping("")
 @Slf4j
 public class GenericMockController {
-    @Value("${generic.redirect.url.exclude}")
-    private String genericRedirectUrlExclude;
+    @Value("${generic.mock.controller.file.path.prefix.exclude}")
+    private String filePathExclude;
 
     @Autowired
     private ContextHelper contextHelper;
 
     @GetMapping("/ping")
     public String pingGet() throws Exception {
+        log.info("@GetMapping(\"/ping\") ..... GET");
         return JsonUtils.readFileAsString("data/ping/ping.get.response.data.json");
     }
 
     @PostMapping("/ping")
     public String pingPost(@RequestBody String anyThing) throws Exception {
         Function<String, String> function = input -> {
-            log.info("Passed in body: [{}]", anyThing);
+            log.info("@PostMapping(\"/ping\"), passed in body: [{}]", anyThing);
             try {
                 return JsonUtils.readFileAsString("data/ping/ping.post.response.data.json");
             } catch (Exception e) {
@@ -56,6 +57,7 @@ public class GenericMockController {
     @LoggingPerformance(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
     @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")
     public String genericGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        log.info("@GetMapping(\"\") ..... GET");
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
         return JsonUtils.readFileAsString(responseFilePath);
@@ -65,6 +67,7 @@ public class GenericMockController {
     @LoggingPerformance(origin = LoggingOrigin.GenericMockController, message = "genericPost message ... ")
     @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericPost message ... ")
     public String genericPost(@RequestBody String anyThing, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        log.info("@PostMapping(\"\"), passed in body: [{}]", anyThing);
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
         return JsonUtils.readFileAsString(responseFilePath);
@@ -74,7 +77,7 @@ public class GenericMockController {
     public String getResponseFilePath(AuditArg auditArg, HttpServletRequest httpServletRequest) {
         log.info("httpServletRequest.getRequestURL(): {}", httpServletRequest.getRequestURL());
         String urlPath = httpServletRequest.getRequestURL().toString();
-        urlPath = urlPath.substring(urlPath.indexOf(genericRedirectUrlExclude) + genericRedirectUrlExclude.length());
+        urlPath = urlPath.substring(urlPath.indexOf(filePathExclude) + filePathExclude.length());
         log.info("urlPath: {}", urlPath);
 
 
