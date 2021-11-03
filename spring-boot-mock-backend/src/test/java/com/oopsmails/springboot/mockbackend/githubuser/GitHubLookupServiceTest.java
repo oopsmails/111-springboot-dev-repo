@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.oopsmails.springboot.mockbackend.consumer.ThrowingConsumer.throwingConsumerWrapper;
+import static com.oopsmails.springboot.mockbackend.exception.ThrowingConsumer.throwingConsumerWrapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

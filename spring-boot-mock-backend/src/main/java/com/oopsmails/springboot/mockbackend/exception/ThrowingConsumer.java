@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.consumer;
+package com.oopsmails.springboot.mockbackend.exception;
 
 import java.util.function.Consumer;
 

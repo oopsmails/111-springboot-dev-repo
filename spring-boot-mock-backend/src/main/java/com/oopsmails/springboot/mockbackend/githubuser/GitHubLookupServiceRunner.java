@@ -13,8 +13,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.oopsmails.springboot.mockbackend.consumer.ThrowingConsumer.throwingConsumerWrapper;
-
 @Component
 public class GitHubLookupServiceRunner {
     private static final Logger logger = LoggerFactory.getLogger(GitHubLookupServiceRunner.class);
