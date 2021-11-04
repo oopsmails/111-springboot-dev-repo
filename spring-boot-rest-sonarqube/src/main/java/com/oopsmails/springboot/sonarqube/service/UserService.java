@@ -10,13 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-/***
- * Project Name     : spring-boot-testing
- * Username         : Teten Nugraha
- * Date Time        : 12/18/2019
- * Telegram         : @tennugraha
- */
-
 @Service
 @Transactional
 public class UserService {

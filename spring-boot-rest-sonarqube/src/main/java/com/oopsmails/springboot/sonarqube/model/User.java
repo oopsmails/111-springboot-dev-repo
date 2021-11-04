@@ -8,13 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-/***
- * Project Name     : spring-boot-testing
- * Username         : Teten Nugraha
- * Date Time        : 12/18/2019
- * Telegram         : @tennugraha
- */
-
 @Entity
 @Table(name = "users")
 @Setter
