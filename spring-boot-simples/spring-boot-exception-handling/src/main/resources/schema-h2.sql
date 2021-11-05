@@ -18,3 +18,17 @@ CREATE TABLE audit_event
 
     PRIMARY KEY ( event_id )
 );
+
+CREATE TABLE employee
+(
+	employee_id VARCHAR(100) NOT NULL,
+	first_name VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100),
+	email_id VARCHAR(100),
+	organization_id VARCHAR(100),
+	department_id VARCHAR(100),
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( employee_id )
+);
