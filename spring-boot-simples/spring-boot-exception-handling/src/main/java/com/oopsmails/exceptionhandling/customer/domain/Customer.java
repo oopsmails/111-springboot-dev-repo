@@ -1,4 +1,4 @@
-package com.oopsmails.exceptionhandling.domain;
+package com.oopsmails.exceptionhandling.customer.domain;
 
 //import com.oopsmails.common.domain.logging.LoggingDto;
 import lombok.AllArgsConstructor;

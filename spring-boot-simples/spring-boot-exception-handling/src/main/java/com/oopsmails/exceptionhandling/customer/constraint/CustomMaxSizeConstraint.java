@@ -1,4 +1,4 @@
-package com.oopsmails.exceptionhandling.constraint;
+package com.oopsmails.exceptionhandling.customer.constraint;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

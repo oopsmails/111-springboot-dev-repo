@@ -1,9 +1,9 @@
-package com.oopsmails.exceptionhandling.json;
+package com.oopsmails.exceptionhandling.customer.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.oopsmails.exceptionhandling.domain.Customer;
+import com.oopsmails.exceptionhandling.customer.domain.Customer;
 
 @Data
 @AllArgsConstructor

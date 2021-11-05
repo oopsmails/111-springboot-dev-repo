@@ -1,4 +1,4 @@
-package com.oopsmails.exceptionhandling.entity;
+package com.oopsmails.exceptionhandling.customer.entity;
 
 import lombok.Data;
 

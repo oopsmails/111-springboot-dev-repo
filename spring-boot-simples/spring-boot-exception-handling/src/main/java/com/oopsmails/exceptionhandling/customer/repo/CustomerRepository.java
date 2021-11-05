@@ -1,8 +1,8 @@
-package com.oopsmails.exceptionhandling.repo;
+package com.oopsmails.exceptionhandling.customer.repo;
 
-import com.oopsmails.exceptionhandling.domain.Customer;
-import com.oopsmails.exceptionhandling.entity.CustomerEntity;
-import com.oopsmails.exceptionhandling.repo.jpa.CustomerJpaRepository;
+import com.oopsmails.exceptionhandling.customer.domain.Customer;
+import com.oopsmails.exceptionhandling.customer.entity.CustomerEntity;
+import com.oopsmails.exceptionhandling.customer.repo.jpa.CustomerJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

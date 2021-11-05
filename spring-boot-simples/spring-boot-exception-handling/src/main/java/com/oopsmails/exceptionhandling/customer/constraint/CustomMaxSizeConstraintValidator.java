@@ -1,6 +1,6 @@
-package com.oopsmails.exceptionhandling.constraint;
+package com.oopsmails.exceptionhandling.customer.constraint;
 
-import com.oopsmails.exceptionhandling.json.CustomerPostRequestDto;
+import com.oopsmails.exceptionhandling.customer.json.CustomerPostRequestDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

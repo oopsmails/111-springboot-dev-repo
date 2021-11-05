@@ -1,5 +1,7 @@
-package com.oopsmails.exceptionhandling.json;
+package com.oopsmails.exceptionhandling.customer.json;
 
+import com.oopsmails.exceptionhandling.customer.domain.Customer;
+import com.oopsmails.exceptionhandling.util.ResourceIdGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerPutRequestDto {
+public class CustomerPostRequestDto {
 	
 	@NotNull(message = "Customer First Name cannot be null")
 	@NotBlank(message = "Customer First Name cannot be blank")
@@ -23,4 +25,15 @@ public class CustomerPutRequestDto {
 	@NotNull(message = "Customer Age cannot be null")
 	private Integer age;
 	
+	public Customer toCustomer() {
+		Customer customer = new Customer();
+		
+		customer.setCustomerId(ResourceIdGenerator.generateResourceId());
+		customer.setFirstName(this.firstName);
+		customer.setLastName(this.lastName);
+		customer.setAge(this.age);
+		
+		return customer;
+	}
+
 }

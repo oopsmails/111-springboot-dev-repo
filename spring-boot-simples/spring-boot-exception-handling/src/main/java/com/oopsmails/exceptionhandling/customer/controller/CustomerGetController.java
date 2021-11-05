@@ -1,14 +1,14 @@
-package com.oopsmails.exceptionhandling.controller;
+package com.oopsmails.exceptionhandling.customer.controller;
 
 import com.oopsmails.common.annotation.audit.LoggingAudit;
 import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
 import com.oopsmails.common.annotation.performance.LoggingPerformance;
-import com.oopsmails.exceptionhandling.domain.Customer;
+import com.oopsmails.exceptionhandling.customer.domain.Customer;
 import com.oopsmails.exceptionhandling.exception.apierror.CustomValidationError;
 import com.oopsmails.exceptionhandling.exception.custom.CustomValidationViolationException;
 import com.oopsmails.exceptionhandling.exception.custom.ResourceNotFoundException;
-import com.oopsmails.exceptionhandling.json.CustomerGetResponseDto;
-import com.oopsmails.exceptionhandling.service.CustomerService;
+import com.oopsmails.exceptionhandling.customer.json.CustomerGetResponseDto;
+import com.oopsmails.exceptionhandling.customer.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

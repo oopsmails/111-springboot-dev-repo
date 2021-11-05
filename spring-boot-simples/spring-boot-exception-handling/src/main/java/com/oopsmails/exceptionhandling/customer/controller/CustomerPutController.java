@@ -1,10 +1,10 @@
-package com.oopsmails.exceptionhandling.controller;
+package com.oopsmails.exceptionhandling.customer.controller;
 
-import com.oopsmails.exceptionhandling.domain.Customer;
+import com.oopsmails.exceptionhandling.customer.domain.Customer;
 import com.oopsmails.exceptionhandling.exception.custom.ResourceNotFoundException;
-import com.oopsmails.exceptionhandling.json.CustomerGetResponseDto;
-import com.oopsmails.exceptionhandling.json.CustomerPutRequestDto;
-import com.oopsmails.exceptionhandling.service.CustomerService;
+import com.oopsmails.exceptionhandling.customer.json.CustomerGetResponseDto;
+import com.oopsmails.exceptionhandling.customer.json.CustomerPutRequestDto;
+import com.oopsmails.exceptionhandling.customer.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
