@@ -41,17 +41,17 @@ public class ChessPlayer {
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "playerWhite")
-    @JsonIgnore
+//    @JsonIgnore
     private Set<ChessGame> gamesWhite;
 
     @OneToMany(mappedBy = "playerBlack")
-    @JsonIgnore
+//    @JsonIgnore
     private Set<ChessGame> gamesBlack;
 
     // don't use FetchType.EAGER
     @ManyToMany(mappedBy = "players") //, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-    @JsonIgnore
+//    @JsonIgnore
     private Set<ChessTournament> tournaments;
 
     @Version

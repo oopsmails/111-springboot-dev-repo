@@ -18,6 +18,8 @@ Thanks!!!!
 
 Notes in TestDemo.java
 
+ChessPlayer class, don't put @JsonIgnore for testing, though this is circular referencing for Jackson.
+
 ### Using Lombok
 
 For Entity classes, better to use @Getter and @Setter instead of @Data
