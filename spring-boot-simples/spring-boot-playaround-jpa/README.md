@@ -10,6 +10,10 @@ https://thorben-janssen.com/talkscalable-persistence-layers-spring-data-jpa/
 
 https://www.youtube.com/watch?v=smyFi4OCHDE
 
+- git:
+
+https://github.com/thjanssen/Talk-ScalablePersistenceLayersSpringDataJPA
+
 Thanks!!!!
 
 ## Learning
