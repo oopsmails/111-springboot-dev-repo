@@ -2,6 +2,7 @@ package com.oopsmails.springboot.playaroud.jpa;
 
 
 import com.oopsmails.springboot.playaroud.jpa.controller.ChessPlayerController;
+import com.oopsmails.springboot.playaroud.jpa.entity.InstantItem;
 import com.oopsmails.springboot.playaroud.jpa.model.BetterPlayerFullNameIntf;
 import com.oopsmails.springboot.playaroud.jpa.model.ChessPlayer;
 import com.oopsmails.springboot.playaroud.jpa.model.ChessTournament;
@@ -11,23 +12,25 @@ import com.oopsmails.springboot.playaroud.jpa.model.PlayerNameIntf;
 import com.oopsmails.springboot.playaroud.jpa.model.TournamentIntf;
 import com.oopsmails.springboot.playaroud.jpa.repository.ChessPlayerRepository;
 import com.oopsmails.springboot.playaroud.jpa.repository.ChessTournamentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConverterNotFoundException;
 import org.springframework.test.annotation.Commit;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Slf4j
 public class TestDemo {
-
-    private static final Logger log = LoggerFactory.getLogger(TestDemo.class);
 
     @Autowired
     private ChessPlayerRepository playerRepo;
@@ -37,6 +40,9 @@ public class TestDemo {
 
     @Autowired
     private ChessPlayerController playerController;
+
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * ToMany, never use FetchType.EAGER, instead using FetchType.LAZY, which is default.
@@ -212,5 +218,13 @@ public class TestDemo {
 
         playerController.getPlayerById(1L);
         playerController.getPlayerById(1L);
+    }
+
+    @Test
+    public void testGetDbTimestamp() {
+        Query query = this.entityManager.createNativeQuery("SELECT CURRENT_TIMESTAMP AS DATE_VALUE", InstantItem.class);
+        InstantItem instantItem = (InstantItem) query.getSingleResult();
+        LocalDateTime now = LocalDateTime.ofInstant(instantItem.getDate(), TimeZone.getDefault().toZoneId());
+        log.info("DB current timestamp: {}", now);
     }
 }
