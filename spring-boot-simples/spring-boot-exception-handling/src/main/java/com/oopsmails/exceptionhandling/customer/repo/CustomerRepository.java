@@ -4,6 +4,7 @@ import com.oopsmails.exceptionhandling.customer.domain.Customer;
 import com.oopsmails.exceptionhandling.customer.entity.CustomerEntity;
 import com.oopsmails.exceptionhandling.customer.repo.jpa.CustomerJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -65,5 +66,7 @@ public class CustomerRepository {
 		return deletedCustomerOptional;		
 	}
 
-
+//	@Query("SELECT new CustomerCount(c.year, COUNT(c.year)) "
+//			+ "FROM Comment AS c GROUP BY c.year ORDER BY c.year DESC")
+//	List<Customer> countTotalCommentsByYearClass();
 }

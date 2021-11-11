@@ -37,4 +37,8 @@ public class CustomerService {
 		Customer updatedCustomer = customerRepository.saveCustomer(customer);
 		return updatedCustomer;
 	}
+
+	public String generateForScheduler() {
+		return "############## Generated for Scheduler ###############";
+	}
 }
