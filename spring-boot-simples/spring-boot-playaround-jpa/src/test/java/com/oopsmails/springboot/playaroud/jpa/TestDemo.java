@@ -24,11 +24,15 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Scanner;
 import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+        properties = {
+                "spring.h2.console.enabled=true"
+        })
 @Slf4j
 public class TestDemo {
 
@@ -43,6 +47,17 @@ public class TestDemo {
 
     @Autowired
     private EntityManager entityManager;
+
+//    @Test
+//    public void testIntellijTestConsole() {
+//        Scanner scanner = new Scanner(System.in);
+//        String input = scanner.nextLine();
+//        while (!"exit".equals(input)) {
+//            log.info("======================= input: {} ====================", input);
+//            input = scanner.nextLine();
+//        }
+//        log.info("======================= Done ====================");
+//    }
 
     /**
      * ToMany, never use FetchType.EAGER, instead using FetchType.LAZY, which is default.

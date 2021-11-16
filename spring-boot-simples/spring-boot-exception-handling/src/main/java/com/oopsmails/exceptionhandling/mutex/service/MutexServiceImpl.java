@@ -7,6 +7,8 @@ import com.oopsmails.exceptionhandling.mutex.dto.Mutex;
 import com.oopsmails.exceptionhandling.mutex.entity.EntityMutex;
 import com.oopsmails.exceptionhandling.mutex.repository.IMutexRepository;
 import com.oopsmails.exceptionhandling.util.DbCommonService;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -40,6 +42,8 @@ public class MutexServiceImpl implements IMutexService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Getter
+    @Setter
     private String hostName;
 
     public MutexServiceImpl() throws UnknownHostException {
@@ -60,6 +64,7 @@ public class MutexServiceImpl implements IMutexService {
                 LocalDateTime dbCurrentTimestamp = dbCommonService.getCurrentTimestamp();
                 log.debug("In DB, entity mutex resourceCd: {}, mutex nodeId: {}, DB current timestamp: {}", mutex.getResourceCode(), mutex.getNodeId(), dbCurrentTimestamp);
 
+                // Cannot aquire lock if someone else is holding it. Note, if same hostName, then ok to get lock again.
                 if ((!mutex.getNodeId().equals(this.hostName)) && mutex.getLockUntil().isAfter(dbCurrentTimestamp)) {
                     log.info("Cannot acquire mutex [{}] for hostName [{}] because it is already acquired by [{}]", resourceCd, this.hostName, mutex.getNodeId());
                     return false;
