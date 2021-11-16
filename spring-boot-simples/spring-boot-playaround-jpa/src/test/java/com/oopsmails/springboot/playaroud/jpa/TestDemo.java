@@ -13,6 +13,7 @@ import com.oopsmails.springboot.playaroud.jpa.model.TournamentIntf;
 import com.oopsmails.springboot.playaroud.jpa.repository.ChessPlayerRepository;
 import com.oopsmails.springboot.playaroud.jpa.repository.ChessTournamentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,16 +49,17 @@ public class TestDemo {
     @Autowired
     private EntityManager entityManager;
 
-//    @Test
-//    public void testIntellijTestConsole() {
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//        while (!"exit".equals(input)) {
-//            log.info("======================= input: {} ====================", input);
-//            input = scanner.nextLine();
-//        }
-//        log.info("======================= Done ====================");
-//    }
+    @Test
+    @Disabled
+    public void testIntellijTestConsole() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!"exit".equals(input)) {
+            log.info("======================= input: {} ====================", input);
+            input = scanner.nextLine();
+        }
+        log.info("======================= Done ====================");
+    }
 
     /**
      * ToMany, never use FetchType.EAGER, instead using FetchType.LAZY, which is default.

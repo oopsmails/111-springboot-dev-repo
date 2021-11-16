@@ -4,6 +4,7 @@ import com.oopsmails.exceptionhandling.mutex.dto.Mutex;
 import com.oopsmails.exceptionhandling.util.DbCommonService;
 import com.oopsmails.exceptionhandling.util.ExtraService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -188,6 +189,7 @@ public class MutexServiceTest {
     }
 
     @Test
+    @Disabled
     public void test_lock_with_db_forDebugging() throws Exception {
         final String RESOURCE_100 = "RESOURCE_100";
         final String RESOURCE_101 = "RESOURCE_101";
