@@ -19,6 +19,7 @@
         <module>oopsmails-common-domain</module>
         <module>oopsmails-common-filter</module>
         <module>oopsmails-common-annotation</module>
+        <module>oopsmails-common-tool</module>
     </modules>
 
     <properties>

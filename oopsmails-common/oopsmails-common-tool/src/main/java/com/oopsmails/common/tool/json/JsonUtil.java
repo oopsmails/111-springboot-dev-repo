@@ -1,0 +1,93 @@
+package com.oopsmails.common.tool.json;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Slf4j
+public class JsonUtil {
+
+    public static ObjectMapper getObjectMapper() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.configure(MapperFeature.USE_ANNOTATIONS, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return objectMapper;
+    }
+
+    public static void getJsonString(Object obj, boolean beautify) {
+        String prettyJsonStr = "";
+        try {
+            prettyJsonStr = beautify ?
+                    getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj) :
+                    getObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            log.warn("logging object error, obj: [{}]", obj);
+            log.warn("logging object error, exception will be ignored:[{}] ", e.getMessage());
+        }
+        log.trace("- logging object: [{}]", prettyJsonStr);
+    }
+
+    public static <T> T jsonFileToObject(String fileNameWithPath, Class<T> type) {
+        T target = null;
+        try {
+            File jsonFile = new File(fileNameWithPath);
+            target = getObjectMapper().readValue(jsonFile, type);
+        } catch (Exception e) {
+            log.warn("logging object error, obj: [{}]", e.getMessage());
+        }
+
+        return target;
+    }
+
+    public static <T> T jsonFileToObject(String fileNameWithPath, TypeReference<T> type) {
+        T target = null;
+        try {
+            File jsonFile = new File(fileNameWithPath);
+            target = getObjectMapper().readValue(jsonFile, type);
+        } catch (Exception e) {
+            log.warn("logging object error, obj: [{}]", e.getMessage());
+        }
+
+        return target;
+    }
+
+    public static <T> T jsonToObject(String json, Class<T> type) {
+        T target = null;
+        try {
+            target = getObjectMapper().readValue(json, type);
+        } catch (Exception e) {
+            log.warn("logging object error, obj: [{}]", e.getMessage());
+        }
+
+        return target;
+    }
+
+    public static <T> T jsonToObject(String json, TypeReference<T> type) {
+        T target = null;
+        try {
+            target = getObjectMapper().readValue(json, type);
+        } catch (Exception e) {
+            log.warn("logging object error, obj: [{}]", e.getMessage());
+        }
+        return target;
+    }
+
+    public static String readFileAsString(String pathLocation) throws Exception {
+        Path dataPath = Paths.get(ClassLoader.getSystemResource(pathLocation).toURI());
+        return new String(Files.readAllBytes(dataPath));
+    }
+}

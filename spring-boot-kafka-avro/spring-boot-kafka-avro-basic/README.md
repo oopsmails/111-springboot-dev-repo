@@ -180,6 +180,13 @@ spring-boot-kafka-avro/spring-boot-kafka-avro-basic/spring-boot-kafka-avro-basic
 
 Can trigger sending messages again by GET: http://localhost:8080/avro/person
 
+- Postman, import, spring-boot-mock-backend/Spring-boot-mock-backend.postman_collection.json
+
+avro-send-person 8887 :::> http://localhost:8887/avro/person
+
+- If also run, spring-boot-kafka-admin/src/main/java/com/oopsmails/springboot/kafka/admin/KafkaApplication.java
+
+kafka-admin-8889 :::> http://localhost:8889/msg/admin
 
 - 20210929: 
 If change from "firstName" to "fName", then, get following error in "Control Center"  
