@@ -1,4 +1,4 @@
-package com.oopsmails.common.domain.json;
+package com.oopsmails.common.tool.json;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
