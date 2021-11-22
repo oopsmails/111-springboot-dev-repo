@@ -2,7 +2,8 @@ package com.oopsmails.generaljava.functionobj;
 
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -27,9 +28,9 @@ public class FunctionObjectTest {
         ParentC parentC2 = new ParentC("parentC2: actual ParentC");
 
         List<String> results = new ArrayList<>();
-//		results.add(serviceSample.getStringFromCommand("childC", parentC1));
-//		results.add(serviceSample.getStringFromCommand("parentC", parentC2));
-//		results.add(serviceSample.getStringFromCommand("parentC", parentC1)); // cannot(no neat way to) do magic cast
+        //		results.add(serviceSample.getStringFromCommand("childC", parentC1));
+        //		results.add(serviceSample.getStringFromCommand("parentC", parentC2));
+        //		results.add(serviceSample.getStringFromCommand("parentC", parentC1)); // cannot(no neat way to) do magic cast
 
         results.add(serviceSample.getStringFromCommand(parentC1.getClass(), parentC1)); // three is magic case in commandMap
         results.add(serviceSample.getStringFromCommand(parentC2.getClass(), parentC2));
