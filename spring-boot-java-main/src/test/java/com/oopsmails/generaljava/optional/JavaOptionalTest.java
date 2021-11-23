@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Search "java 8 optional null check chain"
  * Ref: https://stackoverflow.com/questions/3458451/check-chains-of-get-calls-for-null
@@ -21,10 +23,11 @@ public class JavaOptionalTest {
 
     @Test
     public void testUsingCatch() throws Exception {
+        final String EXPECTED = "defaultValue";
         Outer outer = new Outer();
-        String foo = OptionalUtil.getFieldValue(() -> outer.getNested().getInner().getFoo());
-
+        String foo = OptionalUtil.getFieldValue(() -> outer.getNested().getInner().getFoo(), EXPECTED);
         System.out.println("foo: " + foo);
+        assertEquals(EXPECTED, foo);
     }
 
     @Test

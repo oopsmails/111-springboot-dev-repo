@@ -4,11 +4,12 @@ import java.util.function.Supplier;
 
 /**
  * Ref: https://stackoverflow.com/questions/3458451/check-chains-of-get-calls-for-null
- *
  */
 public class OptionalUtil {
     /**
      * Using this to avoid null check chain
+     *
+     * NOTE: This omits NullPointerException
      *
      * e.g, house.getFloor(0).getWall(WEST).getDoor().getDoorknob();
      *
@@ -23,11 +24,11 @@ public class OptionalUtil {
      * @param <T>
      * @return
      */
-    public static <T> T getFieldValue(Supplier<T> statement) {
+    public static <T> T getFieldValue(Supplier<T> statement, T defaultValue) {
         try {
             return statement.get();
         } catch (NullPointerException exc) {
-            return null;
+            return defaultValue;
         }
     }
 }
