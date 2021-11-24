@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Search "java 8 optional null check chain"
@@ -19,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 
-public class JavaOptionalTest {
+class JavaOptionalTest {
 
     @Test
-    public void testUsingCatch() throws Exception {
+    void testUsingCatch() throws Exception {
         final String EXPECTED = "defaultValue";
         Outer outer = new Outer();
         String foo = OptionalUtil.getFieldValue(() -> outer.getNested().getInner().getFoo(), EXPECTED);
@@ -31,7 +32,7 @@ public class JavaOptionalTest {
     }
 
     @Test
-    public void testUsingMap() throws Exception {
+    void testUsingMap() throws Exception {
         System.out.println("----- Not Initialized! -----");
 
         Optional.ofNullable(new Outer())
@@ -40,6 +41,13 @@ public class JavaOptionalTest {
                 .map(in -> in.getFoo())
                 .ifPresent(foo -> System.out.println("foo: " + foo)); //no print
 
+        String fooNull = Optional.ofNullable(new Outer())
+                .map(Outer::getNested)
+                .map(Nested::getInner)
+                .map(Inner::getFoo)
+                .orElse(null);
+        assertNull(fooNull);
+
         System.out.println("----- Let's Initialize! -----");
 
         Optional.ofNullable(new OuterInit())
@@ -47,6 +55,13 @@ public class JavaOptionalTest {
                 .map(nest -> nest.getInnerInit())
                 .map(in -> in.getFoo())
                 .ifPresent(foo -> System.out.println("foo: " + foo)); //will print!
+
+        String foo = Optional.ofNullable(new OuterInit())
+                .map(OuterInit::getNestedInit)
+                .map(NestedInit::getInnerInit)
+                .map(InnerInit::getFoo)
+                .orElse(null);
+        assertEquals("yeah!", foo);
     }
 
     public class Outer {

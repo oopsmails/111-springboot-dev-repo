@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class JavaStreamTest {
     private static final List<String> testList = new ArrayList<>();
@@ -43,10 +44,11 @@ public class JavaStreamTest {
      * collection.
      */
     @Test
-    public void testStreamForEach() throws Exception {
+    void testStreamForEach() throws Exception {
         testList.forEach(System.out::println);
         System.out.println("==================================");
         testList.stream().forEach(System.out::println);
+        assertNotNull(testList);
     }
 
     /**
@@ -69,7 +71,7 @@ public class JavaStreamTest {
      */
 
     @Test
-    public void testMapFlatMap() throws Exception {
+    void testMapFlatMap() throws Exception {
         List<String> collected = Stream.of("a", "b", "hello") // Stream of String
                 .map(String::toUpperCase) // Returns a stream consisting of the results of applying the given function to the elements of this stream.
                 .collect(Collectors.toList());
