@@ -28,17 +28,19 @@ public class JsonUtil {
         return objectMapper;
     }
 
-    public static void getJsonString(Object obj, boolean beautify) {
-        String prettyJsonStr = "";
+    public static String objectToJsonString(Object obj, boolean beautify) {
+        String result = "";
         try {
-            prettyJsonStr = beautify ?
+            result = beautify ?
                     getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj) :
                     getObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
             log.warn("logging object error, obj: [{}]", obj);
             log.warn("logging object error, exception will be ignored:[{}] ", e.getMessage());
         }
-        log.trace("- logging object: [{}]", prettyJsonStr);
+        log.trace("- logging object: [{}]", result);
+        return result;
+
     }
 
     public static <T> T jsonFileToObject(String fileNameWithPath, Class<T> type) {
