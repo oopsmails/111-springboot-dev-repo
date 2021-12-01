@@ -34,7 +34,8 @@ public class GenericMockController {
     @GetMapping("/ping")
     public String pingGet() throws Exception {
         log.info("@GetMapping(\"/ping\") ..... GET");
-        return JsonUtils.readFileAsString("data/ping/ping.get.response.data.json");
+//        return JsonUtils.readFileAsString("data/ping/ping.get.response.data.json");
+        return JsonUtils.getResourceFileAsString("data/ping/ping.get.response.data.json");
     }
 
     @PostMapping("/ping")
@@ -42,7 +43,7 @@ public class GenericMockController {
         Function<String, String> function = input -> {
             log.info("@PostMapping(\"/ping\"), passed in body: [{}]", anyThing);
             try {
-                return JsonUtils.readFileAsString("data/ping/ping.post.response.data.json");
+                return JsonUtils.getResourceFileAsString("data/ping/ping.post.response.data.json");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -60,7 +61,7 @@ public class GenericMockController {
         log.info("@GetMapping(\"\") ..... GET");
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
-        return JsonUtils.readFileAsString(responseFilePath);
+        return JsonUtils.getResourceFileAsString(responseFilePath);
     }
 
     @PostMapping("")
@@ -70,7 +71,7 @@ public class GenericMockController {
         log.info("@PostMapping(\"\"), passed in body: [{}]", anyThing);
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
-        return JsonUtils.readFileAsString(responseFilePath);
+        return JsonUtils.getResourceFileAsString(responseFilePath);
     }
 
     //    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")

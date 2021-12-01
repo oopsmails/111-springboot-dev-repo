@@ -129,7 +129,7 @@ OperationContext
 
 ```
 
-### After adding H2 db, mvn package failed
+## After adding H2 db, mvn package failed
 
 But when running those TCs individually, they all pass.
 
@@ -143,5 +143,77 @@ Caused by: org.h2.jdbc.JdbcSQLException: Table "xxx" already exists;
 
 Solution, added *@AutoConfigureTestDatabase* on those test classes.
 
+## Docker
+
+### Building the Container Image
+
+- See updating Dockerfile
+
+```
+docker build  -t mockbackend:v1 .
+
+Make sure to include . at the end
+Here, -t simply means tag followed by ' name:tag ' format.
+
+albert@albert-mint20:~/Documents/sharing/github/springboot-dev-repo/spring-boot-mock-backend$ docker build  -t mockbackend:v1 .
+Sending build context to Docker daemon  48.34MB
+Step 1/4 : FROM adoptopenjdk:11-jre-hotspot
+11-jre-hotspot: Pulling from library/adoptopenjdk
+f3ef4ff62e0d: Pull complete 
+706b9b9c1c44: Pull complete 
+76205aac4d5a: Pull complete 
+Digest: sha256:ad6431b2e2a6f8016aa6d79c3f588783af9fdc06cafe131fd0d3faf560914b13
+Status: Downloaded newer image for adoptopenjdk:11-jre-hotspot
+ ---> 2c57fb3bc67b
+Step 2/4 : ARG JAR_FILE=target/*.jar
+ ---> Running in 9e87dbb41f16
+Removing intermediate container 9e87dbb41f16
+ ---> af2b04805d18
+Step 3/4 : COPY ${JAR_FILE} spring-boot-mock-backend-1.0-SNAPSHOT.jar
+ ---> 5147a26a373f
+Step 4/4 : ENTRYPOINT ["java","-jar","/spring-boot-mock-backend-1.0-SNAPSHOT.jar"]
+ ---> Running in 733f2ecb3f65
+Removing intermediate container 733f2ecb3f65
+ ---> 8f7f4894b902
+Successfully built 8f7f4894b902
+Successfully tagged mockbackend:v1
+
+```
+
+### Run Docker image
+
+docker run -d --name mockbackend -p 8888:8888 mockbackend:v1
+docker run --name mockbackend -p 8888:8888 mockbackend:v1
+
+### To see live logs you can run below command, or without -d
+
+- Using docker log
+
+```
+docker logs -f mockbackend
+
+docker logs -f <yourContainer> &> your.log &
+
+Explanation:
+
+-f (i.e.--follow): writes all existing logs and follows logging everything that comes next.
+&> redirects both the standard output and standard error.
+Likely you want to run that method in the background, thus the &.
+You can separate stdout and stderr by: > output.log 2> error.log (instead of using &>).
+```
+
+- About docker log file
+Docker by default store logs to one log file. To check log file path run command:
+
+docker inspect --format='{{.LogPath}}' <containername>
+docker inspect --format='{{.LogPath}}' mockbackend
 
 
+tail -f `docker inspect --format='{{.LogPath}}' <containername>`
+sudo tail -f `docker inspect --format='{{.LogPath}}' mockbackend`
+
+
+### JsonUtil change to make sure file can be found in Docker container
+```
+new ClassPathResource(fileName).getInputStream()
+```

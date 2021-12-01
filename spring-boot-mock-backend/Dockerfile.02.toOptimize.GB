@@ -1,0 +1,6 @@
+FROM adoptopenjdk:11-jre-hotspot
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} spring-boot-mock-backend-1.0-SNAPSHOT.jar
+# This can be defined in application.properties, server.port=8888
+# EXPOSE 8080
+ENTRYPOINT ["java","-jar","/spring-boot-mock-backend-1.0-SNAPSHOT.jar"]

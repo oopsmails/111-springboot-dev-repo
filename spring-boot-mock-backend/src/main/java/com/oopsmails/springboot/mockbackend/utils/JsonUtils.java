@@ -8,18 +8,20 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.core.io.ClassPathResource;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 public class JsonUtils {
-    public static String PROJECT_PATH = "C:\\sharing\\github\\springboot-dev-repo\\spring-boot-mock-backend\\src\\main\\resources\\data\\";
-
-    public static String getFileNameWithPath(String fileName, String packageString) {
-        return PROJECT_PATH + (packageString == null ? "" : packageString) + "/" + fileName;
-    }
+//    public static String PROJECT_PATH = "/data/";
 
     public static ObjectMapper getObjectMapper() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -117,4 +119,35 @@ public class JsonUtils {
         Path dataPath = Paths.get(ClassLoader.getSystemResource(pathLocation).toURI());
         return new String(Files.readAllBytes(dataPath));
     }
+
+    public static String getResourceFileAsString(String fileName) {
+//        InputStream is = getResourceFileAsInputStream(fileName);
+        InputStream is = null;
+        try {
+            is = new ClassPathResource(fileName).getInputStream(); // TODO: clean this codes and try not using Spring class if possible
+        } catch (IOException e) {
+            throw new RuntimeException("resource not found");
+        }
+        if (is != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            return (String)reader.lines().collect(Collectors.joining(System.lineSeparator()));
+        } else {
+            throw new RuntimeException("resource not found");
+        }
+    }
+
+//    public static Resource getResourceFileAsResource(String fileName) {
+//        ClassLoader classLoader = JsonUtils.class.getClassLoader();
+////        Resource resource= resourceLoader.getResource("classpath:/account_info.html");
+//        return classLoader.getResource(fileName);
+//    }
+
+    public static InputStream getResourceFileAsInputStream(String fileName) {
+        ClassLoader classLoader = JsonUtils.class.getClassLoader();
+        return classLoader.getResourceAsStream(fileName);
+    }
+
+//    public static String getFileNameWithPath(String fileName, String packageString) {
+//        return PROJECT_PATH + (packageString == null ? "" : packageString) + "/" + fileName;
+//    }
 }
