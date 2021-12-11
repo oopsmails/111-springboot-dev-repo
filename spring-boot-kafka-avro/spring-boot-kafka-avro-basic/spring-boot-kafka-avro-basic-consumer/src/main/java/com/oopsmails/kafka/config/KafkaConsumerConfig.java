@@ -94,6 +94,7 @@ public class KafkaConsumerConfig {
 
         props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
+        props.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, KafkaAvroBasicConsumerInterceptor.class.getName());
         return props;
     }
 

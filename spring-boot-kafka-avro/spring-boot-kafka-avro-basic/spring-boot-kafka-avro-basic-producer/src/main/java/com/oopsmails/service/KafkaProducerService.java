@@ -33,7 +33,7 @@ public class KafkaProducerService implements ProducerService {
 										.setFirstName(person.getFirstName())
 										.setLastName(person.getLastName())
 										.build();
-		logger.info("Sending message to Kafka :: personDto :: {}", personDto);
+		logger.info("########> Sending message to Kafka :: personDto :: {}", personDto);
 		
 		ListenableFuture<SendResult<String, PersonDto>> future = kafkaTemplate.send(topicName, personDto);
 
