@@ -151,6 +151,8 @@ Solution, added *@AutoConfigureTestDatabase* on those test classes.
 
 ```
 docker build  -t mockbackend:v1 .
+docker build  -t oopsmails/mockbackend:v1 .
+
 
 Make sure to include . at the end
 Here, -t simply means tag followed by ' name:tag ' format.
