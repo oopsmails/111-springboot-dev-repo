@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
     private static String fileName = "testData-employeeList.json";
 
@@ -52,6 +55,7 @@ public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
         //using noneMatch
         boolean b5 = employeeList.stream().noneMatch(EmployeePredicateRepository.employeePredicateDepName);
         System.out.println(b5);
+        assertTrue(b5, "Should at least match.");
     }
 
     @Test
@@ -63,10 +67,10 @@ public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
         EmployeePredicateRepository.EmployeePredicate employeePredicate = new EmployeePredicateRepository.EmployeePredicate(employeePredicateParam) {
             @Override
             public boolean test(Employee employee) {
-                return employee.getName().indexOf(employeePredicateParam.getNameStartWithCriteria()) >= 0;
+                return employee.getName().contains(employeePredicateParam.getNameStartWithCriteria());
             }
         };
         boolean b1 = employeeList.stream().anyMatch(employeePredicate);
-        System.out.println(b1);
+        assertTrue(b1, "Should at least match.");
     }
 }
