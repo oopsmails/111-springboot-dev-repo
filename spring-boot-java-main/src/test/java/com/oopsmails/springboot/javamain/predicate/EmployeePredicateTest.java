@@ -15,26 +15,30 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
+    private static String fileName = "testData-employeeList.json";
+
     @Autowired
     private ObjectMapper objectMapper;
 
-    private List<Employee> employeeListTest = new ArrayList<>();
+//    private List<Employee> employeeListTest = new ArrayList<>();
+//
+//    private List<Employee> employeeList = new ArrayList<>();
 
-    private List<Employee> employeeList = new ArrayList<>();
 
-    @BeforeTestClass
-    public void setUp() throws Exception {
-        String fileName = "testData-employeeList.json";
-        employeeListTest = JsonUtils.jsonFileToObject(getTestFileNameWithPath(fileName),
-                new TypeReference<List<Employee>>() {
-                });
-
-        // This is way more faster
-        employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
-    }
+//    @BeforeTestClass
+//    public void setUp() throws Exception {
+//        String fileName = "testData-employeeList.json";
+//        employeeListTest = JsonUtils.jsonFileToObject(getTestFileNameWithPath(fileName),
+//                new TypeReference<List<Employee>>() {
+//                });
+//
+//        // This is way more faster
+//        employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
+//    }
 
     @Test
-    public void testEmployeePredicateDepName() throws Exception {
+    public void testEmployeePredicate() throws Exception {
+        List<Employee> employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
         //using allMatch
         boolean b1 = employeeList.stream().allMatch(EmployeePredicateRepository.employeePredicateDepName);
         System.out.println(b1);
@@ -48,5 +52,21 @@ public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
         //using noneMatch
         boolean b5 = employeeList.stream().noneMatch(EmployeePredicateRepository.employeePredicateDepName);
         System.out.println(b5);
+    }
+
+    @Test
+    public void testEmployeePredicateParam() throws Exception {
+        List<Employee> employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
+        EmployeePredicateRepository.EmployeePredicateParam employeePredicateParam = new EmployeePredicateRepository.EmployeePredicateParam();
+        employeePredicateParam.setNameStartWithCriteria("Tom");
+
+        EmployeePredicateRepository.EmployeePredicate employeePredicate = new EmployeePredicateRepository.EmployeePredicate(employeePredicateParam) {
+            @Override
+            public boolean test(Employee employee) {
+                return employee.getName().indexOf(employeePredicateParam.getNameStartWithCriteria()) >= 0;
+            }
+        };
+        boolean b1 = employeeList.stream().anyMatch(employeePredicate);
+        System.out.println(b1);
     }
 }

@@ -28,7 +28,7 @@ public class SpringBootJavaGenericTestBase {
     @Autowired
     protected ObjectMapper objectMapper;
 
-    private static String TEST_DATA_FILE_FOLDER = JsonUtils.PROJECT_PATH + "/src/test/resources/testdata";
+    private static String TEST_DATA_FILE_FOLDER = JsonUtils.getProjectPath() + "/src/test/resources/testdata";
 
     @TestConfiguration
     @ComponentScan({

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5404886f-86c8-4b56-b177-097be66ab5e6",
+		"_postman_id": "e145cb73-204f-4df2-b53b-fffffabb1a77",
 		"name": "Spring-boot-dev-repo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,6 +25,33 @@
 								"localhost"
 							],
 							"port": "8888",
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.49.2:31029/ping",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.49.2:31029/ping",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"49",
+								"2"
+							],
+							"port": "31029",
 							"path": [
 								"ping"
 							]
@@ -148,6 +175,34 @@
 					"response": []
 				},
 				{
+					"name": "http://192.168.49.2:31029/genericmock/ping",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.49.2:31029/genericmock/ping",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"49",
+								"2"
+							],
+							"port": "31029",
+							"path": [
+								"genericmock",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8888/genericmock/ping post",
 					"request": {
 						"method": "POST",
@@ -198,6 +253,59 @@
 								"localhost"
 							],
 							"port": "8888",
+							"path": [
+								"backendmock",
+								"employee-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.49.2:31029/backendmock/employee-api",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.49.2:31029/backendmock/employee-api",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"49",
+								"2"
+							],
+							"port": "31029",
+							"path": [
+								"backendmock",
+								"employee-api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.49.2:31029/backendmock/employee-api Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:7080/backendmock/employee-api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7080",
 							"path": [
 								"backendmock",
 								"employee-api"

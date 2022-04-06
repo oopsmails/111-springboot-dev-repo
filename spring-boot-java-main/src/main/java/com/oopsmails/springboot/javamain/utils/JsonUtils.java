@@ -14,8 +14,16 @@ import java.io.File;
 public class JsonUtils {
     public static String PROJECT_PATH = "/home/albert/Documents/github/springboot-dev-repo/spring-boot-java-main";
 
+    public static String getProjectPath() {
+        if (OSValidator.isWindows()) {
+            return "C:/sharing/github/springboot-dev-repo/spring-boot-java-main";
+        }
+
+        return PROJECT_PATH;
+    }
+
     public static String getFileNameWithPath(String fileName, String packageString) {
-        return PROJECT_PATH + (packageString == null ? "" : packageString) + "/" + fileName;
+        return getProjectPath() + (packageString == null ? "" : packageString) + "/" + fileName;
     }
 
     public static ObjectMapper getObjectMapper() throws Exception {
