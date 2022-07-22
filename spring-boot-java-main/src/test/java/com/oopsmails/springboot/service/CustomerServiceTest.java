@@ -1,4 +1,4 @@
-package com.oopsmails.springboot;
+package com.oopsmails.springboot.service;
 
 import com.oopsmails.model.Customer;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
