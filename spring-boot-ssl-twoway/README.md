@@ -141,40 +141,79 @@ And that’s it. You will be able to load the method. And if you check logs of y
 
 ##  self-signed: nt-gateway
 
+```
+- Windows
 keytool -genkeypair -alias nt-gateway -keyalg RSA -keysize 2048 -deststoretype pkcs12 -keystore C:\Temp\Transfer\nt-gateway.jks -validity 3650 -dname "CN=nt gateway,OU=Dev,O=oopsmails,ST=OO,C=CA" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass nt-gateway -keypass nt-gateway
 
+- Linux
+keytool -genkeypair -alias nt-gateway -keyalg RSA -keysize 2048 -deststoretype pkcs12 -keystore /home/albert/Documents/sharing/nt-gateway.jks -validity 3650 -dname "CN=nt gateway,OU=Dev,O=oopsmails,ST=OO,C=CA" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass nt-gateway -keypass nt-gateway
+```
 ##  self-signed: nt-ms
 
+```
+- Windows
 keytool -genkeypair -alias nt-ms -keyalg RSA -keysize 2048 -deststoretype pkcs12 -keystore C:\Temp\Transfer\nt-ms.jks -validity 3650 -dname "CN=nt ms,OU=Dev,O=oopsmails,ST=TT,C=CA" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass nt-service -keypass nt-service
 
+- Linux
+keytool -genkeypair -alias nt-ms -keyalg RSA -keysize 2048 -deststoretype pkcs12 -keystore /home/albert/Documents/sharing/nt-ms.jks -validity 3650 -dname "CN=nt ms,OU=Dev,O=oopsmails,ST=TT,C=CA" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass nt-service -keypass nt-service
+```
 
 ##  export nt-gateway certificate
 
+```
+- Windows
 keytool -exportcert -alias nt-gateway -file C:\Temp\Transfer\nt-gateway.cer -keystore C:\Temp\Transfer\nt-gateway.jks -storepass nt-gateway
 
+- Linux
+keytool -exportcert -alias nt-gateway -file /home/albert/Documents/sharing/nt-gateway.cer -keystore /home/albert/Documents/sharing/nt-gateway.jks -storepass nt-gateway
+
+```
 
 ##  export nt-ms certificate
 
+```
+- Windows
 keytool -exportcert -alias nt-ms -file C:\Temp\Transfer\nt-ms.cer -keystore C:\Temp\Transfer\nt-ms.jks -storepass nt-service
 
+- Linux
+keytool -exportcert -alias nt-ms -file /home/albert/Documents/sharing/nt-ms.cer -keystore /home/albert/Documents/sharing/nt-ms.jks -storepass nt-service
+```
 
 ##  import nt-gateway.cer into trust store of nt-ms, could use different jks file, e.g, nt-ms-truststore.jks
 
+```
+- Windows
 keytool -importcert -alias nt-gateway -file C:\Temp\Transfer\nt-gateway.cer -keystore C:\Temp\Transfer\nt-ms.jks -storepass nt-service
 
+- Linux
+keytool -importcert -alias nt-gateway -file /home/albert/Documents/sharing/nt-gateway.cer -keystore /home/albert/Documents/sharing/nt-ms.jks -storepass nt-service
+```
 
 ##  import nt-ms.cer into trust store of nt-gateway, could use different jks file, e.g, nt-gateway-truststore.jks
 
+```
+- Windows
 keytool -importcert -alias nt-ms -file C:\Temp\Transfer\nt-ms.cer -keystore C:\Temp\Transfer\nt-gateway.jks -storepass nt-gateway
 
+-Linux
+keytool -importcert -alias nt-ms -file /home/albert/Documents/sharing/nt-ms.cer -keystore /home/albert/Documents/sharing/nt-gateway.jks -storepass nt-gateway
+```
 
-##  Generate p12 for browser and import into Chrome (how toimport p12 certificate into chrome)
+##  Generate p12 for browser and import into Chrome (how to import p12 certificate into chrome)
 
+Chrome, Settings, search Manage certificates, Choose Trusted Root Certification Authorities tab, Click Import ...
+
+```
+- Windows
 keytool -importkeystore -srckeystore C:\Temp\Transfer\nt-ms.jks -destkeystore C:\Temp\Transfer\nt-ms.p12 -srcstoretype JKS -srcstorepass nt-service -deststoretype PKCS12 -deststorepass nt-service -destkeypass nt-service
-
 
 keytool -importkeystore -srckeystore C:\Temp\Transfer\nt-gateway.jks -destkeystore C:\Temp\Transfer\nt-ms.p12 -srcstoretype JKS -srcstorepass nt-gateway -deststoretype PKCS12 -deststorepass nt-service -destkeypass nt-service
 
+- Linux
+keytool -importkeystore -srckeystore /home/albert/Documents/sharing/nt-ms.jks -destkeystore /home/albert/Documents/sharing/nt-ms.p12 -srcstoretype JKS -srcstorepass nt-service -deststoretype PKCS12 -deststorepass nt-service -destkeypass nt-service
+
+keytool -importkeystore -srckeystore /home/albert/Documents/sharing/nt-gateway.jks -destkeystore /home/albert/Documents/sharing/nt-ms.p12 -srcstoretype JKS -srcstorepass nt-gateway -deststoretype PKCS12 -deststorepass nt-service -destkeypass nt-service
+```
 
 https://localhost:9001/nt-gw/data  
 https://localhost:9001/nt-gw/ms-data  
