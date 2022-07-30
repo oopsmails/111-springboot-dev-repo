@@ -3,6 +3,46 @@
 This source code is part of [Spring Boot, Security, MongoDB, Angular 8: Build Authentication](https://www.djamware.com/post/5d3332980707cc65eac46c7b/spring-boot-security-mongodb-angular-8-build-authentication) tutorial
 
 
+## Run
+
+### arun dcmongodb
+
+localhost:8081
+
+```
+## dcmongodb
+elif test "$1" = "dcmongodb"
+then
+cd $base/docker
+wait
+pwd
+
+	if test "$2" = "up"
+	then
+		docker-compose -f docker-compose-mongodb.yml up -d
+	else
+		docker-compose -f docker-compose-mongodb.yml "$2"
+	fi
+##
+```
+
+### Run SpringAngularAuthApplication
+
+- either gradle or maven
+
+### Run Angular Frontend
+
+github\spring-boot-mongodb-security-angular-frontend
+
+test@abc.com / test
+
+### Populate Data
+
+- Can use _spring-boot-simples/spring-boot-jpa-mongodb_ to create data
+- User not needed, can be populated by Angular Frontend
+- Use Postman
+
+
 ## MongoDB:
 
 ### Spring properties file configured to connect to local docker mongodb.
@@ -153,7 +193,7 @@ https://stackoverflow.com/questions/38134121/how-do-i-remove-the-role-prefix-fro
 
 - javax.xml ...
 
-``````
+```
 status: 500
 statusText: "OK"
 url: "http://localhost:8080/api/auth/login"
@@ -172,5 +212,30 @@ Solution: build.gradle
 	annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
 	annotationProcessor 'javax.annotation:javax.annotation-api:1.3.2'
 ```
+### Cannot find userRepository or "required a bean named 'mongotemplate' that could not be found"
 
+- don't need 
+```
+@EnableMongoRepositories(basePackageClasses = UserRepository.class)
+```
+- need 
+```
+implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+```
+
+### if using docker compose with username and password
+
+environment:
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: root
+
+```
+spring.data.mongodb.database=springmongodb
+#spring.data.mongodb.host=192.168.99.100
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.username=root
+spring.data.mongodb.password=root
+spring.data.mongodb.authentication-database=admin
+```
 

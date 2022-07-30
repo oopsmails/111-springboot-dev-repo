@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.oopsmails.springboot.javamain.SpringBootJavaMainApplication;
+import com.oopsmails.springboot.javamain.model.Product;
+import com.oopsmails.springboot.javamain.model.Role;
 import com.oopsmails.springboot.javamain.model.TodoDTO;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
@@ -73,7 +75,7 @@ public class EasyRandomMain {
             parameters.excludeType(TypePredicates.ofType(SpringBootJavaMainApplication.class)); // no default constructor
 
             EasyRandom easyRandom = new EasyRandom(parameters);
-            TodoDTO nextObject = easyRandom.nextObject(TodoDTO.class);
+            Product nextObject = easyRandom.nextObject(Product.class);
             System.out.println(nextObject);
 
             ObjectMapper objectMapper = new ObjectMapper();

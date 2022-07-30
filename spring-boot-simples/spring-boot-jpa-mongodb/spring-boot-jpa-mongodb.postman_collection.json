@@ -43,13 +43,13 @@
 			"response": []
 		},
 		{
-			"name": "POST localhost:8080/todos",
+			"name": "POST localhost:8080/api/role ADMIN",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"todo\" : \"springboot-mongo\",\n  \"description\" : \"learn springboot mongo\",\n  \"completed\" : false,\n  \"createdAt\" : 1718754844570,\n  \"updatedAt\" : 1887729820498\n}",
+					"raw": "{\n  \"role\" : \"ADMIN\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -57,13 +57,89 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/todos",
+					"raw": "localhost:8080/api/role",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"todos"
+						"api",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST localhost:8080/api/role USER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"role\" : \"USER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/role",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST localhost:8080/api/product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"prodName\" : \"apple\",\n  \"prodDesc\" : \"apple\",\n  \"prodPrice\" : 0.7231742029971469,\n  \"prodImage\" : \"aaa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/product",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
 					]
 				}
 			},

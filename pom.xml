@@ -31,6 +31,7 @@
         <module>spring-boot-kafka-avro</module>
         <module>spring-boot-simples</module>
         <module>oopsmails-common</module>
+        <module>spring-boot-mongodb-security-angular-backend</module>
     </modules>
 
 </project>
