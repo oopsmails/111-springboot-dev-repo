@@ -15,6 +15,7 @@
         <module>spring-boot-openapi-basic</module>
         <module>spring-boot-exception-handling</module>
         <module>spring-boot-playaround-jpa</module>
+        <module>spring-boot-jpa-mongodb</module>
     </modules>
 
     <properties>

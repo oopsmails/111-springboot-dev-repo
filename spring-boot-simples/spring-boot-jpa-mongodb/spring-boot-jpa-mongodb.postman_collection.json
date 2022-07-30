@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "b7027b71-775c-480f-bcd7-ed4fa323dade",
+		"name": "spring-boot-jpa-mongodb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by ID: localhost:8080/todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/todos/62e53847450177239a028077",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"todos",
+						"62e53847450177239a028077"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST localhost:8080/todos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"todo\" : \"springboot-mongo\",\n  \"description\" : \"learn springboot mongo\",\n  \"completed\" : false,\n  \"createdAt\" : 1718754844570,\n  \"updatedAt\" : 1887729820498\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
