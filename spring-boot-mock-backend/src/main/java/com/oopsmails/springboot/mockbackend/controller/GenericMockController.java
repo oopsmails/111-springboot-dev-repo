@@ -5,6 +5,7 @@ import com.oopsmails.common.annotation.audit.LoggingAudit;
 import com.oopsmails.common.annotation.model.logging.LoggingOrigin;
 import com.oopsmails.common.annotation.performance.LoggingPerformance;
 import com.oopsmails.springboot.mockbackend.context.ContextHelper;
+import com.oopsmails.springboot.mockbackend.exception.OopsException;
 import com.oopsmails.springboot.mockbackend.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import java.util.function.Function;
 public class GenericMockController {
     @Value("${generic.mock.controller.file.path.prefix.exclude}")
     private String filePathExclude;
+    @Value("${generic.mock.controller.mock.data.path:/mockdata/}")
+    private String mockDataPath;
 
     @Autowired
     private ContextHelper contextHelper;
@@ -61,7 +64,13 @@ public class GenericMockController {
         log.info("@GetMapping(\"\") ..... GET");
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
-        return JsonUtils.getResourceFileAsString(responseFilePath);
+//        return JsonUtils.getResourceFileAsString(responseFilePath);
+        try {
+            return JsonUtils.getResourceFileAsString(responseFilePath);
+        } catch (Exception e) {
+            log.warn("Cannot load: {}", responseFilePath);
+            throw new OopsException("Cannot load: " + responseFilePath);
+        }
     }
 
     @PostMapping("")
@@ -71,7 +80,13 @@ public class GenericMockController {
         log.info("@PostMapping(\"\"), passed in body: [{}]", anyThing);
         AuditArg auditArg = getMockAuditArg();
         String responseFilePath = getResponseFilePath(auditArg, httpServletRequest);
-        return JsonUtils.getResourceFileAsString(responseFilePath);
+//        return JsonUtils.getResourceFileAsString(responseFilePath);
+        try {
+            return JsonUtils.getResourceFileAsString(responseFilePath);
+        } catch (Exception e) {
+            log.warn("Cannot load: {}", responseFilePath);
+            throw new OopsException("Cannot load: " + responseFilePath);
+        }
     }
 
     //    @LoggingAudit(origin = LoggingOrigin.GenericMockController, message = "genericGet message ... ")

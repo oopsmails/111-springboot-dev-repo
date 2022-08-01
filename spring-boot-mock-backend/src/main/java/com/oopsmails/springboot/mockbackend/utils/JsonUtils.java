@@ -126,13 +126,13 @@ public class JsonUtils {
         try {
             is = new ClassPathResource(fileName).getInputStream(); // TODO: clean this codes and try not using Spring class if possible
         } catch (IOException e) {
-            throw new RuntimeException("resource not found");
+            throw new RuntimeException("resource not found:" + fileName);
         }
         if (is != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             return (String)reader.lines().collect(Collectors.joining(System.lineSeparator()));
         } else {
-            throw new RuntimeException("resource not found");
+            throw new RuntimeException("resource not found:" + fileName);
         }
     }
 
