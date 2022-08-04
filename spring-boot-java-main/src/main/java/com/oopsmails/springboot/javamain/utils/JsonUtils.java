@@ -12,7 +12,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 
 public class JsonUtils {
-    public static String PROJECT_PATH = "/home/albert/Documents/github/springboot-dev-repo/spring-boot-java-main";
+//    public static String PROJECT_PATH = "/home/albert/Documents/github/springboot-dev-repo/spring-boot-java-main";
+    public static String PROJECT_PATH = "/home/albert/Documents/sharing/github/springboot-dev-repo/spring-boot-java-main";
 
     public static String getProjectPath() {
         if (OSValidator.isWindows()) {

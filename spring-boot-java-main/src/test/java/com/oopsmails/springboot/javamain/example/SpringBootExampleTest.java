@@ -3,8 +3,11 @@ package com.oopsmails.springboot.javamain.example;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
 import com.oopsmails.springboot.javamain.model.Employee;
 import com.oopsmails.springboot.javamain.repository.EmployeeRepository;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -49,7 +52,7 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
     }
 
     @Test
-    @Disabled("file path diff between Windows and Linux")
+//    @Disabled("file path diff between Windows and Linux")
     public void testObjectMapper() throws Exception {
         String fileName = "testData-employeeList.json";
         File jsonFile = new File(getTestFileNameWithPath(fileName));
@@ -67,7 +70,13 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
         String prettyJsonStr = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
         System.out.println("prettyJsonStr = " + prettyJsonStr);
     }
-
+    @Test
+    public void myTest() throws Exception {
+        String expectedJson = FileUtils.readFileToString(new File(getTestFileNameWithPath("./expected.json")));
+        String actualJson = FileUtils.readFileToString(new File(getTestFileNameWithPath("./actual-01.json")));
+//        JSONAssert.assertEquals(expectedJson, actualJson, JSONCompareMode.STRICT);
+        JSONAssert.assertEquals(expectedJson, actualJson, JSONCompareMode.LENIENT);
+    }
 
     @TestConfiguration
     public static class TempSpringBootTestConfig {

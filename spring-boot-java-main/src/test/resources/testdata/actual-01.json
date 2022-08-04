@@ -1,0 +1,24 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://myserver.com:1000/api/person/upload? myCsvFile={myCsvFile}",
+      "templated": true
+    }
+  },
+  "data": [
+    {
+      "successfulIds": [
+        "A0",
+        "XYZ",
+        "C3"
+      ],
+      "errors": [
+        {
+          "personId": null,
+          "httpStatus": "BAD_REQUEST",
+          "details": "User ID [UNKNOWN]. Invalid ID: NONSENSE"
+        }
+      ]
+    }
+  ]
+}
