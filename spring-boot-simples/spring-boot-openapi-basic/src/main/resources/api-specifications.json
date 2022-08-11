@@ -1,0 +1,656 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "abcproj - abcs client Preferences",
+    "description": "Provides operations to manage wire abcs client preferences.",
+    "version": "v1",
+    "x-oopsmails-api-id": "api.abcproj.client-preferences",
+    "x-oopsmails-spec-version": "1.0.0",
+    "x-oopsmails-appCode": "abcproj"
+  },
+  "servers": [
+    {
+      "url": "https://wires.abcproj.api.oopsmails.com /v1",
+      "description": "Production"
+    },
+    {
+      "url": "https://wires.abcproj.api.pat.oopsmails.com/v1",
+      "description": "PAT"
+    },
+    {
+      "url": "https://wires.abcproj.api.sit.oopsmails.com:8080/v1",
+      "description": "SIT"
+    },
+    {
+      "url": "https://wires.abcproj.api.dev.oopsmails.com 8080/v1",
+      "description": "DEV"
+    }
+  ],
+  "paths": {
+    "/accounts": {
+      "get": {
+        "summary": "Returns accounts details, optionally with notification preferences.",
+        "operationId": "getAccounts",
+        "security": [
+          {
+            "oauth_2_0": [
+              "aaa.abcproj.r"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountNumberParam"
+          },
+          {
+            "$ref": "#/components/parameters/expandParam"
+          },
+          {
+            "$ref": "#/components/parameters/wireDirectionParam"
+          },
+          {
+            "$ref": "#/components/parameters/correlationIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/consumerIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 - Account details successfully retrieved.",
+            "headers": {
+              "x-correlation-id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountsResponse"
+                },
+                "examples": {
+                  "exampleResponseMailOnly": {
+                    "summary": "Majority of the accounts have snail mail notification preference for both wire directions.",
+                    "externalValue": "./examples/accounts-get-response-200-mail-only.json"
+                  },
+                  "exampleResponseChannel": {
+                    "summary": "In some cases there will be no notification preferences defined but account and channel code information still exist.",
+                    "externalValue": "./examples/accounts-get-response-200-channel-only.json"
+                  },
+                  "exampleResponseEmailFax": {
+                    "summary": "Fax notification for outgoing and an email for incoming wires.",
+                    "externalValue": "./examples/accounts-get-response-200-email-fax.json"
+                  },
+                  "exampleResponseNoExpand": {
+                    "summary": "When expand parameter is not passed, only account details with channel code will be returned.",
+                    "externalValue": "./examples/accounts-get-response-200-no-expand.json"
+                  },
+                  "exampleResponseNotFound": {
+                    "summary": "No preference information found.",
+                    "externalValue": "./examples/accounts-get-response-200-not-found.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates accounts details, optionally with notification preferences.",
+        "operationId": "createAccount",
+        "security": [
+          {
+            "oauth_2_0": [
+              "wires.abcproj.w"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/correlationIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/consumerIdParam"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              },
+              "examples": {
+                "exampleResponseNoNotifications": {
+                  "summary": "Account without notifications created.",
+                  "externalValue": "./examples/accounts-post-request-201-no-notifications.json"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201 - Account successfully created.",
+            "headers": {
+              "x-correlation-id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                },
+                "examples": {
+                  "exampleResponseNoNotifications": {
+                    "summary": "Account without notifications created.",
+                    "externalValue": "./examples/accounts-post-response-201-no-notifications.json"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "400": {
+        "description": "Invalid request.",
+        "headers": {
+          "x-correlation-id": {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Status"
+            },
+            "examples": {
+              "exampleResponse": {
+                "summary": "One or more of the parameters passed to the endpoint is invalid.",
+                "externalValue": "./examples/400.json"
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthenticated.",
+        "headers": {
+          "x-correlation-id": {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Status"
+            },
+            "examples": {
+              "exampleResponse": {
+                "summary": "Client is unauthenticated and authorization header is missing in the request.",
+                "externalValue": "./examples/401.json"
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden.",
+        "headers": {
+          "x-correlation-id": {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Status"
+            },
+            "examples": {
+              "exampleResponse": {
+                "summary": "Client  does not have  scopes assigned required by this operation.",
+                "externalValue": "./examples/403.json"
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error.",
+        "headers": {
+          "x-correlation-id": {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Status"
+            },
+            "examples": {
+              "exampleResponse": {
+                "summary": "System error.",
+                "externalValue": "./examples/500.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "accountNumberParam": {
+        "name": "accountNumber",
+        "example": "1111111111",
+        "in": "query",
+        "required": true,
+        "description": "client account number. AMCB checking or savings accounts supported",
+        "schema": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "string",
+            "pattern": "\\d{1,14}",
+            "maxLength": 14
+          }
+        }
+      },
+      "expandParam": {
+        "name": "expand",
+        "example": "notificationPreferences",
+        "in": "query",
+        "description": "Optional parameter that can be set to retrieve notification preferences together with account details in the same call.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "notificationPreferences"
+          ]
+        }
+      },
+      "wireDirectionParam": {
+        "name": "wireDirection",
+        "example": "IN",
+        "in": "query",
+        "description": "Wire transfer direction relative to the account. If not specified, endpoint will return account with preferences for both incoming and outgoing transfers.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "IN",
+            "OUT"
+          ]
+        }
+      },
+      "correlationIdParam": {
+        "name": "x-correlation-id",
+        "in": "header",
+        "required": true,
+        "description": "UUID that will be logged to identify a set of related request and response messages across a chain of  api calls.",
+        "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "consumerIdParam": {
+        "name": "x-consumer-id",
+        "in": "header",
+        "required": true,
+        "example": "pucbv",
+        "description": "Consuming application/system for tracking purposes - mal code.",
+        "schema": {
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth_2_0": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "tbd",
+            "scopes": {
+              "wires.abcproj.r": "permission to look up preferences"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "GetAccountsResponse": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          }
+        }
+      },
+      "BasePreference": {
+        "type": "object",
+        "required": [
+          "id",
+          "notificationType",
+          "wireDirection"
+        ],
+        "properties": {
+          "id": {
+            "description": "Unique preference id.",
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+          },
+          "notificationType": {
+            "description": "Notification such as email, fax, etc",
+            "type": "string",
+            "enum": [
+              "EMAIL",
+              "MAIL",
+              "FAX"
+            ]
+          },
+          "wireDirection": {
+            "$ref": "#/components/schemas/WireDirection"
+          }
+        }
+      },
+      "NotificationPreference": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "notificationType",
+          "mapping": {
+            "MAIL": "#/components/schemas/MailPreference",
+            "EMAIL": "#/components/schemas/EmailPreference",
+            "FAX": "#/components/schemas/FaxPreference"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "description": "Unique preference id.",
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "example": "b058ebd6-02f7-4d3f-942e-904344e8cde7"
+          }
+        }
+      },
+      "MailPreference": {
+        "type": "object",
+        "description": "Notification delivered by snail mail.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NotificationPreference"
+          }
+        ]
+      },
+      "EmailPreference": {
+        "type": "object",
+        "description": "Notification delivered by email. Note:  supports up to 5 emails,",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NotificationPreference"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Notification delivered by email. Note:  supports up to 5 emails.",
+            "required": [
+              "emails"
+            ],
+            "properties": {
+              "emails": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 5,
+                "items": {
+                  "$ref": "#/components/schemas/Email"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "FaxPreference": {
+        "type": "object",
+        "description": "Notifications delivered by fax. Note:  supports up to 5 fax numbers.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NotificationPreference"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "faxNumbers"
+            ],
+            "properties": {
+              "faxNumbers": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 5,
+                "items": {
+                  "$ref": "#/components/schemas/FaxNumber"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "WireDirection": {
+        "description": "Wire direction relative to the account. ",
+        "type": "string",
+        "enum": [
+          "IN",
+          "OUT",
+          "ALL"
+        ]
+      },
+      "Email": {
+        "type": "string",
+        "format": "email",
+        "minLength": 3,
+        "maxLength": 35
+      },
+      "FaxNumber": {
+        "type": "string",
+        "pattern": "^(1-)?\\d{3}-\\d{3}-\\d{4}$",
+        "description": "Fax number. International numbers are not supported. ",
+        "example": "777-777-7777",
+        "minLength": 1,
+        "maxLength": 155
+      },
+      "Account": {
+        "type": "object",
+        "required": [
+          "id",
+          "channelCode",
+          "accountType",
+          "bankCode",
+          "accountNumber"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "channelCode": {
+            "type": "string",
+            "description": "Channel code (host type in the legacy system).",
+            "enum": [
+              "LNI",
+              "COR",
+              "Eoopsmails"
+            ]
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "CHECKING",
+              "SAVINGS"
+            ]
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Bank code. AMCB accounts can have bank codes other than 004",
+            "pattern": "\\d{3}",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "branchCode": {
+            "type": "string",
+            "description": "Optional branch code. AMCB accounts will not have it returned.",
+            "pattern": "\\d{4}",
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "AMCB checking or savings account number.",
+            "pattern": "\\d{10,14}",
+            "minLength": 10,
+            "maxLength": 14
+          },
+          "notificationPreferences": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 2,
+            "items": {
+              "$ref": "#/components/schemas/NotificationPreference"
+            }
+          }
+        }
+      },
+      "Status": {
+        "description": "Error that may be returned by an API call. The structure is based on oopsmails API standards",
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "description": "Server side error",
+            "type": "object",
+            "required": [
+              "serverStatusCode",
+              "severity"
+            ],
+            "properties": {
+              "serverStatusCode": {
+                "description": "Http status code",
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "Error",
+                  "Warning"
+                ]
+              },
+              "additionalStatus": {
+                "type": "array",
+                "description": "Optional additional error information from downstream api",
+                "items": {
+                  "$ref": "#/components/schemas/AdditionalStatus"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AdditionalStatus": {
+        "type": "object",
+        "required": [
+          "statusCode",
+          "severity"
+        ],
+        "properties": {
+          "statusCode": {
+            "description": "Response Status Code. This is the only code that should be used for error handling",
+            "type": "integer"
+          },
+          "statusDesc": {
+            "description": "Status Description. Explanatory text associated with a status such as the response status code",
+            "type": "string"
+          },
+          "serverStatusCode": {
+            "description": "Server Status Code. The value placed here is used to allow the client to log appropriately for troubleshooting purposes.",
+            "type": "string",
+            "maxLength": 100
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "Error",
+              "Warning",
+              "Info"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
