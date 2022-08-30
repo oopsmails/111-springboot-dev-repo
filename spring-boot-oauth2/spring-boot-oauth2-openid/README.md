@@ -17,6 +17,14 @@ OpenId Connect is built on top of OAuth2 for authentication only. While OAuth2 h
 
 ## Notes
 
+How to create with Google, Github ...., see _spring-boot-oauth2/spring-boot-oauth2-social-login/README.md_
+
 ### Github
+
+- To run
+
+Get github clientId and clientSecret in albertmails@gmail ... then put into _spring-boot-oauth2/spring-boot-oauth2-openid/src/main/resources/application.yml_.
+
+Run app and open http://localhost:8081/
 
 
