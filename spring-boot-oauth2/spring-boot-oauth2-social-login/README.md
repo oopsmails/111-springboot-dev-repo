@@ -16,11 +16,28 @@ https://www.javachinna.com/spring-boot-angular-10-user-registration-oauth2-socia
 
 albert@eosvm:~/Documents/github/springboot-dev-repo/spring-boot-oauth2/spring-boot-oauth2-social-login/docker$ docker-compose up
 
+- Adminer is a PHP-based web application for accessing databases.
+
+http://localhost:8306/
+System: MySQL
+Server: mysqldb <---------------from docker-compose.yml
+Username: root
+Password: root <---------------from docker-compose.yml
+Database: testdb
+
+This application is using dbname: demo.
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/demo?createDatabaseIfNotExist=true
+```
+
 - Don't forget put clientId and clientSecret in application.properties, ?gmail?
 
 - Run frontend
 
 see /github/angular-social-login/README.md
+
+`ng serve --port 8081`
 
 - If using github login, then need github password. After first time login, the user is created locally. Then next time, can login with oopsmails@gmail.com/changeit
 
