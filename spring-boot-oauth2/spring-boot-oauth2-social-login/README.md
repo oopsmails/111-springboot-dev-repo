@@ -114,7 +114,7 @@ Head over to the Facebook app dashboard: https://developers.facebook.com/apps.
 Note: To work with localhost, The facebook app should be in development mode and ” Valid OAuth Redirect URIs” should be blank as shown below:
 
 
-### Google
+### Google: 20220830: ok
 Here are the steps you need to follow to configure Google for social login:
 
 - Go to https://console.developers.google.com/ and register for a developer account.
@@ -127,7 +127,16 @@ Here are the steps you need to follow to configure Google for social login:
 - Copy the client ID and client secret, as you’ll need them later.
 
 
-### Github
+- Error 400: redirect_uri_mismatch
+redirect_uri: http://localhost:8080/login/oauth2/code/google
+
+OAuth 2.0 Client IDs, put above in "Authorized redirect URIs"
+
+- Login failed: Looks like you're signed up with github account. Please use your github account to login.
+
+change to another email
+
+### Github: 20220830: ok
 
 Here are the steps you need to follow to configure Github for social login:
 
@@ -149,12 +158,12 @@ Tokens you have generated that can be used to access the GitHub API.
 
 
 
-### LinkedIn
+### LinkedIn ? 20220830: not working anymore ?
 Here are the steps you need to follow to configure LinkedIn for social login:
 
 - Go to  https://www.linkedin.com/developers/apps and create a new app.
 - Go to My Apps and select the created app.
 - Copy the client ID and client secret, as you’ll need them later.
 - Click on the Auth tab and Fill in the Redirect URLs under OAuth 2.0 settings to include the redirect URI to your app: http://<your-domain>/login/oauth2/code/linkedin
-
+- 20220830: cannot create a company linkedin page!
 
