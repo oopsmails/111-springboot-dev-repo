@@ -12,13 +12,16 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <spring-boot-dependencies.version>2.7.3</spring-boot-dependencies.version>
+        <springboot-dev-repo.version>2.0.0-SNAPSHOT</springboot-dev-repo.version>
     </properties>
 
     <modules>
+        <module>oopsmails-common</module>
+        <module>spring-boot-java-main</module>
+        <module>spring-boot-kafka-admin</module>
         <module>spring-boot-rest-sonarqube</module>
         <module>spring-boot-kafka-docker</module>
-        <module>spring-boot-kafka-admin</module>
-        <module>spring-boot-java-main</module>
         <module>spring-boot-mock-backend</module>
         <module>spring-boot-kafka-ms-email</module>
         <module>spring-boot-ssl-twoway</module>
@@ -30,8 +33,19 @@
         <module>spring-boot-kafka-embedded</module>
         <module>spring-boot-kafka-avro</module>
         <module>spring-boot-simples</module>
-        <module>oopsmails-common</module>
         <module>spring-boot-mongodb-security-angular-backend</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
