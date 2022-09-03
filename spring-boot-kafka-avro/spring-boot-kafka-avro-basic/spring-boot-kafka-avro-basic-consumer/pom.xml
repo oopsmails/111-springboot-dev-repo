@@ -3,13 +3,15 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>springboot-dev-repo</artifactId>
-        <groupId>com.oopsmails.springboot.dev.repo</groupId>
-        <version>2.0.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.2</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-boot-kafka-avro-basic-consumer</artifactId>
+    <groupId>com.oopsmails.springboot.dev.repo</groupId>
     <version>2.0.0-SNAPSHOT</version>
 
     <properties>
@@ -17,20 +19,7 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring-boot-dependencies.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
+<dependencies>
         <dependency>
             <groupId>com.oopsmails.springboot.dev.repo</groupId>
             <artifactId>spring-boot-kafka-avro-basic-domain</artifactId>
