@@ -1,11 +1,9 @@
 package com.oopsmails.springboot.kafka.admin;
 
 import com.oopsmails.avro.dto.PersonDto;
-import com.oopsmails.springboot.kafka.admin.config.ApplicationGeneralConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import java.util.Scanner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {
-        ApplicationGeneralConfig.class,
         KafkaAvroConsumerConfig.class,
         KafkaAvroConsumerTest.KafkaAvroConsumerTestConfig.class
 },
@@ -36,7 +33,6 @@ public class KafkaAvroConsumerTest {
     private KafkaAvroConsumer kafkaAvroConsumer;
 
     @Test // need to start local confluent-6.2.1
-    @Ignore
     public void test_consumer() {
         Assert.assertNotNull(kafkaAvroConsumer);
 
