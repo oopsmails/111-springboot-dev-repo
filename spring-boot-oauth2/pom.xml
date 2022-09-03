@@ -15,6 +15,7 @@
         <module>spring-boot-oauth2-openid</module>
         <module>spring-boot-oauth2-social-login</module>
         <module>spring-boot-oauth2-stateless</module>
+        <module>spring-boot-oauth2-social-2fa</module>
     </modules>
     <packaging>pom</packaging>
 
