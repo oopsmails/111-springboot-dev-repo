@@ -3,11 +3,16 @@ package com.oopsmails.generaljava;
 import com.oopsmails.common.tool.json.JsonUtil;
 import com.oopsmails.model.Customer;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,29 +28,9 @@ public class SimpleMain {
             System.out.printf("depId = %d\n", depId);
             System.out.printf("randomIndex = %s, position = %s\n", randomIndex, positionList.get(randomIndex));
         }
+        System.out.println("===================================================================================");
 
-        String jsonFileName = getFullAbsolutePath(SimpleMain.class, "customerMock.json");
-        String jsonString = getJsonStringFromFile(jsonFileName);
-        Customer customer = JsonUtil.jsonToObject(jsonString, Customer.class);
-        System.out.printf("customer = %s\n", customer);
-    }
 
-    public static  <T> String getFullAbsolutePath(Class<T> clazz, String jsonFileName) {
-        final File file = new File(clazz.getProtectionDomain().getCodeSource().getLocation().getPath());
-        String dirName = "/com/oopsmails/generaljava/";
-        String fileName = file.getAbsolutePath() + dirName + jsonFileName;
-        return fileName;
-    }
 
-    public static String getJsonStringFromFile(String jsonFileName) {
-        String jsonString = "";
-        try {
-//            jsonString = new String(Files.readAllBytes(Path.get(fileName)), StandardCharsets.UTF_8); // java 8
-            jsonString = new String(Files.readAllBytes(Path.of(jsonFileName)), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return jsonString;
     }
 }
