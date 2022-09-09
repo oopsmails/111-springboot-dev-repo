@@ -9,8 +9,9 @@ public class AuthenticationHelper {
 
     public static void attachAccountId(Authentication authentication, String accountId) {
         Object originalDetails = authentication.getDetails();
-        if (originalDetails instanceof Details details) {
-            details.setAccountId(accountId);
+//        if (originalDetails instanceof Details details) { // jdk 16
+        if (originalDetails instanceof Details) { // jdk 16 -
+            ((Details) originalDetails).setAccountId(accountId);
         } else {
             Details details = new Details()
                     .setOriginal(originalDetails)

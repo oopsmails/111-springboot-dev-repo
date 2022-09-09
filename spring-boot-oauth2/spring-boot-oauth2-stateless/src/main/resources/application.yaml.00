@@ -1,0 +1,30 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: Toxy7P2kNPu4fWNUklwD1OGvg4ExRZib
+            client-secret: 59458y-s7biR52V8oIOsv2rm63dSRTLIEfwIvIfPaWzDIdV0zdGXEtQH0c9Ir6sI
+            authorization-grant-type: 'authorization_code'
+            redirect-uri: 'http://localhost:8080/callback.html'
+            scope: [ 'openid', 'profile', 'email' ]
+        provider:
+          auth0:
+            issuer-uri: https://dev-oopsmails.us.auth0.com/
+
+#
+# If you're integrating directly with, say, Google, you need even less config
+# (this is because GOOGLE is part of Spring's CommonOAuth2Provider enum class)
+#
+# spring:
+#   security:
+#     oauth2:
+#       client:
+#         registration:
+#           google:
+#             client-id: '${GOOGLE_CLIENT_ID:}'
+#             client-secret: '${GOOGLE_CLIENT_SECRET:}'
+#             redirect-uri: 'http://localhost:8080/login/oauth2/code/google'
+#
+
