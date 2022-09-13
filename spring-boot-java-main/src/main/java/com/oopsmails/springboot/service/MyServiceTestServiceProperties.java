@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 @EnableConfigurationProperties(com.oopsmails.springboot.service.ServiceProperties.class)
 @Slf4j
-public class MyService {
+public class MyServiceTestServiceProperties {
 
 	private final com.oopsmails.springboot.service.ServiceProperties serviceProperties;
 
-	public MyService(com.oopsmails.springboot.service.ServiceProperties serviceProperties) {
+	public MyServiceTestServiceProperties(com.oopsmails.springboot.service.ServiceProperties serviceProperties) {
 		this.serviceProperties = serviceProperties;
 	}
 

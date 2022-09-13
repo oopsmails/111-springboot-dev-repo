@@ -36,7 +36,7 @@ class FunctionParameterTest {
     @Test
     void testFunctionApply() {
         List<String> names = Arrays.asList("John", "Smith", "Samueal", "Catley", "Sie");
-        String result = SimplifyTestingService.functionApplytWithLogging(
+        String result = SimplifyTestingService.functionApplyWithLogging(
                 names,
                 (List<String> list) -> {
                     return list.stream()

@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest("service.message=Hello")
-public class MyServiceTest {
+public class MyServiceTestServicePropertiesTest {
 
     @Autowired
-    private MyService myService;
+    private MyServiceTestServiceProperties myServiceTestServiceProperties;
 
     @Test
     public void contextLoads() {
@@ -20,7 +20,7 @@ public class MyServiceTest {
 
     @Test
     public void serviceMessageNotNull() {
-        String msg = myService.message();
+        String msg = myServiceTestServiceProperties.message();
         assertThat(msg).isNotNull();
         assertThat(msg).isEqualTo("Hello");
     }

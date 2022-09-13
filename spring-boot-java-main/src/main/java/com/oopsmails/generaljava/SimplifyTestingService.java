@@ -19,24 +19,24 @@ public class SimplifyTestingService {
     public static <T> void consumerAcceptWithLogging(T data, Consumer<T> consumer) { // passing in together data for consumer with Consumer itself
         String uuid = UUID.randomUUID().toString();
         log.info("consumerAcceptWithLogging, consumer: [{}], data: [{}]",
-                JsonUtil.objectToJsonString(consumer, true),
+                consumer,
                 JsonUtil.objectToJsonString(data, true));
         consumer.accept(data);
     }
 
     public static <T> T supplierGetWithLogging(Supplier<T> supplier) {
-        log.info("supplierGetWithLogging, supplier: [{}]", JsonUtil.objectToJsonString(supplier, true));
+        log.info("supplierGetWithLogging, supplier: [{}]", supplier);
         return supplier.get();
     }
 
-    public static <T, R> R functionApplytWithLogging(T data, Function<T, R> function) {
-        log.info("consumerAcceptWithLogging, function: [{}], before data: [{}]",
-                JsonUtil.objectToJsonString(function, true),
+    public static <T, R> R functionApplyWithLogging(T data, Function<T, R> function) {
+        log.info("functionApplyWithLogging, function: [{}], before data: [{}]",
+                function,
                 JsonUtil.objectToJsonString(data, true));
 
         R result = function.apply(data);
 
-        log.info("consumerAcceptWithLogging, do processing after function.apply() for:  result: [{}]",
+        log.info("functionApplyWithLogging, do processing after function.apply() for:  result: [{}]",
                 JsonUtil.objectToJsonString(result, true));
         return result;
     }
