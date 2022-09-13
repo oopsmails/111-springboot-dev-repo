@@ -5,22 +5,6 @@ import java.util.Random;
 public class RetryIntfMain {
     private static final int MAX_RETRIES = 5;
 
-    public static void withMaxRetries(RetryIntf retryFunc) {
-        for (int i = 0; i <= MAX_RETRIES; i++) {
-            try {
-                retryFunc.run();
-                break;                                    // don't retry on success
-            } catch (Exception ex) {
-                retryFunc.handleException(ex);
-
-                // throw exception if the last re-try fails
-                if (i == MAX_RETRIES) {
-                    throw ex;
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) {
         withMaxRetries(new RetryIntf() {
             @Override
@@ -46,5 +30,21 @@ public class RetryIntfMain {
                 }
             }
         });
+    }
+
+    public static void withMaxRetries(RetryIntf retryFunc) {
+        for (int i = 0; i <= MAX_RETRIES; i++) {
+            try {
+                retryFunc.run();
+                break;                                    // don't retry on success
+            } catch (Exception ex) {
+                retryFunc.handleException(ex);
+
+                // throw exception if the last re-try fails
+                if (i == MAX_RETRIES) {
+                    throw ex;
+                }
+            }
+        }
     }
 }
