@@ -17,7 +17,7 @@ public class ProductRepositoryTest {
     @Autowired
     private ProductRepository productRepository;
 
-//    @Disabled("Need to run Mongodb")
+    @Disabled("Need to run Mongodb")
     @Test
     public void testFindAll() {
         List<Product> products = productRepository.findAll();
