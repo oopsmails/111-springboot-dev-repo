@@ -4,6 +4,7 @@ import com.oopsmails.common.tool.json.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -42,18 +43,6 @@ public class RunningTimeLoggingService {
         return result;
     }
 
-    public static <T> T logInfoExecutionTimeOfCallable(Callable<T> task) {
-        T call = null;
-        try {
-            long startTime = System.currentTimeMillis();
-            call = task.call();
-            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        }
-        return call;
-    }
-
     public static void logInfoExecutionTimeOfRunnable(Runnable task) {
         try {
             long startTime = System.currentTimeMillis();
@@ -62,6 +51,42 @@ public class RunningTimeLoggingService {
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
+    }
+
+    public static <T> T logInfoExecutionTimeOfCallable(Callable<T> task) {
+        T result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = task.call();
+            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return result;
+    }
+
+    public static <T, R> R logInfoExecutionTimeOfFunction(T paramT, Function<T, R> function) {
+        R result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = function.apply(paramT);
+            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return result;
+    }
+
+    public static <T, U, R> R logInfoExecutionTimeOfBiFunction(T paramT, U paramU, BiFunction<T, U, R> biFunction) {
+        R result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = biFunction.apply(paramT, paramU);
+            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return result;
     }
 }
 
