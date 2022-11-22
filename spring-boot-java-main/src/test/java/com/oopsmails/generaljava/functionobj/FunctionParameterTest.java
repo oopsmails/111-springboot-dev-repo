@@ -1,5 +1,6 @@
 package com.oopsmails.generaljava.functionobj;
 
+import com.oopsmails.common.tool.logging.RunningTimeLoggingService;
 import com.oopsmails.generaljava.SimplifyTestingService;
 import com.oopsmails.model.Customer;
 import com.oopsmails.model.CustomerDto;
@@ -21,6 +22,10 @@ class FunctionParameterTest {
                 names,
                 list -> list.stream().filter(s -> s.startsWith("S")).forEach(System.out::println));
 
+        RunningTimeLoggingService.consumerAcceptWithLogging(
+                names,
+                list -> list.stream().filter(s -> s.startsWith("S")).forEach(System.out::println));
+
         assertNotNull(names, "Generally should not be null.");
     }
 
@@ -29,6 +34,7 @@ class FunctionParameterTest {
         List<String> names = SimplifyTestingService.supplierGetWithLogging(
                 () -> Arrays.asList("John", "Smith", "Samueal", "Catley", "Sie")
         );
+        RunningTimeLoggingService.supplierGetWithLogging(() -> Arrays.asList("John", "Smith", "Samueal", "Catley", "Sie"));
 
         assertNotNull(names, "Generally should not be null.");
     }
