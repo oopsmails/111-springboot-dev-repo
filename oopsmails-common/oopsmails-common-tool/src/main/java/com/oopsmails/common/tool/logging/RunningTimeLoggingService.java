@@ -3,6 +3,8 @@ package com.oopsmails.common.tool.logging;
 import com.oopsmails.common.tool.json.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -22,16 +24,16 @@ public class RunningTimeLoggingService {
     }
 
     public static <T> T supplierGetWithLogging(Supplier<T> supplier) {
-        long start = System.currentTimeMillis();
+        Instant instantStart = Instant.now();
         log.info("supplierGetWithLogging, supplier: [{}]", supplier);
         T result = supplier.get();
-        long end = System.currentTimeMillis();
-        log.info(LOG_EXE_TIME_PREFIX, (end - start));
+        Instant instantEnd = Instant.now();
+        log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         return result;
     }
 
     public static <T, R> R functionApplyWithLogging(T paramT, Function<T, R> function) {
-        long start = System.currentTimeMillis();
+        Instant instantStart = Instant.now();
         log.info("functionApplyWithLogging, function: [{}], before data: [{}]",
                 function,
                 JsonUtil.objectToJsonString(paramT, true));
@@ -40,16 +42,17 @@ public class RunningTimeLoggingService {
 
         log.info("functionApplyWithLogging, do processing after function.apply() for:  result: [{}]",
                 JsonUtil.objectToJsonString(result, true));
-        long end = System.currentTimeMillis();
-        log.info(LOG_EXE_TIME_PREFIX, (end - start));
+        Instant instantEnd = Instant.now();
+        log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         return result;
     }
 
     public static void logInfoExecutionTimeOfRunnable(Runnable task) {
         try {
-            long startTime = System.currentTimeMillis();
+            Instant instantStart = Instant.now();
             task.run();
-            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
+            Instant instantEnd = Instant.now();
+            log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -58,9 +61,10 @@ public class RunningTimeLoggingService {
     public static <T> T logInfoExecutionTimeOfCallable(Callable<T> task) {
         T result = null;
         try {
-            long startTime = System.currentTimeMillis();
+            Instant instantStart = Instant.now();
             result = task.call();
-            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
+            Instant instantEnd = Instant.now();
+            log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -70,9 +74,10 @@ public class RunningTimeLoggingService {
     public static <T, R> R logInfoExecutionTimeOfFunction(T paramT, Function<T, R> function) {
         R result = null;
         try {
-            long startTime = System.currentTimeMillis();
+            Instant instantStart = Instant.now();
             result = function.apply(paramT);
-            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
+            Instant instantEnd = Instant.now();
+            log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -82,9 +87,10 @@ public class RunningTimeLoggingService {
     public static <T, U, R> R logInfoExecutionTimeOfBiFunction(T paramT, U paramU, BiFunction<T, U, R> biFunction) {
         R result = null;
         try {
-            long startTime = System.currentTimeMillis();
+            Instant instantStart = Instant.now();
             result = biFunction.apply(paramT, paramU);
-            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
+            Instant instantEnd = Instant.now();
+            log.info(LOG_EXE_TIME_PREFIX, Duration.between(instantStart, instantEnd).toMillis());
         } catch (Exception e) {
             log.warn(e.getMessage());
         }

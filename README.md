@@ -7,6 +7,7 @@
 
 https://joelittlejohn.github.io/jsonschema2pojo/site/1.1.0/generate-mojo.html
 
+- MethodExecutionTime, RunningTimeLoggingService
 
 ## spring-boot-kafka-admin
 
@@ -34,6 +35,10 @@ docker-compose stop
 ## spring-boot-mock-backend
 
 - Generic mock backend, file download
+- CompletableFutureUtil, OperationTaskUtil, CompletableFutureBasicSyntax, CompletableFutureCallbacks
+- CompletableFutureAllOfAnyOf, CompletableFutureCombines, CompletableFutureCompose
+- GitHubLookupServiceRunner, GreetingService
+- GitHubUserController
 
 ## spring-boot-oauth2
 
