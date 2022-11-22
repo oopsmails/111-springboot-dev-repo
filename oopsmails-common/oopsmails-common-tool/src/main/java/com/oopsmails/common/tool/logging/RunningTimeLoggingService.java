@@ -12,9 +12,9 @@ import java.util.function.Supplier;
 @Slf4j
 public class RunningTimeLoggingService {
 
-    public static <T> void consumerAcceptWithLogging(T data, Consumer<T> consumer) {
+    public static <T> void consumerAcceptWithLogging(T paramT, Consumer<T> consumer) {
         long start = System.currentTimeMillis();
-        consumer.accept(data);
+        consumer.accept(paramT);
         long end = System.currentTimeMillis();
         log.info("Elapsed Time in milli seconds: {}", (end - start));
     }
@@ -28,13 +28,13 @@ public class RunningTimeLoggingService {
         return result;
     }
 
-    public static <T, R> R functionApplyWithLogging(T data, Function<T, R> function) {
+    public static <T, R> R functionApplyWithLogging(T paramT, Function<T, R> function) {
         long start = System.currentTimeMillis();
         log.info("functionApplyWithLogging, function: [{}], before data: [{}]",
                 function,
-                JsonUtil.objectToJsonString(data, true));
+                JsonUtil.objectToJsonString(paramT, true));
 
-        R result = function.apply(data);
+        R result = function.apply(paramT);
 
         log.info("functionApplyWithLogging, do processing after function.apply() for:  result: [{}]",
                 JsonUtil.objectToJsonString(result, true));
