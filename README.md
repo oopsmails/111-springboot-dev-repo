@@ -8,6 +8,8 @@
 https://joelittlejohn.github.io/jsonschema2pojo/site/1.1.0/generate-mojo.html
 
 - MethodExecutionTime, RunningTimeLoggingService
+- FunctionObjectTest, JavaOptionalTest, TestReadAndWriteLock3
+- FunctionParameterTest
 
 ## spring-boot-kafka-admin
 
@@ -39,6 +41,7 @@ docker-compose stop
 - CompletableFutureAllOfAnyOf, CompletableFutureCombines, CompletableFutureCompose
 - GitHubLookupServiceRunner, GreetingService
 - GitHubUserController
+- GreetingServiceRunnerTest, GitHubLookupServiceTest
 
 ## spring-boot-oauth2
 
