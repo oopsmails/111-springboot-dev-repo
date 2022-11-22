@@ -12,11 +12,13 @@ import java.util.function.Supplier;
 @Slf4j
 public class RunningTimeLoggingService {
 
+    private static final String LOG_EXE_TIME_PREFIX = "**** Elapsed Time in milliseconds: {} ****";
+
     public static <T> void consumerAcceptWithLogging(T paramT, Consumer<T> consumer) {
         long start = System.currentTimeMillis();
         consumer.accept(paramT);
         long end = System.currentTimeMillis();
-        log.info("Elapsed Time in milli seconds: {}", (end - start));
+        log.info(LOG_EXE_TIME_PREFIX, (end - start));
     }
 
     public static <T> T supplierGetWithLogging(Supplier<T> supplier) {
@@ -24,7 +26,7 @@ public class RunningTimeLoggingService {
         log.info("supplierGetWithLogging, supplier: [{}]", supplier);
         T result = supplier.get();
         long end = System.currentTimeMillis();
-        log.info("Elapsed Time in milliseconds: {}", (end - start));
+        log.info(LOG_EXE_TIME_PREFIX, (end - start));
         return result;
     }
 
@@ -39,7 +41,7 @@ public class RunningTimeLoggingService {
         log.info("functionApplyWithLogging, do processing after function.apply() for:  result: [{}]",
                 JsonUtil.objectToJsonString(result, true));
         long end = System.currentTimeMillis();
-        log.info("Elapsed Time in milliseconds: {}", (end - start));
+        log.info(LOG_EXE_TIME_PREFIX, (end - start));
         return result;
     }
 
@@ -47,7 +49,7 @@ public class RunningTimeLoggingService {
         try {
             long startTime = System.currentTimeMillis();
             task.run();
-            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -58,7 +60,7 @@ public class RunningTimeLoggingService {
         try {
             long startTime = System.currentTimeMillis();
             result = task.call();
-            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -70,7 +72,7 @@ public class RunningTimeLoggingService {
         try {
             long startTime = System.currentTimeMillis();
             result = function.apply(paramT);
-            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
@@ -82,7 +84,7 @@ public class RunningTimeLoggingService {
         try {
             long startTime = System.currentTimeMillis();
             result = biFunction.apply(paramT, paramU);
-            log.info("**** Execution Time: {}s ****", (System.currentTimeMillis() - startTime) / 1000d);
+            log.info(LOG_EXE_TIME_PREFIX, (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
