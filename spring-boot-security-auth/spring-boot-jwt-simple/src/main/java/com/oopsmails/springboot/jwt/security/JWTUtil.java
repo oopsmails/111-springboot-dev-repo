@@ -25,7 +25,7 @@ public class JWTUtil {
                 .withSubject("User Details")
                 .withClaim("email", email)
                 .withIssuedAt(new Date())
-                .withIssuer("YOUR APPLICATION/PROJECT/COMPANY NAME")
+                .withIssuer("MockJwtBackend/AngularTest/Oopsmails")
                 .sign(Algorithm.HMAC256(secret));
     }
 
