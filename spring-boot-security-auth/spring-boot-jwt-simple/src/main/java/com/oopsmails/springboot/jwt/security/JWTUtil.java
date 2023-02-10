@@ -24,8 +24,10 @@ public class JWTUtil {
         return JWT.create()
                 .withSubject("User Details")
                 .withClaim("email", email)
+//                .withClaim("roles", "user.r.w")
                 .withIssuedAt(new Date())
                 .withIssuer("MockJwtBackend/AngularTest/Oopsmails")
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 48))) // 48 hours
                 .sign(Algorithm.HMAC256(secret));
     }
 
