@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConverterNotFoundException;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -34,6 +35,14 @@ import static org.assertj.core.api.Assertions.assertThat;
         properties = {
                 "spring.h2.console.enabled=true"
         })
+@TestPropertySource(
+        locations = {
+                "classpath:application-test.properties"
+        },
+        properties = {
+                "test.string=abc",
+        }
+)
 @Slf4j
 public class TestDemo {
 

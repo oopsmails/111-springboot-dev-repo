@@ -89,8 +89,9 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-<!--                                ${project.basedir}/src/main/resources/petstore.yml-->
-                                ${project.basedir}/src/main/resources/api-specifications.json
+                                ${project.basedir}/src/main/resources/petstore.yml
+<!--                                ${project.basedir}/src/main/resources/api-specifications.json-->
+<!--                                ${project.basedir}/src/main/resources/api-specifications.yml-->
                             </inputSpec>
                             <generatorName>spring</generatorName>
                             <apiPackage>com.oopsmails.openapi.api</apiPackage>
