@@ -37,7 +37,7 @@ public class CommonLoggingFilter implements Filter {
     @Value("${general.logging.req.res: true}")
     private boolean isLoggingReqRes;
 
-    @Value("#{'${logging.exemption.urls}'.split(',')}")
+    @Value("#{'${logging.exemption.urls:}'.split(',')}")
     private Set<String> loggingExemptionUrls;
 
     @Override
