@@ -1,12 +1,14 @@
 package com.oopsmails.generaljava.pattern;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Data
+@Slf4j
 public class PatternCollection {
     public boolean validateSql(String input) {
         String regex = "[^a-zA-Z0-9\\s+]";
@@ -31,6 +33,7 @@ public class PatternCollection {
         if (input.matches(decimalPattern)) {
             try {
                 number = new BigDecimal(input);
+                log.info("BigDecimal number = {}", number);
                 return true;
             } catch (NumberFormatException e) {
                 return false;
@@ -38,6 +41,7 @@ public class PatternCollection {
         } else if (input.matches(integerPattern)) {
             try {
                 number = new BigDecimal(input);
+                log.info("BigDecimal number = {}", number);
                 return true;
             } catch (NumberFormatException e) {
                 return false;
@@ -57,6 +61,7 @@ public class PatternCollection {
             try {
                 String fixedInput = input.replace(',', '.');
                 number = new BigDecimal(fixedInput);
+                log.info("BigDecimal number = {}", number);
                 return true;
             } catch (NumberFormatException e) {
                 return false;
@@ -64,6 +69,7 @@ public class PatternCollection {
         } else if (input.matches(integerPattern)) {
             try {
                 number = new BigDecimal(input);
+                log.info("BigDecimal number = {}", number);
                 return true;
             } catch (NumberFormatException e) {
                 return false;

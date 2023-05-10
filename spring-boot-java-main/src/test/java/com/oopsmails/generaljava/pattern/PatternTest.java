@@ -54,6 +54,10 @@ class PatternTest {
         Map<String, Boolean> inputs = new HashMap<>();
         inputs.put("123456789,123", true);
         inputs.put("123,456,789", false);
+
+        inputs.put("123456789.123", false);
+        inputs.put("123.456.789", false);
+
         inputs.put("1234567890", false);
         inputs.put("12h3", false);
 
