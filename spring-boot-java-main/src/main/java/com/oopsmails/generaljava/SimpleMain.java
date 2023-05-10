@@ -15,6 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleMain {
     public static void main(String[] args) {
@@ -31,6 +33,14 @@ public class SimpleMain {
         System.out.println("===================================================================================");
 
 
-
+        String input = "1234567890";
+        String pattern = "^[0-9]+$";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(input);
+        if (matcher.matches()) {
+            System.out.println("Input contains digits only");
+        } else {
+            System.out.println("Input contains non-digit characters");
+        }
     }
 }
