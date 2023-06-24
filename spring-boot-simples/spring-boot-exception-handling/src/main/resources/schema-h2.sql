@@ -48,3 +48,27 @@ CREATE TABLE mutex
 
     PRIMARY KEY ( RESOURCE_CD )
 );
+
+
+CREATE TABLE institution
+(
+	institution_id VARCHAR(100) NOT NULL,
+	institution_name VARCHAR(100) NOT NULL,
+	description VARCHAR(300),
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( institution_id )
+);
+
+
+CREATE TABLE branch
+(
+	branch_id VARCHAR(100) NOT NULL,
+	branch_name VARCHAR(100) NOT NULL,
+	description VARCHAR(300),
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( branch_id )
+);

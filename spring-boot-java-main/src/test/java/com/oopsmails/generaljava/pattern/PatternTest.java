@@ -66,4 +66,22 @@ class PatternTest {
             assertTrue(entry.getValue().booleanValue() == result, "input: " + entry.getKey());
         }
     }
+
+    @Test
+    void bigDecimalQuickTest() {
+        String decimalPattern = "^[0-9]{1,9}(\\.[0-9]{1,2})?$";
+        String integerPattern = "^[0-9]{1,9}$";
+
+        Map<String, Boolean> inputs = new HashMap<>();
+        inputs.put("123456789.12", true);
+        inputs.put("123456789.123", false);
+        inputs.put("123.456.789", false);
+        inputs.put("1234567890", false);
+        inputs.put("12h3", false);
+
+        for (Map.Entry<String, Boolean> entry : inputs.entrySet()) {
+            boolean result = patternCollection.bigDecimalQuickTest(entry.getKey(), decimalPattern, integerPattern);
+            assertTrue(entry.getValue().booleanValue() == result, "input: " + entry.getKey());
+        }
+    }
 }

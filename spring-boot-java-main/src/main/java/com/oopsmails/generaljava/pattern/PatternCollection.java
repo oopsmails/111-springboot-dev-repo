@@ -24,6 +24,30 @@ public class PatternCollection {
         return matcher.find();
     }
 
+    public boolean bigDecimalQuickTest(String input, String decimalPattern, String integerPattern) {
+        BigDecimal number = null;
+
+        if (input.matches(decimalPattern)) {
+            try {
+                number = new BigDecimal(input);
+                log.info("BigDecimal number = {}", number);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else if (input.matches(integerPattern)) {
+            try {
+                number = new BigDecimal(input);
+                log.info("BigDecimal number = {}", number);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public boolean bigDecimalPatternEn(String input) {
         BigDecimal number = null;
 
