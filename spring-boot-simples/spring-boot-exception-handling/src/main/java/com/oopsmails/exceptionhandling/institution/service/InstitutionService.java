@@ -1,27 +1,34 @@
 package com.oopsmails.exceptionhandling.institution.service;
 
-import com.oopsmails.exceptionhandling.institution.domain.Institution;
-import com.oopsmails.exceptionhandling.institution.entity.InstitutionEntity;
-import com.oopsmails.exceptionhandling.institution.repo.InstitutionRepository;
+import com.oopsmails.exceptionhandling.institution.entity.Institution;
+import com.oopsmails.exceptionhandling.institution.repo.jpa.InstitutionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class InstitutionService {
 
-    private final InstitutionRepository institutionRepository;
+//    private final InstitutionRepository institutionRepository;
+//
+//    @Autowired
+//    public InstitutionService(InstitutionRepository institutionRepository) {
+//        this.institutionRepository = institutionRepository;
+//    }
 
     @Autowired
-    public InstitutionService(InstitutionRepository institutionRepository) {
-        this.institutionRepository = institutionRepository;
-    }
+    private InstitutionJpaRepository institutionJpaRepository;
 
-    public Institution saveInstitutionWithBranches(Institution institution) {
+//    public InstitutionDto saveInstitutionWithBranches(InstitutionDto institution) {
 //        return institutionRepository.save(institution);
-        return null;
+//    }
+
+    public List<Institution> retrieveEntityInstitutionAll() {
+        return institutionJpaRepository.findAll();
     }
 
-    public InstitutionEntity saveEntityInstitutionWithBranches(InstitutionEntity institutionEntity) {
-        return institutionRepository.save(institutionEntity);
+    public Institution saveEntityInstitutionWithBranches(Institution institution) {
+        return institutionJpaRepository.save(institution);
     }
 }

@@ -1,4 +1,4 @@
-package com.oopsmails.springboot.mockbackend.utils;
+package com.oopsmails.exceptionhandling.util;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 public class JsonUtils {
-    //    public static String PROJECT_PATH = "/data/";
+//    public static String PROJECT_PATH = "/data/";
 
     public static ObjectMapper getObjectMapper() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -129,7 +129,7 @@ public class JsonUtils {
     }
 
     public static String getResourceFileAsString(String fileName) {
-        //        InputStream is = getResourceFileAsInputStream(fileName);
+//        InputStream is = getResourceFileAsInputStream(fileName);
         InputStream is = null;
         try {
             is = new ClassPathResource(fileName).getInputStream(); // TODO: clean this codes and try not using Spring class if possible
@@ -144,18 +144,18 @@ public class JsonUtils {
         }
     }
 
-    //    public static Resource getResourceFileAsResource(String fileName) {
-    //        ClassLoader classLoader = JsonUtils.class.getClassLoader();
-    ////        Resource resource= resourceLoader.getResource("classpath:/account_info.html");
-    //        return classLoader.getResource(fileName);
-    //    }
+//    public static Resource getResourceFileAsResource(String fileName) {
+//        ClassLoader classLoader = JsonUtils.class.getClassLoader();
+////        Resource resource= resourceLoader.getResource("classpath:/account_info.html");
+//        return classLoader.getResource(fileName);
+//    }
 
     public static InputStream getResourceFileAsInputStream(String fileName) {
         ClassLoader classLoader = JsonUtils.class.getClassLoader();
         return classLoader.getResourceAsStream(fileName);
     }
 
-    //    public static String getFileNameWithPath(String fileName, String packageString) {
-    //        return PROJECT_PATH + (packageString == null ? "" : packageString) + "/" + fileName;
-    //    }
+//    public static String getFileNameWithPath(String fileName, String packageString) {
+//        return PROJECT_PATH + (packageString == null ? "" : packageString) + "/" + fileName;
+//    }
 }

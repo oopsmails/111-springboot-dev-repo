@@ -1,4 +1,4 @@
 package com.oopsmails.exceptionhandling.institution.domain;
 
-public class Branch {
+public class BranchDto {
 }

@@ -52,7 +52,7 @@ CREATE TABLE mutex
 
 CREATE TABLE institution
 (
-	institution_id VARCHAR(100) NOT NULL,
+	institution_id BIGINT GENERATED ALWAYS AS IDENTITY,
 	institution_name VARCHAR(100) NOT NULL,
 	description VARCHAR(300),
 	created_by VARCHAR(100),
@@ -64,11 +64,25 @@ CREATE TABLE institution
 
 CREATE TABLE branch
 (
-	branch_id VARCHAR(100) NOT NULL,
+--	branch_id VARCHAR(100) NOT NULL,
+--	branch_id VARCHAR(100) GENERATED ALWAYS AS IDENTITY,
+    branch_id BIGINT GENERATED ALWAYS AS IDENTITY,
+	institution_id BIGINT,
 	branch_name VARCHAR(100) NOT NULL,
 	description VARCHAR(300),
 	created_by VARCHAR(100),
 	created_date datetime,
 
-    PRIMARY KEY ( branch_id )
+    PRIMARY KEY ( branch_id ),
+    CONSTRAINT fk_branch_institution
+    FOREIGN KEY (institution_id)
+    REFERENCES institution (institution_id)
 );
+
+
+--ALTER TABLE branch
+--ADD COLUMN institution_id VARCHAR(100),
+--ADD CONSTRAINT fk_branch_institution
+--FOREIGN KEY (institution_id)
+--REFERENCES institution (institution_id);
+
