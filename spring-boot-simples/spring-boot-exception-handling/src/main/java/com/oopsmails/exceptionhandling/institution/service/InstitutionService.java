@@ -1,7 +1,10 @@
 package com.oopsmails.exceptionhandling.institution.service;
 
+import com.oopsmails.exceptionhandling.institution.domain.InstitutionDto;
 import com.oopsmails.exceptionhandling.institution.entity.Institution;
 import com.oopsmails.exceptionhandling.institution.repo.jpa.InstitutionJpaRepository;
+import lombok.SneakyThrows;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,20 +12,8 @@ import java.util.List;
 
 @Service
 public class InstitutionService {
-
-//    private final InstitutionRepository institutionRepository;
-//
-//    @Autowired
-//    public InstitutionService(InstitutionRepository institutionRepository) {
-//        this.institutionRepository = institutionRepository;
-//    }
-
     @Autowired
     private InstitutionJpaRepository institutionJpaRepository;
-
-//    public InstitutionDto saveInstitutionWithBranches(InstitutionDto institution) {
-//        return institutionRepository.save(institution);
-//    }
 
     public List<Institution> retrieveEntityInstitutionAll() {
         return institutionJpaRepository.findAll();
@@ -30,5 +21,15 @@ public class InstitutionService {
 
     public Institution saveEntityInstitutionWithBranches(Institution institution) {
         return institutionJpaRepository.save(institution);
+    }
+
+    @SneakyThrows
+    public InstitutionDto retrieveInstitutionById(Long id) {
+        Institution institution = institutionJpaRepository.findById(id).orElse(null);
+
+        InstitutionDto result = new InstitutionDto();
+
+        BeanUtils.copyProperties(result, institution);
+        return result;
     }
 }

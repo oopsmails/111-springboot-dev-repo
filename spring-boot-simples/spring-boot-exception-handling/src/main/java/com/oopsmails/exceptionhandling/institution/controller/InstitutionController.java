@@ -1,8 +1,12 @@
 package com.oopsmails.exceptionhandling.institution.controller;
 
+import com.oopsmails.exceptionhandling.institution.domain.BranchDto;
+import com.oopsmails.exceptionhandling.institution.domain.InstitutionDto;
 import com.oopsmails.exceptionhandling.institution.entity.Branch;
 import com.oopsmails.exceptionhandling.institution.entity.Institution;
 import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchJpaRepository;
+import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchSimpleJpaRepository;
+import com.oopsmails.exceptionhandling.institution.service.BranchService;
 import com.oopsmails.exceptionhandling.institution.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,18 +20,26 @@ import java.util.List;
 @RestController
 public class InstitutionController {
 
-    private final InstitutionService institutionService;
+    @Autowired
+    private InstitutionService institutionService;
+
+    @Autowired
+    private BranchService branchService;
+
     @Autowired
     private BranchJpaRepository branchJpaRepository;
 
     @Autowired
-    public InstitutionController(InstitutionService institutionService) {
-        this.institutionService = institutionService;
-    }
+    private BranchSimpleJpaRepository branchSimpleJpaRepository;
 
     @GetMapping("/institutions")
     public List<Institution> retrieveAll() {
         return institutionService.retrieveEntityInstitutionAll();
+    }
+
+    @GetMapping("/institution/{id}")
+    public InstitutionDto retrieveInstitutionById(@PathVariable Long id) {
+        return institutionService.retrieveInstitutionById(id);
     }
 
     @PostMapping("/institution")
@@ -41,7 +53,8 @@ public class InstitutionController {
     }
 
     @GetMapping("/branch/{id}")
-    public Branch retrieveBranchById(@PathVariable Long id) {
-        return branchJpaRepository.findById(id).orElse(null);
+    //    public BranchDto retrieveBranchById(@PathVariable Long id, @RequestParam(name = "simple", required = false) boolean isSimple) {
+    public BranchDto retrieveBranchById(@PathVariable Long id) {
+        return branchService.retrieveBranch(id);
     }
 }
