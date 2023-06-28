@@ -66,12 +66,30 @@ TRUNCATE TABLE BRANCH;
 -- Reset the identity value to 0
 DBCC CHECKIDENT ('BRANCH', RESEED, 0);
 
+```
 
--- if there is a foreign key, then cannot TRANCATE, need to delete and RESEED
+### cannot truncate table because there is a foreign key .... what to do?
 
-delete BRANCH
+```
+-- 1. if there is a foreign key, then cannot TRANCATE, need to delete and RESEED
+
+delete OTHER_TABLE_FK_TO_BRANCH
 DBCC CHECKIDENT ('BRANCH', RESEED, 0);
 
+-- 2. Disable the foreign key constraint temporarily
+
+-- Assuming "BRANCH" is the name of your table
+-- Disable the foreign key constraint
+ALTER TABLE BRANCH NOCHECK CONSTRAINT fk_branch_institution;
+
+-- Delete all data from the table
+TRUNCATE TABLE BRANCH;
+
+-- Reset the identity value to 1
+DBCC CHECKIDENT ('BRANCH', RESEED, 1);
+
+-- Enable the foreign key constraint
+ALTER TABLE BRANCH CHECK CONSTRAINT fk_branch_institution;
 
 
 
