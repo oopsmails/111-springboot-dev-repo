@@ -35,5 +35,10 @@ SET @nextBranchId = @nextBranchId + 1;
 
 -- Print the next branch_id value
 PRINT 'Next branch_id value: ' + CAST(@nextBranchId AS VARCHAR);
+
+-- Assuming "BRANCH" is the name of your table
+-- Increase the current identity value by 2
+DBCC CHECKIDENT ('BRANCH', RESEED, IDENT_CURRENT('BRANCH') + 2);
+
 ```
 
