@@ -42,7 +42,7 @@ DBCC CHECKIDENT ('BRANCH', RESEED, IDENT_CURRENT('BRANCH') + 2);
 
 ```
 
-## increasing identity by 2
+### increasing identity by 2
 
 ```
 -- Assuming "BRANCH" is the name of your table
@@ -55,4 +55,28 @@ UPDATE BRANCH SET branch_id = branch_id + 2;
 -- Enable the identity column again
 SET IDENTITY_INSERT BRANCH OFF;
 ```
+
+### Reset identity to 0, i.e, start inserting from 1
+
+```
+-- Assuming "BRANCH" is the name of your table
+-- Delete all data from the table
+TRUNCATE TABLE BRANCH;
+
+-- Reset the identity value to 0
+DBCC CHECKIDENT ('BRANCH', RESEED, 0);
+
+
+-- if there is a foreign key, then cannot TRANCATE, need to delete and RESEED
+
+delete BRANCH
+DBCC CHECKIDENT ('BRANCH', RESEED, 0);
+
+
+
+
+```
+
+
+
 
