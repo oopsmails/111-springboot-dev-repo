@@ -42,3 +42,17 @@ DBCC CHECKIDENT ('BRANCH', RESEED, IDENT_CURRENT('BRANCH') + 2);
 
 ```
 
+## increasing identity by 2
+
+```
+-- Assuming "BRANCH" is the name of your table
+-- Disable the identity column temporarily
+SET IDENTITY_INSERT BRANCH ON;
+
+-- Update the current identity value by incrementing it by 2
+UPDATE BRANCH SET branch_id = branch_id + 2;
+
+-- Enable the identity column again
+SET IDENTITY_INSERT BRANCH OFF;
+```
+
