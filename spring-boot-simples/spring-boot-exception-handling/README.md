@@ -19,3 +19,21 @@ Postman:
 
 spring-boot-simples/spring-boot-exception-handling/spring-boot-exception-handling.postman_collection.json
 
+## MS SQL
+
+### Find next value of identity
+
+```
+-- Assuming "BRANCH" is the name of your table
+DECLARE @nextBranchId BIGINT;
+
+-- Get the last identity value generated for the table
+SET @nextBranchId = IDENT_CURRENT('BRANCH');
+
+-- Increment by 1 to get the next value
+SET @nextBranchId = @nextBranchId + 1;
+
+-- Print the next branch_id value
+PRINT 'Next branch_id value: ' + CAST(@nextBranchId AS VARCHAR);
+```
+
