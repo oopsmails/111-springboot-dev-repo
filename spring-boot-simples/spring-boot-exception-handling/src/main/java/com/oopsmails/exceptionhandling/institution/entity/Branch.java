@@ -1,6 +1,10 @@
 package com.oopsmails.exceptionhandling.institution.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -16,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "BRANCH")
 @Entity
 @Data
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@branchId")
 public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +34,9 @@ public class Branch {
     private String description;
 
     //    @ManyToOne
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "institution_id", nullable = false, insertable = false, updatable = false)
     @JsonBackReference
+//    @JsonIgnore
     private Institution institution;
 }

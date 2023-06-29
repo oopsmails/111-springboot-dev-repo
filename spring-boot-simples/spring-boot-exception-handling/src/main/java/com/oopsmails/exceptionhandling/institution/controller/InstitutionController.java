@@ -8,6 +8,7 @@ import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchJpaRepository;
 import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchSimpleJpaRepository;
 import com.oopsmails.exceptionhandling.institution.service.BranchService;
 import com.oopsmails.exceptionhandling.institution.service.InstitutionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class InstitutionController {
 
     @Autowired
@@ -52,9 +54,22 @@ public class InstitutionController {
         return branchJpaRepository.findAll();
     }
 
-    @GetMapping("/branch/{id}")
+    @GetMapping("/branchsimple/{id}")
     //    public BranchDto retrieveBranchById(@PathVariable Long id, @RequestParam(name = "simple", required = false) boolean isSimple) {
-    public BranchDto retrieveBranchById(@PathVariable Long id) {
+    public BranchDto retrieveBranchSimpleById(@PathVariable Long id) {
+        return branchService.retrieveBranchSimple(id);
+    }
+
+    @GetMapping("/branch-v1/{id}")
+    public BranchDto retrieveBranchByIdV1(@PathVariable Long id) {
         return branchService.retrieveBranch(id);
+    }
+
+    @GetMapping("/branch-v2/{id}")
+    public Branch retrieveBranchByIdV2(@PathVariable Long id) {
+        Branch branch = branchJpaRepository.findById(id).orElse(null);
+        Institution institution = branch.getInstitution();
+        log.info("institutionId = [{}]", institution.getInstitutionId());
+        return branch;
     }
 }

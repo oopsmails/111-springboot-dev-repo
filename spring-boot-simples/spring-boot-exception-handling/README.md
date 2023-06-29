@@ -19,6 +19,70 @@ Postman:
 
 spring-boot-simples/spring-boot-exception-handling/spring-boot-exception-handling.postman_collection.json
 
+
+## Spring JPA
+
+## solve the problem of Infinite recursion
+
+Ref: 
+- https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
+- https://github.com/WeBankFinTech/Qualitis/blob/85041c4b963d3ef41b0e1094fc4568ab4aad1c45/core/project/src/main/java/com/webank/wedatasphere/qualitis/rule/entity/Template.java
+
+### Using @JsonManagedReference and @JsonBackReference
+
+- @JsonManagedReference is the forward part of reference, the one that gets serialized normally.
+- @JsonBackReference is the back part of reference; it'll be omitted from serialization.
+- The serialized Item object doesn't contain a reference to the User object.
+
+```
+    @OneToMany(targetEntity = Branch.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "institution_id", nullable = false)
+    @JsonManagedReference
+//    @JsonBackReference
+//        @JsonIgnore // can also use this for stackOverflow error
+    private List<Branch> branchList;
+    
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "institution_id", nullable = false, insertable = false, updatable = false)
+    @JsonBackReference
+//    @JsonIgnore
+    private Institution institution;
+
+```
+
+
+Also note that we can't switch around the annotations. The following will work for the serialization:
+
+```
+@JsonBackReference
+public List<Item> userItems;
+
+@JsonManagedReference
+public User owner;
+```
+
+But when we attempt to deserialize the object, it'll throw an exception, **as @JsonBackReference can't be used on a collection**.
+
+If we want to have the serialized Item object contain a reference to the User, we need to use **@JsonIdentityInfo**. 
+
+The @JsonIgnore is an alternative  for the @JsonBackReference. So you can used @JsonIgnore in place of @JsonBackReference
+
+### Using @JsonIdentityInfo
+
+```
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+
+```
+As of 20230630: Using this along, can deal with Institution Entity well, but Branch Entity is NOT dealt well
+
+### Working Version
+
+- Using @JsonManagedReference and @JsonBackReference
+- Because in Branch, it is ManyToOne, so use EAGER `@ManyToOne(fetch = FetchType.EAGER)`
+- See retrieveBranchByIdV2() in controller, the Institution is actually there, it's just cannot be displayed.
+
+
 ## MS SQL
 
 ### Find next value of identity

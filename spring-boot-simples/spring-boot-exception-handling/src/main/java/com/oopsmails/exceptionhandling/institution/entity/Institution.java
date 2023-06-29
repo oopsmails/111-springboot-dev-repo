@@ -1,6 +1,10 @@
 package com.oopsmails.exceptionhandling.institution.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -18,6 +22,7 @@ import java.util.List;
 @Table(name = "INSTITUTION")
 @Entity
 @Data
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@institutionId")
 public class Institution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +40,8 @@ public class Institution {
     @OneToMany(targetEntity = Branch.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "institution_id", nullable = false)
     @JsonManagedReference
-    //    @JsonIgnore // can also use this for stackOverflow error
+//    @JsonBackReference
+//        @JsonIgnore // can also use this for stackOverflow error
     private List<Branch> branchList;
 
     public void addBranchEntity(Branch branch) {
