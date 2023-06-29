@@ -6,6 +6,7 @@ import com.oopsmails.exceptionhandling.institution.entity.Branch;
 import com.oopsmails.exceptionhandling.institution.entity.Institution;
 import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchJpaRepository;
 import com.oopsmails.exceptionhandling.institution.repo.jpa.BranchSimpleJpaRepository;
+import com.oopsmails.exceptionhandling.institution.repo.jpa.InstitutionProjectionRepository;
 import com.oopsmails.exceptionhandling.institution.service.BranchService;
 import com.oopsmails.exceptionhandling.institution.service.InstitutionService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class InstitutionController {
     private InstitutionService institutionService;
 
     @Autowired
+    private InstitutionProjectionRepository institutionProjectionRepository;
+
+    @Autowired
     private BranchService branchService;
 
     @Autowired
@@ -42,6 +46,24 @@ public class InstitutionController {
     @GetMapping("/institution/{id}")
     public InstitutionDto retrieveInstitutionById(@PathVariable Long id) {
         return institutionService.retrieveInstitutionById(id);
+    }
+
+    @GetMapping("/institutions-v2")
+    public List<InstitutionProjectionRepository.BranchIdProjection> retrieveAllV2() {
+        List<InstitutionProjectionRepository.BranchIdProjection> result = institutionProjectionRepository.findAllBranchIdsWithInstitution();
+        result.forEach((item) -> {
+            log.info(item.getInstitutionName() + " -- " + item.getBranchId());
+        });
+        return result;
+    }
+
+    @GetMapping("/institution-v2/{id}")
+    public List<InstitutionProjectionRepository.FullBranchProjection> retrieveInstitutionByIdV2(@PathVariable Long id) {
+        List<InstitutionProjectionRepository.FullBranchProjection> result = institutionProjectionRepository.findFullBranchesByInstitutionIdWithInstitution(id);
+        result.forEach((item) -> {
+            log.info(item.getInstitutionName() + " -- " + item.getBranchId() + " -- " + item.getBranchName());
+        });
+        return result;
     }
 
     @PostMapping("/institution")
