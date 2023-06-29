@@ -91,10 +91,31 @@ DBCC CHECKIDENT ('BRANCH', RESEED, 1);
 -- Enable the foreign key constraint
 ALTER TABLE BRANCH CHECK CONSTRAINT fk_branch_institution;
 
-
-
 ```
 
+### Using variable to insert ...
+
+```
+-- Declare the variable
+DECLARE @branchId bigint;
+
+-- Set the variable using a SELECT statement
+SELECT @branchId = branch_id
+FROM branch
+WHERE ...; -- Add your condition here
+
+-- Use the variable as needed
+SELECT @branchId;
+
+-- Convert and print the variable value
+PRINT 'Branch ID: ' + CONVERT(VARCHAR(100), @branchId);
+-- or
+PRINT 'Branch ID: ' + CAST(@branchId AS VARCHAR(100));
+
+INSERT INTO BRANCH_SUB_TABLE (BRANCH_ID, ....)
+VALUES (@branchId, ....)
+
+```
 
 
 
