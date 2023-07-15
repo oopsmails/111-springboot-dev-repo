@@ -12,7 +12,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Deal with hidden folders and hidden files, NOT tested!
+ * Deal with hidden folders and hidden files, including!!!
  */
 public class FileCopyMainV20 {
     public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class FileCopyMainV20 {
         String destinationFolderPath = "path/to/destination/folder";
 
         List<String> excludedFileNames = List.of("file1.txt", "file2.txt");
-        List<String> excludedFolderNames = List.of("target", ".git", ".idea");
+        List<String> excludedFolderNames = List.of("target", ".git", ".idea", "node_modules");
 
         try {
             // Create a Path object for the source and destination folders

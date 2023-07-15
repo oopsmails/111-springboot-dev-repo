@@ -7,7 +7,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 /**
- * NOT dealing with hidden files, paths as args
+ * NOT dealing with hidden files, paths as args, java 8
  * <p>
  * Enter the source folder path: C:/tmp/source
  * Enter the destination folder path: C:/tmp/target
