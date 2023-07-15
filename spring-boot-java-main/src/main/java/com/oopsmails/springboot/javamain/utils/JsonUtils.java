@@ -17,7 +17,8 @@ public class JsonUtils {
 
     public static String getProjectPath() {
         if (OSValidator.isWindows()) {
-            return "C:/sharing/github/springboot-dev-repo/spring-boot-java-main";
+//            return "C:/sharing/github/springboot-dev-repo/spring-boot-java-main";
+            return "C:/oopsmails/111-springboot-dev-repo/spring-boot-java-main";
         }
 
         return PROJECT_PATH;
