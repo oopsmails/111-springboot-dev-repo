@@ -1,7 +1,9 @@
 package com.oopsmails.generaljava.filesys;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -12,21 +14,25 @@ import java.util.List;
  */
 public class FileCopyMainV22 {
     public static void main(String[] args) {
-        String rootFolderPath = "C:/tmp/";
-        String sourceFolderPath = rootFolderPath + "s0";
-        String destinationFolderPath = rootFolderPath + "t";
-
         long start = System.currentTimeMillis();
-        List<String> excludedFileNames = new ArrayList<>();
-        excludedFileNames.add("aaa.bbb");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.print("Enter the source folder path: ");
+            String sourceFolderPath = reader.readLine();
 
-        List<String> excludedFolderNames = new ArrayList<>();
-        excludedFolderNames.add("target");
-        excludedFolderNames.add(".git");
-        excludedFolderNames.add(".idea");
-        excludedFolderNames.add("node_modules");
+            System.out.print("Enter the destination folder path: ");
+            String destinationFolderPath = reader.readLine();
 
-        try {
+
+            List<String> excludedFileNames = new ArrayList<>();
+            excludedFileNames.add("aaa.bbb");
+
+            start = System.currentTimeMillis();
+            List<String> excludedFolderNames = new ArrayList<>();
+            excludedFolderNames.add("target");
+            excludedFolderNames.add(".git");
+            excludedFolderNames.add(".idea");
+            excludedFolderNames.add("node_modules");
+
             // Create a Path object for the source and destination folders
             File sourceFolder = new File(sourceFolderPath);
             File destinationFolder = new File(destinationFolderPath);
