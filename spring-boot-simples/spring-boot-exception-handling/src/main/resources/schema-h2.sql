@@ -86,3 +86,37 @@ CREATE TABLE branch
 --FOREIGN KEY (institution_id)
 --REFERENCES institution (institution_id);
 
+CREATE TABLE author
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	first_name VARCHAR(300) NOT NULL,
+	last_name VARCHAR(300),
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( id )
+);
+
+CREATE TABLE post
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	title VARCHAR(300) NOT NULL,
+	slug VARCHAR(300),
+	author_id BIGINT,
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( id )
+);
+
+CREATE TABLE page_view
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	slug VARCHAR(300),
+	ip_address VARCHAR(300),
+	created_by VARCHAR(100),
+	created_date datetime,
+
+    PRIMARY KEY ( id )
+);
+
