@@ -28,6 +28,10 @@ public class CustomerService {
 		Optional<Customer> deletedCustomerOptional = customerRepository.deleteCustomerById(customerId);		
 		return deletedCustomerOptional;
 	}
+
+	public List<Customer> getCustomerAll() {
+		return customerRepository.getCustomersAll();
+	}
 	
 	public List<Customer> getCustomerCollectionByFirstName(String firstName) {
 		return customerRepository.getCustomersByFirstName(firstName);

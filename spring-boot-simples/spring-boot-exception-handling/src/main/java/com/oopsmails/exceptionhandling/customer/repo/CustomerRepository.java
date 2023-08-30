@@ -49,6 +49,11 @@ public class CustomerRepository {
 		return customerEntity;		
 	}
 	
+	public List<Customer> getCustomersAll() {
+		List<CustomerEntity> customerEntity = customerJpaRepository.findAll();
+		return customerEntity.stream().map(this::customerEntityToCustomer).collect(Collectors.toList());
+	}
+
 	public List<Customer> getCustomersByFirstName(String firstName) {
 		List<CustomerEntity> customerEntity = customerJpaRepository.findByFirstName(firstName);
 		return customerEntity.stream().map(this::customerEntityToCustomer).collect(Collectors.toList());

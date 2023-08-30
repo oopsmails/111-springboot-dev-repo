@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*")
 public class CustomerGetController {
 	
 	@Autowired
@@ -90,5 +92,15 @@ public class CustomerGetController {
 		List<CustomerGetResponseDto> customerGetResponseDtoList = customers.stream().map(customer -> new CustomerGetResponseDto(customer)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok().body(customerGetResponseDtoList); 
+	}
+
+	@GetMapping(value = "/customers")
+	@LoggingPerformance(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerAll ... ")
+	@LoggingAudit(origin = LoggingOrigin.Controller, message = "CustomerGetController, getCustomerAll ... ")
+	public ResponseEntity<List<CustomerGetResponseDto>> getCustomerAll() {
+		List<Customer> customers = customerService.getCustomerAll();
+		List<CustomerGetResponseDto> customerGetResponseDtoList = customers.stream().map(customer -> new CustomerGetResponseDto(customer)).collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(customerGetResponseDtoList);
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @RestController
 @Slf4j
 @Validated
+@CrossOrigin(origins = "*")
 public class CustomerPutController {
 	
 	@Autowired
@@ -47,5 +49,13 @@ public class CustomerPutController {
 		Customer updatedCustomer = customerService.updateCustomer(customer);
 		
 		return ResponseEntity.ok().body(new CustomerGetResponseDto(updatedCustomer));	
+	}
+
+	@PutMapping(value = "/customers/test/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateCustomerTest(@PathVariable("customerId") @Min(1000) @Max(9999) Integer customerId, @Valid @RequestBody String requestBody) {
+		log.info("Input Customer Id :: {}", customerId);
+		log.info("InputrequestBody :: {}", requestBody);
+
+		return ResponseEntity.ok().body(requestBody);
 	}
 }
