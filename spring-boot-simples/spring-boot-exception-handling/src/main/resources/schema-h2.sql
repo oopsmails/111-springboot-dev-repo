@@ -120,3 +120,16 @@ CREATE TABLE page_view
     PRIMARY KEY ( id )
 );
 
+
+CREATE TABLE product
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY,
+	name VARCHAR(300),
+--	online_only TINYINT(1), -- MySQl
+	online_only BOOLEAN, -- PostgreSQL, H2
+--	online_only BIT, -- SQL Server
+--	online_only NUMBER(1), -- Oracle
+	version int,
+
+    PRIMARY KEY ( id )
+);

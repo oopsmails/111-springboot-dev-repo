@@ -30,3 +30,9 @@ insert into author (id, first_name, last_name, created_by, created_date) values 
 insert into post (id, title, slug, author_id, created_by, created_date) values (1, 'Building a Custom Spring Boot Starter for Microservices', '/build-custom-spring-boot-starter', 1, 'system-init', CURRENT_TIMESTAMP());
 insert into page_view (id, slug, ip_address, created_by, created_date) values (1, '/build-custom-spring-boot-starter', '192.168.1.1', 'system-init', CURRENT_TIMESTAMP());
 insert into page_view (id, slug, ip_address, created_by, created_date) values (2, '/build-custom-spring-boot-starter', '192.168.1.2', 'system-init', CURRENT_TIMESTAMP());
+
+
+insert into product (name, online_only, version) values ('prod-1', 0, 1);
+
+
+
