@@ -3,10 +3,13 @@ package com.oopsmails.springboot.javamain.example;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
 import com.oopsmails.springboot.javamain.model.Employee;
 import com.oopsmails.springboot.javamain.repository.EmployeeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +32,16 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = { //
         SpringBootExampleTest.TempSpringBootTestConfig.class, //
 })
+//@Slf4j
 public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
 
+    private static Employee mockEmployee = new Employee(1L, 1L, "Oops Mails", 34, "Developer");
     @MockBean
     private EmployeeRepository employeeRepository;
 
@@ -44,14 +50,40 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
 
     @BeforeTestClass
     public void setUp() throws Exception {
-        Employee mockEmployee = new Employee(1L, 1L, "Oops Mails", 34, "Developer");
-        when(employeeRepository.findById(any())).thenReturn(mockEmployee);
+//        Employee mockEmployee = new Employee(1L, 1L, "Oops Mails", 34, "Developer");
+//        when(employeeRepository.findById(any())).thenReturn(mockEmployee);
+//        employeeRepository = mock(EmployeeRepository.class);
     }
 
     @Test
     public void testBeanOverriding() throws Exception {
         LocalDate localDate = LocalDate.now(appClock);
         System.out.println("localDate = " + localDate);
+//        log.info("localDate = {}", localDate);
+    }
+
+    @Test
+    public void testMockBeanCalling() throws Exception {
+
+        when(employeeRepository.findById(any())).thenAnswer(new Answer<Employee>() {
+            private boolean firstCall = true;
+
+            @Override
+            public Employee answer(InvocationOnMock invocation) throws Throwable {
+                if (firstCall) {
+                    firstCall = false;
+                    //                    return mock(Employee.class); // Mocked list for the first call
+                    return mockEmployee;
+                } else {
+                    return null; // Null for the second call
+                }
+            }
+        });
+
+        Employee firstCallResult = this.employeeRepository.findById(1L);
+        System.out.println("firstCallResult = " + firstCallResult);
+        Employee secondCallResult = this.employeeRepository.findById(2L);
+        System.out.println("secondCallResult = " + secondCallResult);
     }
 
     @Test
