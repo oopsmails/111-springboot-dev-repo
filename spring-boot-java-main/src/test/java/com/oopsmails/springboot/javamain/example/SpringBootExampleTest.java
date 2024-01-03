@@ -32,6 +32,8 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -84,6 +86,42 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
         System.out.println("firstCallResult = " + firstCallResult);
         Employee secondCallResult = this.employeeRepository.findById(2L);
         System.out.println("secondCallResult = " + secondCallResult);
+
+        doAnswer(invocation -> {
+            Long id = (Long) invocation.getArgument(0);
+            if ( id >= 50L) {
+                Employee employee = new Employee(id, id, "Oops Mails3", 34, "Developer 3");
+                return employee;
+            }
+
+            return mockEmployee;
+        }).when(employeeRepository).findById(anyLong());
+
+        Employee e3 = this.employeeRepository.findById(52L);
+        System.out.println("e3 = " + e3);
+
+        Employee e4 = this.employeeRepository.findById(2L);
+        System.out.println("e4 = " + e4);
+    }
+
+    @Test
+    public void testMockBeanDoAnswer() throws Exception {
+
+        doAnswer(invocation -> {
+            Long id = (Long) invocation.getArgument(0);
+            if ( id >= 50L) {
+                Employee employee = new Employee(id, id, "Oops Mails3", 34, "Developer 3");
+                return employee;
+            }
+
+            return mockEmployee;
+        }).when(employeeRepository).findById(anyLong());
+
+        Employee e3 = this.employeeRepository.findById(52L);
+        System.out.println("e3 = " + e3);
+
+        Employee e4 = this.employeeRepository.findById(2L);
+        System.out.println("e4 = " + e4);
     }
 
     @Test
