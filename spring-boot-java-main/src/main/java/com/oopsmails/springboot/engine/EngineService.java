@@ -25,7 +25,7 @@ public class EngineService {
 
     private List<TaskBeanNode> rootNodes = new ArrayList<>();
 
-    private String workflowPackage = "com.oopsmails.springboot.service";
+    private String servicePackage = "com.oopsmails.springboot.service";
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -39,7 +39,7 @@ public class EngineService {
     }
 
     private List<String> getTokens(String path) {
-        String s = path.substring(workflowPackage.length());
+        String s = path.substring(servicePackage.length());
         return Arrays.stream(s.split("\\."))
                 .map(e -> e.trim())
                 .filter(e -> !e.isEmpty())
@@ -53,7 +53,7 @@ public class EngineService {
                 e -> {
                     Object bean = applicationContext.getBean(e);
                     String path = bean.getClass().getName();
-                    if (path.startsWith(workflowPackage)) {
+                    if (path.startsWith(servicePackage)) {
                         beanSet.add(bean);
                     }
                 }
@@ -71,7 +71,7 @@ public class EngineService {
 //                e -> {
 //                    Object bean = applicationContext.getBean(e);
 //                    String path = bean.getClass().getName();
-//                    if (path.startsWith(workflowPackage) && bean instanceof ITask) {
+//                    if (path.startsWith(servicePackage) && bean instanceof ITask) {
 //                        List<String> tokens = getTokens(path);
 //                        TaskBeanNode parentNode = null;
 //                        for (int i = 0; i < tokens.size(); i++) {
@@ -94,7 +94,7 @@ public class EngineService {
 //        rootNodes = allTaskBeanNodes.stream().filter(e -> e.getParentNode() == null).sorted(comparator).collect(Collectors.toList());
 //
 //        if (rootNodes.isEmpty() || rootNodes.get(0).isFolder()) {
-//            throw new IllegalStateException("No workflow has been defined!");
+//            throw new IllegalStateException("No taskNode has been defined!");
 //        }
 //
 //        allTaskBeanNodes.stream()

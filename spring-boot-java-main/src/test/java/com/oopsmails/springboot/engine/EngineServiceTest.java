@@ -38,8 +38,8 @@ public class EngineServiceTest {
 
     @TestConfiguration
     @ComponentScan({
-            "com.oopsmails.springboot.javamain",
-            "com.oopsmails.springboot.async",
+//            "com.oopsmails.springboot.javamain",
+//            "com.oopsmails.springboot.async",
             "com.oopsmails.springboot.service"
     })
     public static class EngineServiceTestConfig {
