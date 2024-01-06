@@ -15,10 +15,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.oopsmails.model.TaskBeanNode.comparator;
+
 @Component
 @Slf4j
 public class EngineService {
-    final private Set<TaskBeanNode> allWorkNodes = new HashSet<>();
+    final private Set<TaskBeanNode> allTaskBeanNodes = new HashSet<>();
     final private Set<Object> beanSet = new HashSet<>();
 
     private List<TaskBeanNode> rootNodes = new ArrayList<>();
@@ -33,7 +35,7 @@ public class EngineService {
     }
 
     public Set<TaskBeanNode> getAllNodes() {
-        return allWorkNodes;
+        return allTaskBeanNodes;
     }
 
     private List<String> getTokens(String path) {
@@ -74,8 +76,8 @@ public class EngineService {
 //                        TaskBeanNode parentNode = null;
 //                        for (int i = 0; i < tokens.size(); i++) {
 //                            TaskBeanNode node = new TaskBeanNode(tokens.get(i), i == tokens.size() - 1 ? (ITask) bean : null, parentNode);
-//                            allWorkNodes.add(node);
-//                            TaskBeanNode existingNode = allWorkNodes.stream().filter(n -> n.equals(node)).findFirst().get(); // Not Null
+//                            allTaskBeanNodes.add(node);
+//                            TaskBeanNode existingNode = allTaskBeanNodes.stream().filter(n -> n.equals(node)).findFirst().get(); // Not Null
 //                            if (i == tokens.size() - 1 && existingNode.getParentNode() != null) {
 //                                existingNode.getParentNode().getChildren().add(node);
 //                            }
@@ -85,17 +87,17 @@ public class EngineService {
 //                }
 //        );
 //
-//        allWorkNodes.stream().forEach(e -> {
+//        allTaskBeanNodes.stream().forEach(e -> {
 //            e.sortChildren();
 //        });
 //
-//        rootNodes = allWorkNodes.stream().filter(e -> e.getParentNode() == null).sorted(comparator).collect(Collectors.toList());
+//        rootNodes = allTaskBeanNodes.stream().filter(e -> e.getParentNode() == null).sorted(comparator).collect(Collectors.toList());
 //
 //        if (rootNodes.isEmpty() || rootNodes.get(0).isFolder()) {
 //            throw new IllegalStateException("No workflow has been defined!");
 //        }
 //
-//        allWorkNodes.stream()
+//        allTaskBeanNodes.stream()
 //                .map(e -> e.getBean())
 //                .filter(e -> e != null)
 //                .map(e -> e.getName())
