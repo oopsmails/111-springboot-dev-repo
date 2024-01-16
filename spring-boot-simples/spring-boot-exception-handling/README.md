@@ -20,6 +20,36 @@ Postman:
 spring-boot-simples/spring-boot-exception-handling/spring-boot-exception-handling.postman_collection.json
 
 
+## 20240115: fixing Unit Test
+
+
+found multiple declarations of @BootstrapWith for test class
+
+https://stackoverflow.com/questions/66485049/configuration-error-found-multiple-declarations-of-bootstrapwith-for-test-clas
+
+```
+/*
+We cannot use @WebMvcTest(BookingController.class) as we need the injection of the component used by the BookingController (BookingService)
+@AutoConfigureMockMvc is necessary for the MockMvc instantiation.
+*/
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = BackendApplicationTest.class)
+/*
+We cannot use the @DataJpaTest annotation
+Otherwise we will have the error "Configuration error: found multiple declarations of @BootstrapWith" (present in @SpringBootTest and @WebMvcTest)
+But we need the @AutoConfigureDataJpa, @AutoConfigureTestDatabase and @AutoConfigureTestEntityManager annotations to autowire the BookingRepository
+*/
+@AutoConfigureDataJpa
+@AutoConfigureTestDatabase
+@AutoConfigureTestEntityManager
+@Sql({"/sql/insert-rooms.sql", "/sql/insert-accounts.sql", "/sql/insert-five-reservations.sql"})
+// Reset the h2 database state after each test, otherwise the insert will be done twice and will fail
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class BookingControllerTest {
+
+```
+
 ## Spring JPA
 
 ## solve the problem of Infinite recursion
