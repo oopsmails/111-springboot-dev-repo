@@ -149,8 +149,8 @@ public class SpringBootExampleTest extends SpringBootJavaGenericTestBase {
 //        String actualJson = FileUtils.readFileToString(new File(getTestFileNameWithPath("./actual-01.json")));
 //        JSONAssert.assertEquals(expectedJson, actualJson, JSONCompareMode.STRICT);
 
-        String expectedJson = IOUtils.toString(new File(getTestFileNameWithPath("./expected.json")).toURI(), Charset.defaultCharset());
-        String actualJson = IOUtils.toString(new File(getTestFileNameWithPath("./actual-01.json")).toURI(), Charset.defaultCharset());
+        String expectedJson = IOUtils.toString(new File(getTestFileNameWithPath("expected.json")).toURI(), Charset.defaultCharset());
+        String actualJson = IOUtils.toString(new File(getTestFileNameWithPath("actual-01.json")).toURI(), Charset.defaultCharset());
 //        JSONAssert.assertEquals(expectedJson, actualJson, JSONCompareMode.LENIENT);
         JSONAssert.assertNotEquals(expectedJson, actualJson, JSONCompareMode.LENIENT);
     }
