@@ -2,23 +2,15 @@ package com.oopsmails.exceptionhandling;
 
 import com.oopsmails.exceptionhandling.institution.domain.BranchDto;
 import com.oopsmails.exceptionhandling.institution.entity.BranchSimple;
-import com.oopsmails.exceptionhandling.model.Source;
-import com.oopsmails.exceptionhandling.model.Target;
+import com.oopsmails.exceptionhandling.model.DestinationBean;
+import com.oopsmails.exceptionhandling.model.NestedBean;
+import com.oopsmails.exceptionhandling.model.NestedBean2;
+import com.oopsmails.exceptionhandling.model.NestedBeanLayer2;
+import com.oopsmails.exceptionhandling.model.SourceBean;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class JavaMainTest {
     public static void main(String[] args) throws Exception {
-        Source source = new Source();
-        source.setName("John Doe");
-        source.setAge(30);
-        source.setEmail("john.doe@example.com");
-
-        Target target = new Target();
-        BeanUtils.copyProperties(target, source);
-
-        System.out.println("Target name: " + target.getName());
-        System.out.println("Target age: " + target.getAge());
-        System.out.println("Target email: " + target.getEmail());
 
         BranchSimple branchSimple = new BranchSimple();
         branchSimple.setBranchId(1L);
@@ -29,4 +21,6 @@ public class JavaMainTest {
 
         System.out.println("branchDto: " + branchDto);
     }
+
+
 }
