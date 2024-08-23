@@ -49,6 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         properties = {
                 "test.string=abc",
                 "within.this.class.MutexServiceTest=true",
+                "ZzzOK-spring.jpa.properties.hibernate.default_schema=abc",
+                "ZzzOK-spring.jpa.hibernate.naming.physical-strategy=com.oopsmails.exceptionhandling.config.CustomPhysicalNamingStrategy",
                 "spring.jpa.properties.hibernate.generate_statistics=false"
         }
 )
