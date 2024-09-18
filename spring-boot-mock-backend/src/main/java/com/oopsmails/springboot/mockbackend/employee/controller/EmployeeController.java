@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -91,6 +92,13 @@ public class EmployeeController {
     @GetMapping("/organization/{organizationId}")
     public List<Employee> findByOrganization(@PathVariable("organizationId") Long organizationId) {
         return repository.findByOrganization(organizationId);
+    }
+
+    // curl --location --globoff 'http://localhost:8888/backendmock/employee-api/testjson?jsonStr=%7B%22accounts%22%3A%5B%7B%22account%22%3A1%7D%2C%7B%22account%22%3A%222%22%7D%5D%2C%22personal%22%3A%22Y%22%7D' \
+    @GetMapping("/testjson")
+    public String testGet(@RequestParam("jsonStr") String jsonStr) throws Exception {
+        log.info("@GetMapping(\"/test\") ..... GET, jsonStr={}", jsonStr);
+        return jsonStr;
     }
 }
 
