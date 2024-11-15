@@ -1,43 +1,38 @@
 package com.oopsmails.springboot.javamain.predicate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oopsmails.springboot.javamain.SpringBootJavaGenericTestBase;
 import com.oopsmails.springboot.javamain.model.Employee;
-import com.oopsmails.springboot.javamain.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
-    private static String fileName = "testData-employeeList.json";
+    private static final String fileName = "testData-employeeList.json";
 
     @Autowired
     private ObjectMapper objectMapper;
 
-//    private List<Employee> employeeListTest = new ArrayList<>();
-//
-//    private List<Employee> employeeList = new ArrayList<>();
+    //    private List<Employee> employeeListTest = new ArrayList<>();
+    //
+    //    private List<Employee> employeeList = new ArrayList<>();
 
 
-//    @BeforeTestClass
-//    public void setUp() throws Exception {
-//        String fileName = "testData-employeeList.json";
-//        employeeListTest = JsonUtils.jsonFileToObject(getTestFileNameWithPath(fileName),
-//                new TypeReference<List<Employee>>() {
-//                });
-//
-//        // This is way more faster
-//        employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
-//    }
+    //    @BeforeTestClass
+    //    public void setUp() throws Exception {
+    //        String fileName = "testData-employeeList.json";
+    //        employeeListTest = JsonUtils.jsonFileToObject(getTestFileNameWithPath(fileName),
+    //                new TypeReference<List<Employee>>() {
+    //                });
+    //
+    //        // This is way more faster
+    //        employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
+    //    }
 
     @Test
     public void testEmployeePredicate() throws Exception {
@@ -61,10 +56,10 @@ public class EmployeePredicateTest extends SpringBootJavaGenericTestBase {
     @Test
     public void testEmployeePredicateParam() throws Exception {
         List<Employee> employeeList = Arrays.asList(objectMapper.readValue(new File(getTestFileNameWithPath(fileName)), Employee[].class));
-        EmployeePredicateRepository.EmployeePredicateParam employeePredicateParam = new EmployeePredicateRepository.EmployeePredicateParam();
+        EmployeePredicateParam employeePredicateParam = new EmployeePredicateParam();
         employeePredicateParam.setNameStartWithCriteria("Tom");
 
-        EmployeePredicateRepository.EmployeePredicate employeePredicate = new EmployeePredicateRepository.EmployeePredicate(employeePredicateParam) {
+        EmployeePredicate employeePredicate = new EmployeePredicate(employeePredicateParam) {
             @Override
             public boolean test(Employee employee) {
                 return employee.getName().contains(employeePredicateParam.getNameStartWithCriteria());
