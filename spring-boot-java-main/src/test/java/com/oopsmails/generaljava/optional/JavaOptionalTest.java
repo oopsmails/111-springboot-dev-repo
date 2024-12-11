@@ -23,12 +23,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class JavaOptionalTest {
 
     @Test
-    void testUsingCatch() throws Exception {
+    void testUsingOptionalUtil() throws Exception {
         final String EXPECTED = "defaultValue";
         Outer outer = new Outer();
         String foo = OptionalUtil.getFieldValue(() -> outer.getNested().getInner().getFoo(), EXPECTED);
         System.out.println("foo: " + foo);
         assertEquals(EXPECTED, foo);
+    }
+
+    @Test
+    void testUsingOptionalUtil_Null() throws Exception {
+        Outer outer = null;
+        String foo = OptionalUtil.getFieldValue(() -> outer.getNested().getInner().getFoo(), null);
+        System.out.println("foo should be null: " + foo);
+        assertNull(foo);
     }
 
     @Test
